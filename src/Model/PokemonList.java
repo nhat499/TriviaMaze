@@ -39,12 +39,6 @@ public class PokemonList {
         myScanner = new Scanner(myPokeString);
         myScanner.useDelimiter(",");
         myPokeList = generatePokeList(myScanner);
-
-
-        System.out.println(myPokeList);
-
-        System.out.println(getRandomPokeList());
-        System.out.println(getSortedPokeList());
     }
 
     /**
