@@ -28,7 +28,7 @@ public class SQLDatabase {
     /**
      * Start program that runs the methods.
      */
-    public void start() {
+    private void start() {
         establishConnection();
         createTable();
     }
@@ -45,7 +45,7 @@ public class SQLDatabase {
     /**
      * Establishes a connection to the database using the connector.
      */
-    public void establishConnection() {
+    private void establishConnection() {
         try {
             myDs = new SQLiteDataSource();
             myDs.setUrl("jdbc:sqlite:questions.db");
@@ -60,7 +60,7 @@ public class SQLDatabase {
     /**
      * Creates the table that will contain the questions and answers.
      */
-    public void createTable() {
+    private void createTable() {
         String query = "CREATE TABLE IF NOT EXISTS questions ( " +
                 "QUESTION TEXT NOT NULL PRIMARY KEY, " +
                 "ANSWER TEXT NOT NULL )";
@@ -81,7 +81,7 @@ public class SQLDatabase {
      * Queries the database for contents (will be changed!!!!).
      * @param theQuery
      */
-    public void queryDatabase(final String theQuery) {
+    private void queryDatabase(final String theQuery) {
 
         String query = theQuery;
         System.out.println( "Selecting all rows from test table" );
@@ -111,7 +111,7 @@ public class SQLDatabase {
     /**
      * Creates the questions and answers, and uploads them to the database.
      */
-    public void queryAnswers() {
+    private void queryAnswers() {
         System.out.println( "Attempting to insert two rows into questions table" );
 
         String query1 = "INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( 'what is the pokemon that is yellow and black', 'pikachu' )";
