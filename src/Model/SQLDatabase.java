@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * @author Andrew
@@ -16,7 +17,6 @@ import java.sql.Statement;
  * This class establishes a connection to the database and loads the questions and answers to it.
  * This class exits the system if it notices issues, and it currently prints out the contents loaded to
  * the database.
- *
  */
 public class SQLDatabase {
 
@@ -24,6 +24,13 @@ public class SQLDatabase {
      * Connection to the database.
      */
     SQLiteDataSource myDs = null;
+
+    /**
+     * Public constructor for SQLDatabase.
+     */
+    public SQLDatabase() {
+        start();
+    }
 
     /**
      * Start program that runs the methods.
@@ -34,27 +41,18 @@ public class SQLDatabase {
     }
 
     /**
-     * Main method that executes the start method.
-     * @param theArgs
-     */
-    public static void main(String[] theArgs) {
-        SQLDatabase db = new SQLDatabase();
-        db.start();
-    }
-
-    /**
      * Establishes a connection to the database using the connector.
      */
     public void establishConnection() {
         try {
             myDs = new SQLiteDataSource();
             myDs.setUrl("jdbc:sqlite:questions.db");
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
 
-        System.out.println( "Opened database successfully" );
+        System.out.println("Opened database successfully");
     }
 
     /**
@@ -62,96 +60,110 @@ public class SQLDatabase {
      */
     public void createTable() {
         String query = "CREATE TABLE IF NOT EXISTS questions ( " +
-                "QUESTION TEXT NOT NULL PRIMARY KEY, " +
-                "ANSWER TEXT NOT NULL )";
+                "CORRECT TEXT NOT NULL PRIMARY KEY, " +
+                "WRONG1 TEXT NOT NULL," +
+                "WRONG2 TEXT NOT NULL," +
+                "WRONG3 TEXT NOT NULL)";
+
         try (Connection conn = myDs.getConnection();
-             Statement stmt = conn.createStatement(); ) {
-            int rv = stmt.executeUpdate( query );
-            System.out.println( "executeUpdate() returned " + rv );
-        } catch ( SQLException e ) {
+             Statement stmt = conn.createStatement();) {
+            int rv = stmt.executeUpdate(query);
+            System.out.println("executeUpdate() returned " + rv);
+        } catch (SQLException e) {
             e.printStackTrace();
-            System.exit( 0 );
+            System.exit(0);
         }
-        System.out.println( "Created questions table successfully" );
+        System.out.println("Created questions table successfully");
         queryAnswers();
         queryDatabase(query);
     }
 
     /**
      * Queries the database for contents (will be changed!!!!).
+     *
      * @param theQuery
      */
     public void queryDatabase(final String theQuery) {
 
         String query = theQuery;
-        System.out.println( "Selecting all rows from test table" );
-        query = "SELECT * FROM questions";
+        System.out.println("Selecting all rows from test table");
+        query = "SELECT * FROM questions"; // Selecting everything?
 
         try (Connection conn = myDs.getConnection();
-             Statement stmt = conn.createStatement(); ) {
+             Statement stmt = conn.createStatement();) {
 
             ResultSet rs = stmt.executeQuery(query);
 
-            //walk through each 'row' of results, grab data by column/field name
+            // walk through each 'row' of results, grab data by column/field name
             // and print it
-            while ( rs.next() ) {
-                String question = rs.getString( "QUESTION" );
-                String answer = rs.getString( "ANSWER" );
+            while (rs.next()) {
+                String correct = rs.getString("CORRECT");
+                String wrong1 = rs.getString("WRONG1");
+                String wrong2 = rs.getString("WRONG2");
+                String wrong3 = rs.getString("WRONG3");
 
-                System.out.println( "Result: Question = " + question +
-                        ", Answer = " + answer );
+                System.out.println("Result: Correct answer: " + correct +
+                        ", Wrong answer1: " + wrong1 +
+                        ", Wrong answer2: " + wrong2 +
+                        ", Wrong answer3: " + wrong3);
             }
-        } catch ( SQLException e ) {
+        } catch (SQLException e) {
             e.printStackTrace();
-            System.exit( 0 );
+            System.exit(0);
         }
-
     }
 
     /**
      * Creates the questions and answers, and uploads them to the database.
      */
     public void queryAnswers() {
-        System.out.println( "Attempting to insert two rows into questions table" );
+        System.out.println("Attempting to insert two rows into questions table");
+        PokemonList pl = new PokemonList();
+        ArrayList<String> sortedPokeArray = pl.getSortedPokeList();
+        ArrayList<String> randomPokeArray = pl.getRandomPokeList();
 
-        String query1 = "INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( 'what is the pokemon that is yellow and black', 'pikachu' )";
-        String query2 = "INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( 'what is the only other name I remember', 'Charizard' )";
-        String query3 = "INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( '3', 'pikachu' )";
-        String query4 = "INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( '4', 'Charizard' )";
-        String query5 = "INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( '5', 'pikachu' )";
-        String query6 = "INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( '6', 'Charizard' )";
-        String query7 = "INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( '7', 'pikachu' )";
-        String query8 = "INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( '8', 'Charizard' )";
-        String query9 = "INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( '9', 'pikachu' )";
-        String query10 = "INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( '10', 'Charizard' )";
+        String questionInput;
+        int j = 0;
 
         try (Connection conn = myDs.getConnection();
-             Statement stmt = conn.createStatement(); ) {
-            int rv = stmt.executeUpdate( query1 );
-            System.out.println( "1st executeUpdate() returned " + rv );
+             Statement stmt = conn.createStatement()) {
 
-            rv = stmt.executeUpdate( query2 );
-            System.out.println( "2nd executeUpdate() returned " + rv );
-            rv = stmt.executeUpdate( query3 );
-            System.out.println( "3rd executeUpdate() returned " + rv );
-            rv = stmt.executeUpdate( query4 );
-            System.out.println( "4th executeUpdate() returned " + rv );
-            rv = stmt.executeUpdate( query5 );
-            System.out.println( "5th executeUpdate() returned " + rv );
-            rv = stmt.executeUpdate( query6 );
-            System.out.println( "6th executeUpdate() returned " + rv );
-            rv = stmt.executeUpdate( query7 );
-            System.out.println( "7th executeUpdate() returned " + rv );
-            rv = stmt.executeUpdate( query8 );
-            System.out.println( "8th executeUpdate() returned " + rv );
-            rv = stmt.executeUpdate( query9 );
-            System.out.println( "9th executeUpdate() returned " + rv );
-            rv = stmt.executeUpdate( query10 );
-            System.out.println( "10th executeUpdate() returned " + rv );
+            for (int i = 0; i < sortedPokeArray.size(); i++) {
+                while (sortedPokeArray.get(i) == randomPokeArray.get(j) ||
+                        sortedPokeArray.get(i) == randomPokeArray.get(j + 1) ||
+                        sortedPokeArray.get(i) == randomPokeArray.get(j + 2) ) {
+                    j += 3;
+                    if (j >= randomPokeArray.size()) {
+                        randomPokeArray = pl.getRandomPokeList();
+                        j = 0;
+                    }
+                }
 
-        } catch ( SQLException e ) {
+                questionInput = "INSERT INTO questions (CORRECT, WRONG1, WRONG2, WRONG3) VALUES ( '"
+                        + sortedPokeArray.get(i) + "', '" + randomPokeArray.get(j) + "', '"
+                        + randomPokeArray.get(j + 1) + "', '" + randomPokeArray.get(j + 2) + "' )";
+                stmt.executeUpdate(questionInput);
+
+                j += 3;
+
+                if (j >= randomPokeArray.size()) {
+                    randomPokeArray = pl.getRandomPokeList();
+                    j = 0;
+                }
+            }
+
+        } catch (SQLException e) {
             e.printStackTrace();
-            System.exit( 0 );
+            System.exit(0);
         }
+    }
+
+    /**
+     * Main method that executes the start method.
+     *
+     * @param theArgs
+     */
+    public static void main(String[] theArgs) {
+        SQLDatabase db = new SQLDatabase();
     }
 }

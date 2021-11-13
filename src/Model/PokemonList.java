@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class PokemonList {
-    private final String myPokeString = "Bulbasaur, Ivysaur, Venusaur, Charmander, Charmeleon, Charizard, Squirtle, " +
+    private final String myPokeString = " Bulbasaur, Ivysaur, Venusaur, Charmander, Charmeleon, Charizard, Squirtle, " +
             "Wartortle, Blastoise, Caterpie, Metapod, Butterfree, Weedle, Kakuna, Beedrill, Pidgey, " +
             "Pidgeotto, Pidgeot, Rattata, Raticate, Spearow, Fearow, Ekans, Arbok, Pikachu, Raichu, " +
             "Sandshrew, Sandslash, Nidoran, Nidorina, Nidoqueen, Nidorino, Nidoking, Clefairy, " +
@@ -30,7 +30,11 @@ public class PokemonList {
 
     private final Scanner myScanner;
 
+    private final Scanner myScanner2;
+
     private final ArrayList<String> myPokeList;
+
+    private final ArrayList<String> myRandomPokeList;
 
     /**
      * Public constructor for PokemonList.
@@ -38,7 +42,10 @@ public class PokemonList {
     public PokemonList() {
         myScanner = new Scanner(myPokeString);
         myScanner.useDelimiter(",");
+        myScanner2 = new Scanner(myPokeString);
+        myScanner2.useDelimiter(",");
         myPokeList = generatePokeList(myScanner);
+        myRandomPokeList = generatePokeList(myScanner2);
     }
 
     /**
@@ -61,8 +68,8 @@ public class PokemonList {
      * @return ArrayList<String>
      */
     public ArrayList<String> getRandomPokeList() {
-        Collections.shuffle(myPokeList);
-        return myPokeList;
+        Collections.shuffle(myRandomPokeList);
+        return myRandomPokeList;
     }
 
     /**
