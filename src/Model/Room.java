@@ -14,7 +14,8 @@ public class Room {
     private boolean myExit;
 
     // constructor of the room class
-    public Room(Door theNorthDoor, Door theEastDoor, Door theSouthDoor, Door theWestDoor) {
+    public Room(final Door theNorthDoor, final Door theEastDoor,
+                final Door theSouthDoor, final Door theWestDoor) {
         myNorthDoor = theNorthDoor;
         myEastDoor = theEastDoor;
         mySouthDoor = theSouthDoor;
@@ -25,7 +26,7 @@ public class Room {
      * setter for the exit room
      * @param theExit if the room is an exit or not
      */
-    public void setExit(boolean theExit) {
+    public void setExit(final boolean theExit) {
         myExit = theExit;
     }
 
@@ -64,34 +65,5 @@ public class Room {
      */
     public Door getMyWestDoor() {
         return myWestDoor;
-    }
-
-    /**
-     * set the east door
-     * @param theEastDoor the door to be the east door
-     */
-    public void setMyEastDoor(Door theEastDoor) {
-        myEastDoor = theEastDoor;
-    }
-    /**
-     * set the north door
-     * @param theNorthDoor the door to be the north door
-     */
-    public void setMyNorthDoor(Door theNorthDoor) {
-        myNorthDoor = theNorthDoor;
-    }
-    /**
-     * set the south door
-     * @param theSouthDoor the door to be the south door
-     */
-    public void setMySouthDoor(Door theSouthDoor) {
-        mySouthDoor = theSouthDoor;
-    }
-    /**
-     * set the west door
-     * @param theWestDoor the door to be the west door
-     */
-    public void setMyWestDoor(Door theWestDoor) {
-        myWestDoor = theWestDoor;
     }
 }

@@ -16,12 +16,12 @@ public class Maze {
     private Room[][] myMaze;
 
     // constructor for the maze
-    public Maze(int theLength, int theWidth){
+    public Maze(final int theLength, final int theWidth){
         myMaze = new Room[theLength][theWidth];
     }
 
     // add room to the maze
-    public void addRoom(Room theRoom) {
+    public void addRoom(final Room theRoom) {
         myX++;
         if (myX > myLength) {
             myX = 0;
@@ -41,7 +41,7 @@ public class Maze {
      * @param theY the y position of the room
      * @return the room if exist or null
      */
-    public Room getRoom(int theX, int theY) {
+    public Room getRoom(final int theX, final int theY) {
         if (theX > myWidth || theY > myLength) {
             System.out.println("There are no room at that index");
             return null;
@@ -50,18 +50,20 @@ public class Maze {
         }
     }
 
-    // set and get size of the maze
-    public void setMyLength(int theLength) {
-        myLength = theLength;
-    }
+    /**
+     * get the length of the maze
+     * @return the maze length
+     */
     public int getMyLength() {
         return myLength;
     }
+
+    /**
+     * get the width of the maze
+     * @return the maze's width
+     */
     public int getMyWidth() {
         return myWidth;
-    }
-    public void setMyWidth(int theWidth) {
-        myWidth = theWidth;
     }
 
     @Override
