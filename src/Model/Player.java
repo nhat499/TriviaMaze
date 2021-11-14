@@ -16,17 +16,17 @@ public class Player {
     /**
      * The X-coordinate of the player.
      */
-    private int xCoord;
+    private int myX;
 
     /**
      * The Y-coordinate of the player.
      */
-    private int yCoord;
+    private int myY;
 
     /**
      * The position of the player.
      */
-    private Room myPosition = myMaze.getRoom(xCoord, yCoord);
+    private Room myPosition = myMaze.getRoom(myX, myY);
 
     /**
      * Parameterless constructor.
@@ -45,49 +45,48 @@ public class Player {
 
     /**
      * Method that moves the player north.
-     * @param theMaze
      */
-    private void moveNorth(Maze theMaze) {
-        if (yCoord - 1 > 0) {
-            yCoord = yCoord - 1;
+    private void moveNorth() {
+        if (myY - 1 > 0) {
+            myY = myY - 1;
         }
         updateRoom();
     }
 
     /**
      * Method that moves the player south.
-     * @param theMaze
      */
-    private void moveSouth(Maze theMaze) {
-        if(yCoord + 1 < myMaze.getMyWidth()) {
-            yCoord = yCoord + 1;
+    private void moveSouth() {
+        if(myY + 1 < myMaze.getMyWidth()) {
+            myY = myY + 1;
         }
         updateRoom();
     }
 
     /**
      * Method that moves the player west.
-     * @param theMaze
      */
-    private void moveWest(Maze theMaze) {
-        if (xCoord - 1 > 0) {
-            xCoord = xCoord - 1;
+    private void moveWest() {
+        if (myX - 1 > 0) {
+            myX = myX - 1;
         }
         updateRoom();
     }
 
     /**
      * Method that moves the player east.
-     * @param theMaze
      */
-    private void moveEast(Maze theMaze) {
-        if (xCoord + 1 < myMaze.getMyLength()) {
-            xCoord = xCoord + 1;
+    private void moveEast() {
+        if (myX + 1 < myMaze.getMyLength()) {
+            myX = myX + 1;
         }
         updateRoom();
     }
 
+    /**
+     * A method that updates the room once the position is changed.
+     */
     private void updateRoom() {
-        myPosition = myMaze.getRoom(xCoord, yCoord);
+        myPosition = myMaze.getRoom(myX, myY);
     }
 }
