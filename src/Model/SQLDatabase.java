@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- * @author Andrew
+ * @author Andrew and Dylan
  * @version 1.0
  * This class establishes a connection to the database and loads the questions and answers to it.
  * This class exits the system if it notices issues, and it currently prints out the contents loaded to
