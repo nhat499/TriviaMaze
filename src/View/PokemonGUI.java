@@ -55,6 +55,9 @@ public class PokemonGUI extends JFrame {
         myMaze = new Maze(5, 5);
     }
 
+    public JButton getHelpButton() {
+        return HELP_BUTTON;
+    }
     /**
      * Start method used when compiling the GUI class.
      */
@@ -105,5 +108,4 @@ public class PokemonGUI extends JFrame {
         panel.setLayout(new FlowLayout());
         myFrame.add(panel);
     }
-
 }

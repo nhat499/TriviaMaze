@@ -2,6 +2,7 @@ package Main;
 
 import View.PokemonGUI;
 import java.awt.EventQueue;
+import java.awt.event.ActionListener;
 
 /**
  * @author Andrew
@@ -29,6 +30,7 @@ public class PokemonTriviaMazeMain {
             public void run() {
                 new PokemonGUI().start();
             }
+
         });
     }
 }
