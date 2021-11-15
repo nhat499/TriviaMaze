@@ -47,6 +47,7 @@ public class Door {
         myLockedStatus = false;
         myOpenStatus = false;
         myCorrectAnswer = theCorrectAnswer;
+        myAnswers = new ArrayList<>();
         myAnswers.add(theCorrectAnswer);
         myAnswers.add(theWrongAnswer1);
         myAnswers.add(theWrongAnswer2);
@@ -95,5 +96,9 @@ public class Door {
      */
     public boolean getMyLockedStatus() {
         return myLockedStatus;
+    }
+
+    public String printDoor() {
+        return "Correct Answer: "+ myCorrectAnswer + ". Wrong Answers: " + getMyAnswers().toString();
     }
 }

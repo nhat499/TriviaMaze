@@ -7,10 +7,9 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Locale;
 import java.util.Scanner;
 
-public class PokemonList {
+public class PokeListGenerator {
     private final String myPokeString = "Bulbasaur,Ivysaur,Venusaur,Charmander,Charmeleon,Charizard,Squirtle," +
             "Wartortle,Blastoise,Caterpie,Metapod,Butterfree,Weedle,Kakuna,Beedrill,Pidgey," +
             "Pidgeotto,Pidgeot,Rattata,Raticate,Spearow,Fearow,Ekans,Arbok,Pikachu,Raichu," +
@@ -21,7 +20,7 @@ public class PokemonList {
             "Abra,Kadabra,Alakazam,Machop,Machoke,Machamp,Bellsprout,Weepinbell,Victreebel," +
             "Tentacool,Tentacruel,Geodude,Graveler,Golem,Ponyta,Rapidash,Slowpoke,Slowbro," +
             "Magnemite,Magneton,Farfetch’d,Doduo,Dodrio,Seel,Dewgong,Grimer,Muk,Shellder," +
-            "Cloyster,Gastly,Haunter,Gengar,Onix,Drowzee,Hypno,Krabby,Kingler,Voltorb" +
+            "Cloyster,Gastly,Haunter,Gengar,Onix,Drowzee,Hypno,Krabby,Kingler,Voltorb," +
             "Electrode,Exeggcute,Exeggutor,Cubone,Marowak,Hitmonlee,Hitmonchan,Lickitung," +
             "Koffing,Weezing,Rhyhorn,Rhydon,Chansey,Tangela,Kangaskhan,Horsea,Seadra," +
             "Goldeen,Seaking,Staryu,Starmie,Mr-Mime,Scyther,Jynx,Electabuzz,Magmar,Pinsir," +
@@ -40,7 +39,7 @@ public class PokemonList {
     /**
      * Public constructor for PokemonList.
      */
-    public PokemonList() {
+    public PokeListGenerator() {
         myScanner = new Scanner(myPokeString);
         myScanner.useDelimiter(",");
         myScanner2 = new Scanner(myPokeString);
@@ -83,7 +82,7 @@ public class PokemonList {
     }
 
     public static void main(String[] theArgs) {
-        PokemonList p = new PokemonList();
+        PokeListGenerator p = new PokeListGenerator();
 
     }
 }

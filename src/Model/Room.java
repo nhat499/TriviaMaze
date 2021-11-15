@@ -1,8 +1,8 @@
 package Model;
 
 /**
- * @author Nhat
- * @version 1.0
+ * @author Nhat & Dylan
+ * @version 2.0
  * This class creates the room objects and each room
  * hold 4 doors. The Room also will specify if it is an exit room
  */
@@ -12,15 +12,6 @@ public class Room {
     private Door myWestDoor;
     private Door myEastDoor;
     private boolean myExit;
-
-    // constructor of the room class
-    public Room(final Door theNorthDoor, final Door theEastDoor,
-                final Door theSouthDoor, final Door theWestDoor) {
-        myNorthDoor = theNorthDoor;
-        myEastDoor = theEastDoor;
-        mySouthDoor = theSouthDoor;
-        myWestDoor = theWestDoor;
-    };
 
     /**
      * setter for the exit room
@@ -65,5 +56,37 @@ public class Room {
      */
     public Door getMyWestDoor() {
         return myWestDoor;
+    }
+
+    /**
+     * Setter for myEastDoor.
+     * @param theDoor the door to be assigned to myEastDoor.
+     */
+    public void setMyEastDoor(final Door theDoor) {
+        myEastDoor = theDoor;
+    }
+
+    /**
+     * Setter for myNorthDoor.
+     * @param theDoor the door to be assigned to myNorthDoor.
+     */
+    public void setMyNorthDoor(final Door theDoor) {
+        myNorthDoor = theDoor;
+    }
+
+    /**
+     * Setter for myWestDoor.
+     * @param theDoor the door to be assigned to myWestDoor.
+     */
+    public void setMyWestDoor(final Door theDoor) {
+        myWestDoor = theDoor;
+    }
+
+    /**
+     * Setter for mySouthDoor.
+     * @param theDoor the door to be assigned to mySouthDoor.
+     */
+    public void setMySouthDoor(final Door theDoor) {
+        mySouthDoor = theDoor;
     }
 }
