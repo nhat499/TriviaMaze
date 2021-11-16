@@ -5,13 +5,7 @@ package Model;
 
 import org.sqlite.SQLiteDataSource;
 
-import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -54,7 +48,6 @@ public class SQLDatabase {
             e.printStackTrace();
             System.exit(0);
         }
-
         System.out.println("Opened database successfully");
     }
 
@@ -62,7 +55,7 @@ public class SQLDatabase {
      * Creates the table that will contain the questions and answers.
      */
     private void createTable() {
-        String query = "CREATE TABLE IF NOT EXISTS questions (  CORRECT TEXT NOT NULL PRIMARY KEY, WRONG1 TEXT NOT NULL, WRONG2 TEXT NOT NULL, WRONG3 TEXT NOT NULL, IMGPATH TEXT NOT NULL  )";
+        String query = "CREATE TABLE IF NOT EXISTS questions (CORRECT TEXT NOT NULL PRIMARY KEY, WRONG1 TEXT NOT NULL, WRONG2 TEXT NOT NULL, WRONG3 TEXT NOT NULL, IMGPATH TEXT NOT NULL)";
 
         try (Connection conn = myDs.getConnection();
              Statement stmt = conn.createStatement();) {
@@ -73,45 +66,32 @@ public class SQLDatabase {
             System.exit(0);
         }
         System.out.println("Created questions table successfully");
-        queryAnswers();
-        queryDatabase(query);
     }
 
     /**
      * Queries the database for contents (will be changed!!!!).
      *
-     * @param theQuery
+     * @param
      */
-    private void queryDatabase(final String theQuery) {
+    public String[] queryDatabase(final String thePrimaryKey) {
+        String[] output = new String[5];
+        String query = "SELECT * FROM questions WHERE CORRECT = '" + thePrimaryKey + "'";
 
-        String query = theQuery;
-        System.out.println("Selecting all rows from test table");
-        query = "SELECT * FROM questions";
-
-        try (Connection conn = myDs.getConnection();
-             Statement stmt = conn.createStatement();) {
-
+        try (Connection conn = myDs.getConnection(); Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
+            output[0] = rs.getString("CORRECT");
+            output[1] = rs.getString("WRONG1");
+            output[2] = rs.getString("WRONG2");
+            output[3] = rs.getString("WRONG3");
+            output[4] = rs.getString("IMGPATH");
 
-            // walk through each 'row' of results, grab data by column/field name
-            // and print it
-            while (rs.next()) {
-                String correct = rs.getString("CORRECT");
-                String wrong1 = rs.getString("WRONG1");
-                String wrong2 = rs.getString("WRONG2");
-                String wrong3 = rs.getString("WRONG3");
-                String imgPath = rs.getString("IMGPATH");
 
-                System.out.println("Result: Correct answer: " + correct +
-                        ", Wrong answer1: " + wrong1 +
-                        ", Wrong answer2: " + wrong2 +
-                        ", Wrong answer3: " + wrong3 +
-                        ", Image path: " + imgPath);
-            }
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Huh");
             System.exit(0);
         }
+        return output;
     }
 
     /**
@@ -119,7 +99,7 @@ public class SQLDatabase {
      */
     private void queryAnswers() {
         System.out.println("Attempting to insert two rows into questions table");
-        PokemonList pl = new PokemonList();
+        PokeListGenerator pl = new PokeListGenerator();
         ArrayList<String> sortedPokeArray = pl.getSortedPokeList();
         ArrayList<String> randomPokeArray = pl.getRandomPokeList();
 
@@ -145,7 +125,7 @@ public class SQLDatabase {
                 questionInput = "INSERT INTO questions (CORRECT, WRONG1, WRONG2, WRONG3, IMGPATH) VALUES ( '"
                         + sortedPokeArray.get(i) + "', '" + randomPokeArray.get(j) + "', '"
                         + randomPokeArray.get(j + 1) + "', '" + randomPokeArray.get(j + 2) + "', '"
-                        + "TriviaMaze/src/Model/PokeImages/" + sortedPokeArray.get(i) +  ".jpg')";
+                        + "TriviaMaze/src/Model/PokeImages/" + sortedPokeArray.get(i) + ".jpg')";
                 stmt.executeUpdate(questionInput);
 
                 j += 3;
@@ -168,8 +148,5 @@ public class SQLDatabase {
      *
      * @param theArgs
      */
-    public static void main(String[] theArgs) {
-        SQLDatabase db = new SQLDatabase();
-    }
-}
 
+}
