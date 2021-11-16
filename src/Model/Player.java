@@ -77,7 +77,7 @@ public class Player {
      * Method that moves the player east.
      */
     private void moveEast() {
-        if (myX + 1 < myMaze.getMyLength()) {
+        if (myX + 1 < myMaze.getMyHeight()) {
             myX = myX + 1;
         }
         updateRoom();
