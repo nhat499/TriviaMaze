@@ -88,7 +88,6 @@ public class SQLDatabase {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Huh");
             System.exit(0);
         }
         return output;
@@ -143,10 +142,6 @@ public class SQLDatabase {
     }
 
 
-    /**
-     * Main method that executes the start method.
-     *
-     * @param theArgs
-     */
+
 
 }
