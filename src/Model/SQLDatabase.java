@@ -140,8 +140,4 @@ public class SQLDatabase {
             System.exit(0);
         }
     }
-
-
-
-
 }

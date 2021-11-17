@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * @author Nhat & Dylan
@@ -12,8 +13,8 @@ public class Maze {
     // Need java docs for these fields
     private int myHeight;
     private int myWidth;
-    private int myX = 0;
-    private int myY = 0;
+    private int myExitX = 2;
+    private int myExitY = 2;
     private Room[][] myMaze;
 
     /**
@@ -44,6 +45,34 @@ public class Maze {
         myPokeList = myPokeGenerator.getRandomPokeList();
         myDatabase = new SQLDatabase();
         setupDoors();
+
+//        Random rand = new Random();
+//        myExitX = rand.nextInt(theWidth);
+//        myExitY = rand.nextInt(theHeight);
+        myMaze[myExitX][myExitY].setExit(true);
+
+    }
+
+    public boolean escapeAble(int currX, int currY) {
+//        int currX = thePlayer.getMyX();
+//        int currY = thePlayer.getMyY();
+        return path(currX, currY);
+    }
+
+    // this need to be updated for when the door are lock
+    private boolean path(int theX, int theY) {
+
+        if (theX - 1 < 0 || theY - 1 < 0 ||
+             theX + 1 > myWidth || theY + 1 > myHeight) {
+        } else if (theX == myExitX && theY == myExitY) {
+                return true;
+            }
+            path(theX+1,theY);
+            path(theX,theY+1);
+            path(theX-1,theY);
+            path(theX,theY-1);
+        }
+        return false;
     }
 
     /**
@@ -93,7 +122,7 @@ public class Maze {
      * @return the room if exist or null
      */
     public Room getRoom(final int theX, final int theY) {
-        if (theX > myWidth || theY > myHeight) {
+        if (theX > myWidth || theY > myHeight || theX < 0 || theY < 0) {
             System.out.println("There are no room at that index");
             return null;
         } else {
@@ -149,8 +178,11 @@ public class Maze {
         }
     }
 
+
+
     public static void main(String[] args) {
         Maze m = new Maze(7, 7);
         m.printTest();
+        Player p = new Player(m.getRoom(0,0));
     }
 }

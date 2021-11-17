@@ -53,6 +53,14 @@ public class Player {
         updateRoom();
     }
 
+    public int getMyX() {
+        return myX;
+    }
+
+    public int getMyY() {
+        return myY;
+    }
+
     /**
      * Method that moves the player south.
      */

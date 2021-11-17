@@ -1,5 +1,8 @@
 package Main;
 
+import Controller.Control;
+import Model.Maze;
+import Model.Player;
 import View.PokemonGUI;
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
@@ -28,7 +31,10 @@ public class PokemonTriviaMazeMain {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new PokemonGUI().start();
+                PokemonGUI pokemonGUI = new PokemonGUI();
+                pokemonGUI.start();
+                Control c = new Control();
+                c.setupButtons();
             }
 
         });
