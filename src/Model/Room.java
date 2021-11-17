@@ -11,7 +11,28 @@ public class Room {
     private Door mySouthDoor;
     private Door myWestDoor;
     private Door myEastDoor;
+    private boolean isVisited;
     private boolean myExit;
+
+    public Room() {
+
+    }
+
+    /**
+     * get checked to see if they room is
+     * visited
+     * @return boolean true if the room has been visited
+     */
+    public boolean getVisited() {
+        return isVisited;
+    }
+
+    /**
+     * setter for if the room is visited
+     */
+    public void setVisited(boolean theVisited) {
+        isVisited = theVisited;
+    }
 
     /**
      * setter for the exit room

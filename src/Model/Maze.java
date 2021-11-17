@@ -13,8 +13,8 @@ public class Maze {
     // Need java docs for these fields
     private int myHeight;
     private int myWidth;
-    private int myExitX = 2;
-    private int myExitY = 2;
+    private int myExitX;
+    private int myExitY;
     private Room[][] myMaze;
 
     /**
@@ -38,41 +38,54 @@ public class Maze {
      * @param theWidth the number of rooms counted horizontally in the maze.
      */
     public Maze(final int theWidth, final int theHeight){
-        myWidth = theWidth;
-        myHeight = theHeight;
-        myMaze = new Room[theWidth][theHeight];
+        myWidth = theWidth + 2;
+        myHeight = theHeight + 2;
+        myMaze = new Room[myWidth][myHeight];
         myPokeGenerator = new PokeListGenerator();
         myPokeList = myPokeGenerator.getRandomPokeList();
         myDatabase = new SQLDatabase();
         setupDoors();
-
-//        Random rand = new Random();
-//        myExitX = rand.nextInt(theWidth);
-//        myExitY = rand.nextInt(theHeight);
+        Random rand = new Random();
+        myExitX = rand.nextInt(myWidth - 2) + 1;
+        myExitY = rand.nextInt(myWidth - 2) + 1;
         myMaze[myExitX][myExitY].setExit(true);
-
     }
 
-    public boolean escapeAble(int currX, int currY) {
-//        int currX = thePlayer.getMyX();
-//        int currY = thePlayer.getMyY();
-        return path(currX, currY);
-    }
-
-    // this need to be updated for when the door are lock
-    private boolean path(int theX, int theY) {
-
-        if (theX - 1 < 0 || theY - 1 < 0 ||
-             theX + 1 > myWidth || theY + 1 > myHeight) {
-        } else if (theX == myExitX && theY == myExitY) {
-                return true;
+    /**
+     * This method takes in the positon of the player and
+     * check to see if an escape is still possible.
+     * @param theX the x position of the player.
+     * @param theY the y postion of the player.
+     * @return true if an escape can be made, otherwise false.
+     */
+    public boolean escapeAble(int theX, int theY) {
+        boolean b = escapeAbleHelper(theX, theY);
+        for (int i = 1; i < myWidth - 1; i++) {
+            for(int j = 1; j < myHeight - 1; j++) {
+                myMaze[i][j].setVisited(false);
             }
-            path(theX+1,theY);
-            path(theX,theY+1);
-            path(theX-1,theY);
-            path(theX,theY-1);
         }
-        return false;
+        return b;
+    }
+
+    /**
+     * This is a helper method for escapeAble.
+     * @param theX the x position of the player.
+     * @param theY the y postion of the player.
+     * @return true if an escape can be made, otherwise false.
+     */
+    private boolean escapeAbleHelper(int theX, int theY) {
+        if (myMaze[theX][theY] == null || myMaze[theX][theY].getVisited() == true) {
+            return false;
+        } else if (theX == myExitX && theY == myExitY) {
+            return true;
+        } else {
+            myMaze[theX][theY].setVisited(true);
+            return escapeAble(theX + 1, theY) ||
+                    escapeAble(theX, theY + 1) ||
+                    escapeAble(theX - 1, theY) ||
+                    escapeAble(theX, theY - 1);
+        }
     }
 
     /**
@@ -84,15 +97,15 @@ public class Maze {
         int pokeCount = 0;
 
 
-        for (int i = 0; i < myWidth; i++) {
-            for (int j = 0; j < myHeight; j++) {
+        for (int i = 1; i < myWidth - 1; i++) {
+            for (int j = 1; j < myHeight - 1; j++) {
                 myMaze[i][j] = new Room();
             }
         }
 
         // setup horizontal doors
-        for (int i = 0; i < myWidth - 1; i++) {
-            for (int j = 0; j < myHeight; j++) {
+        for (int i = 1; i < myWidth-2; i++) {
+            for (int j = 1; j < myHeight-1; j++) {
                 questionInfo = myDatabase.queryDatabase(myPokeList.get(pokeCount));
                 d = new Door(questionInfo[0],questionInfo[1],
                         questionInfo[2],questionInfo[3],questionInfo[4]);
@@ -103,8 +116,8 @@ public class Maze {
         }
 
         // setup vertical doors
-        for (int i = 0; i < myWidth; i++) {
-            for (int j = 0; j < myHeight - 1; j++) {
+        for (int i = 1; i < myWidth-1; i++) {
+            for (int j = 1; j < myHeight-2; j++) {
                 questionInfo = myDatabase.queryDatabase(myPokeList.get(pokeCount));
                 d = new Door(questionInfo[0],questionInfo[1],
                         questionInfo[2],questionInfo[3],questionInfo[4]);
@@ -122,7 +135,7 @@ public class Maze {
      * @return the room if exist or null
      */
     public Room getRoom(final int theX, final int theY) {
-        if (theX > myWidth || theY > myHeight || theX < 0 || theY < 0) {
+        if (theX >= myWidth || theY >= myHeight || theX < 1 || theY < 1) {
             System.out.println("There are no room at that index");
             return null;
         } else {
@@ -159,8 +172,8 @@ public class Maze {
     }
 
     private void printTest() {
-        for (int i = 0; i < myWidth; i++) {
-            for (int j = 0; j < myHeight; j++) {
+        for (int i = 1; i < myWidth-1; i++) {
+            for (int j = 1; j < myHeight-1; j++) {
                 System.out.println("My coordinates are " + i + " " + j);
                 if (myMaze[j][i].getMyEastDoor() != null) {
                     System.out.println("East door: " + myMaze[j][i].getMyEastDoor().printDoor());
@@ -181,8 +194,8 @@ public class Maze {
 
 
     public static void main(String[] args) {
-        Maze m = new Maze(7, 7);
-        m.printTest();
-        Player p = new Player(m.getRoom(0,0));
+        Maze m = new Maze(5, 5);
+
+        System.out.println(m.escapeAble(2,2));
     }
 }
