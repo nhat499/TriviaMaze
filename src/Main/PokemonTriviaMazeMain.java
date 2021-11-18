@@ -6,6 +6,7 @@ import Model.Player;
 import View.PokemonGUI;
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 /**
  * @author Andrew
@@ -32,7 +33,11 @@ public class PokemonTriviaMazeMain {
             @Override
             public void run() {
                 PokemonGUI pokemonGUI = new PokemonGUI();
-                pokemonGUI.start();
+                try {
+                    pokemonGUI.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 Control c = new Control();
                 c.setupButtons();
             }
