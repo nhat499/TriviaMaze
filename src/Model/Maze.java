@@ -78,13 +78,27 @@ public class Maze {
         if (myMaze[theX][theY] == null || myMaze[theX][theY].getVisited() == true) {
             return false;
         } else if (theX == myExitX && theY == myExitY) {
+            System.out.println("yes");
             return true;
         } else {
             myMaze[theX][theY].setVisited(true);
-            return escapeAble(theX + 1, theY) ||
-                    escapeAble(theX, theY + 1) ||
-                    escapeAble(theX - 1, theY) ||
-                    escapeAble(theX, theY - 1);
+            boolean wDoor = myMaze[theX][theY].getMyWestDoor().getMyLockedStatus();
+            boolean eDoor = myMaze[theX][theY].getMyWestDoor().getMyLockedStatus();
+            boolean nDoor = myMaze[theX][theY].getMyWestDoor().getMyLockedStatus();
+            boolean sDoor = myMaze[theX][theY].getMyWestDoor().getMyLockedStatus();
+            if (!wDoor) {
+                wDoor = escapeAble(theX - 1, theY);
+            }
+            if (!eDoor) {
+                eDoor = escapeAble(theX + 1, theY);
+            }
+            if (!nDoor) {
+                nDoor = escapeAble(theX, theY + 1);
+            }
+            if (!sDoor) {
+                sDoor = escapeAble(theX, theY - 1);
+            }
+            return wDoor || eDoor || nDoor ||sDoor;
         }
     }
 
@@ -125,6 +139,21 @@ public class Maze {
                 myMaze[i][j + 1].setMyNorthDoor(d);
                 pokeCount++;
             }
+        }
+        // create and lock outer door
+        Door northDoor;
+        Door southDoor;
+        Door eastDoor;
+        Door westDoor;
+        for(int i = 1; i < myWidth - 1; i++) { // assuming myWidth is the same as myHeight
+            northDoor = new Door();
+            myMaze[i][1].setMyNorthDoor(northDoor);
+            southDoor = new Door();
+            myMaze[i][myWidth-2].setMySouthDoor(southDoor);
+            eastDoor = new Door();
+            myMaze[myWidth-2][i].setMyEastDoor(eastDoor);
+            westDoor = new Door();
+            myMaze[1][i].setMyWestDoor(westDoor);
         }
     }
 
@@ -195,7 +224,7 @@ public class Maze {
 
     public static void main(String[] args) {
         Maze m = new Maze(5, 5);
-
-        System.out.println(m.escapeAble(2,2));
+        //System.out.println(m.getRoom(0,0));
+        System.out.println(m.escapeAble(0,2));
     }
 }

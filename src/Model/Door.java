@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * @author Andrew & Dylan
+ * @author Andrew & Dylan & Nhat
  * @version 2.0
  * This class creates the door objects and has boolean values
  * for whether the door is closed or open.
@@ -37,6 +37,15 @@ public class Door {
      * of this door.
      */
     private final String myImgFilePath;
+
+    /**
+     * parameterless constructor, creates lock door
+     */
+    public Door() {
+        myLockedStatus = true;
+        myImgFilePath = null;
+        myCorrectAnswer = null;
+    }
 
     /**
      * Parameterized Constructor that lets us create the door objects.
@@ -97,6 +106,8 @@ public class Door {
     public boolean getMyLockedStatus() {
         return myLockedStatus;
     }
+
+    public void setMyLockedStatus(boolean theLockStatus) { myLockedStatus = theLockStatus; }
 
     public String printDoor() {
         return "Correct Answer: "+ myCorrectAnswer + ". All Answers: " + getMyAnswers().toString();
