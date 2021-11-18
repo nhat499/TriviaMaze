@@ -168,7 +168,7 @@ public class PokemonGUI extends JFrame {
      */
     private JLabel getPicture() throws IOException {
         BufferedImage myPicture = ImageIO.read(new File(
-                ".\\TriviaMaze\\src\\Model\\PokeImages\\zubat.jpg"));
+                "src\\Model\\PokeImages\\zubat.jpg"));
         JLabel img = new JLabel(new ImageIcon(myPicture));
         return img;
     }
