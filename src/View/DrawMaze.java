@@ -38,19 +38,19 @@ public class DrawMaze extends JPanel {
         g2d.setStroke(new BasicStroke(STROKE_WIDTH));
         g2d.draw(mazeBorder);
 
-        final Line2D verticleline = new Line2D.Double(262, 500, 262, 200);
+        final Line2D verticleline = new Line2D.Double(262, 490, 262, 190);
         g2d.setStroke(new BasicStroke(STROKE_WIDTH/5));
         g2d.draw(verticleline);
 
-        final Line2D verticleline2 = new Line2D.Double(325, 500, 325, 200);
+        final Line2D verticleline2 = new Line2D.Double(325, 490, 325, 190);
         g2d.setStroke(new BasicStroke(STROKE_WIDTH/5));
         g2d.draw(verticleline2);
 
-        final Line2D verticleline3 = new Line2D.Double(390, 500, 390, 200);
+        final Line2D verticleline3 = new Line2D.Double(390, 490, 390, 190);
         g2d.setStroke(new BasicStroke(STROKE_WIDTH/5));
         g2d.draw(verticleline3);
 
-        final Line2D verticleline4 = new Line2D.Double(450, 500, 450, 200);
+        final Line2D verticleline4 = new Line2D.Double(450, 490, 450, 190);
         g2d.setStroke(new BasicStroke(STROKE_WIDTH/5));
         g2d.draw(verticleline4);
 

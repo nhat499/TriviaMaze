@@ -16,6 +16,8 @@ public class Maze {
     private int myExitX;
     private int myExitY;
     private Room[][] myMaze;
+    //private Player myPlayer;
+
 
     /**
      * Used to generate a list of Pokemon.
@@ -188,6 +190,10 @@ public class Maze {
         return myWidth;
     }
 
+//    public Player getMyPlayer() {
+//        return myPlayer;
+//    }
+
     @Override
     public String toString() {
         String s = "";
@@ -200,7 +206,7 @@ public class Maze {
         return s;
     }
 
-    private void printTest() {
+    public void printTest() {
         for (int i = 1; i < myWidth-1; i++) {
             for (int j = 1; j < myHeight-1; j++) {
                 System.out.println("My coordinates are " + i + " " + j);

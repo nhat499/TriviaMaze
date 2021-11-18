@@ -26,7 +26,7 @@ public class Player {
     /**
      * The position of the player.
      */
-    private Room myPosition = myMaze.getRoom(myX, myY);
+//    private Room myPosition = myMaze.getRoom(myX, myY);
 
     /**
      * Parameterless constructor.
@@ -37,20 +37,22 @@ public class Player {
 
     /**
      * Parameterized constructor that sets the players position.
-     * @param thePosition
+     * @param theX, theY
      */
-    public Player(final Room thePosition) {
-        myPosition = thePosition;
+    public Player(final int theX, final int theY, final Maze theMaze) {
+        myX = theX;
+        myY = theY;
+        myMaze = theMaze;
     }
 
     /**
      * Method that moves the player north.
      */
-    private void moveNorth() {
+    public void moveNorth() {
         if (myY - 1 > 0) {
             myY = myY - 1;
         }
-        updateRoom();
+
     }
 
     public int getMyX() {
@@ -61,40 +63,41 @@ public class Player {
         return myY;
     }
 
+
     /**
      * Method that moves the player south.
      */
-    private void moveSouth() {
+    public void moveSouth() {
         if(myY + 1 < myMaze.getMyWidth()) {
             myY = myY + 1;
         }
-        updateRoom();
+
     }
 
     /**
      * Method that moves the player west.
      */
-    private void moveWest() {
+    public void moveWest() {
         if (myX - 1 > 0) {
             myX = myX - 1;
         }
-        updateRoom();
+      ;
     }
 
     /**
      * Method that moves the player east.
      */
-    private void moveEast() {
+    public void moveEast() {
         if (myX + 1 < myMaze.getMyHeight()) {
             myX = myX + 1;
         }
-        updateRoom();
+
     }
 
     /**
      * A method that updates the room once the position is changed.
      */
-    private void updateRoom() {
-        myPosition = myMaze.getRoom(myX, myY);
-    }
+//    private void updateRoom() {
+//        myPosition = myMaze.getRoom(myX, myY);
+//    }
 }

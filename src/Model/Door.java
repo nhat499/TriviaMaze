@@ -12,11 +12,6 @@ import java.util.Collections;
 public class Door {
 
     /**
-     * Indicates whether this door is open or closed.
-     */
-    private boolean myOpenStatus;
-
-    /**
      * Indicates whether this door is locked or unlocked.
      */
     private boolean myLockedStatus;
@@ -54,7 +49,6 @@ public class Door {
                 final String theWrongAnswer2, final String theWrongAnswer3,
                 final String theImgFilePath) {
         myLockedStatus = false;
-        myOpenStatus = false;
         myCorrectAnswer = theCorrectAnswer;
         myAnswers = new ArrayList<>();
         myAnswers.add(theCorrectAnswer);
@@ -73,9 +67,7 @@ public class Door {
      */
     public void attemptToOpen(final String thePlayersAnswer) {
         if (thePlayersAnswer.equals(myCorrectAnswer)) {
-            myOpenStatus = true;
-        } else {
-            myLockedStatus = true;
+            myLockedStatus = false;
         }
     }
 
@@ -89,14 +81,6 @@ public class Door {
     public ArrayList<String> getMyAnswers() {
         Collections.shuffle(myAnswers);
         return myAnswers;
-    }
-
-    /**
-     * Getter for myOpenStatus.
-     * @return myOpenStatus
-     */
-    public boolean getMyOpenStatus() {
-        return myOpenStatus;
     }
 
     /**
