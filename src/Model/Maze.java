@@ -210,19 +210,19 @@ public class Maze {
     }
 
     public void printTest() {
-        for (int i = 1; i < myWidth; i++) {
-            for (int j = 1; j < myHeight; j++) {
+        for (int i = 1; i < myWidth - 1; i++) {
+            for (int j = 1; j < myHeight - 1; j++) {
                 System.out.println("My coordinates are " + i + " " + j);
-                if (myMaze[j][i].getMyEastDoor() != null) {
+                if (myMaze[j][i].getMyEastDoor() != null && myMaze[j][i].getMyEastDoor().getMyLockedStatus() != true) {
                     System.out.println("East door: " + myMaze[j][i].getMyEastDoor().printDoor());
                 }
-                if (myMaze[j][i].getMyNorthDoor() != null) {
+                if (myMaze[j][i].getMyNorthDoor() != null && myMaze[j][i].getMyNorthDoor().getMyLockedStatus() != true) {
                     System.out.println("North door: " + myMaze[j][i].getMyNorthDoor().printDoor());
                 }
-                if (myMaze[j][i].getMyWestDoor() != null) {
+                if (myMaze[j][i].getMyWestDoor() != null && myMaze[j][i].getMyWestDoor().getMyLockedStatus() != true) {
                     System.out.println("West door: " + myMaze[j][i].getMyWestDoor().printDoor());
                 }
-                if (myMaze[j][i].getMySouthDoor() != null) {
+                if (myMaze[j][i].getMySouthDoor() != null && myMaze[j][i].getMySouthDoor().getMyLockedStatus() != true) {
                     System.out.println("South door: " + myMaze[j][i].getMySouthDoor().printDoor());
                 }
             }
@@ -232,6 +232,6 @@ public class Maze {
     public static void main(String[] args) {
         Maze m = new Maze(5, 5);
         //System.out.println(m.getRoom(0,0));
-        System.out.println(m.escapeAble(1,1));
+        m.printTest();
     }
 }
