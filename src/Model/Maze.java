@@ -92,7 +92,7 @@ public class Maze {
      * @return true if an escape can be made, otherwise false.
      */
     private boolean escapeAbleHelper(int theX, int theY) {
-        if (myMaze[theX][theY] == null || myMaze[theX][theY].getVisited() == true) {
+        if (myMaze[theX][theY] == null || myMaze[theX][theY].getVisitedStatus() == true) {
             return false;
         } else if (theX == myExitX && theY == myExitY) {
             System.out.println("yes");
