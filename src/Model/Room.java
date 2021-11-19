@@ -15,7 +15,6 @@ public class Room {
     private boolean myExit;
 
     public Room() {
-
     }
 
     /**

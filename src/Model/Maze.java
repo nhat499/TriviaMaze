@@ -54,10 +54,10 @@ public class Maze {
     }
 
     /**
-     * This method takes in the positon of the player and
+     * This method takes in the position of the player and
      * check to see if an escape is still possible.
      * @param theX the x position of the player.
-     * @param theY the y postion of the player.
+     * @param theY the y position of the player.
      * @return true if an escape can be made, otherwise false.
      */
     public boolean escapeAble(int theX, int theY) {
@@ -85,20 +85,20 @@ public class Maze {
         } else {
             myMaze[theX][theY].setVisited(true);
             boolean wDoor = myMaze[theX][theY].getMyWestDoor().getMyLockedStatus();
-            boolean eDoor = myMaze[theX][theY].getMyWestDoor().getMyLockedStatus();
-            boolean nDoor = myMaze[theX][theY].getMyWestDoor().getMyLockedStatus();
-            boolean sDoor = myMaze[theX][theY].getMyWestDoor().getMyLockedStatus();
+            boolean eDoor = myMaze[theX][theY].getMyEastDoor().getMyLockedStatus();
+            boolean nDoor = myMaze[theX][theY].getMyNorthDoor().getMyLockedStatus();
+            boolean sDoor = myMaze[theX][theY].getMySouthDoor().getMyLockedStatus();
             if (!wDoor) {
-                wDoor = escapeAble(theX - 1, theY);
+                wDoor = escapeAbleHelper(theX - 1, theY);
             }
             if (!eDoor) {
-                eDoor = escapeAble(theX + 1, theY);
+                eDoor = escapeAbleHelper(theX + 1, theY);
             }
             if (!nDoor) {
-                nDoor = escapeAble(theX, theY + 1);
+                nDoor = escapeAbleHelper(theX, theY + 1);
             }
             if (!sDoor) {
-                sDoor = escapeAble(theX, theY - 1);
+                sDoor = escapeAbleHelper(theX, theY - 1);
             }
             return wDoor || eDoor || nDoor ||sDoor;
         }
@@ -111,7 +111,6 @@ public class Maze {
         Door d;
         String[] questionInfo;
         int pokeCount = 0;
-
 
         for (int i = 1; i < myWidth - 1; i++) {
             for (int j = 1; j < myHeight - 1; j++) {
@@ -142,6 +141,10 @@ public class Maze {
                 pokeCount++;
             }
         }
+        if (myMaze[2][1] == null) {
+            System.out.println("...");
+        }
+
         // create and lock outer door
         Door northDoor;
         Door southDoor;
@@ -207,8 +210,8 @@ public class Maze {
     }
 
     public void printTest() {
-        for (int i = 1; i < myWidth-1; i++) {
-            for (int j = 1; j < myHeight-1; j++) {
+        for (int i = 1; i < myWidth; i++) {
+            for (int j = 1; j < myHeight; j++) {
                 System.out.println("My coordinates are " + i + " " + j);
                 if (myMaze[j][i].getMyEastDoor() != null) {
                     System.out.println("East door: " + myMaze[j][i].getMyEastDoor().printDoor());
@@ -226,11 +229,9 @@ public class Maze {
         }
     }
 
-
-
     public static void main(String[] args) {
         Maze m = new Maze(5, 5);
         //System.out.println(m.getRoom(0,0));
-        System.out.println(m.escapeAble(0,2));
+        System.out.println(m.escapeAble(1,1));
     }
 }

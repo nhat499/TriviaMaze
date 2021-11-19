@@ -43,7 +43,7 @@ public class Door {
     }
 
     /**
-     * Parameterized Constructor that lets us create the door objects.
+     * Parameterized Constructor for Door.
      */
     public Door(final String theCorrectAnswer, final String theWrongAnswer1,
                 final String theWrongAnswer2, final String theWrongAnswer3,
