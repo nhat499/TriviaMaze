@@ -26,13 +26,6 @@ public class SQLDatabase {
      * Public constructor for SQLDatabase.
      */
     public SQLDatabase() {
-        start();
-    }
-
-    /**
-     * Start program that runs the methods.
-     */
-    private void start() {
         establishConnection();
         createTable();
     }
@@ -48,7 +41,6 @@ public class SQLDatabase {
             e.printStackTrace();
             System.exit(0);
         }
-        System.out.println("Opened database successfully");
     }
 
     /**
@@ -60,20 +52,21 @@ public class SQLDatabase {
         try (Connection conn = myDs.getConnection();
              Statement stmt = conn.createStatement();) {
             int rv = stmt.executeUpdate(query);
-            System.out.println("executeUpdate() returned " + rv);
         } catch (SQLException e) {
             e.printStackTrace();
             System.exit(0);
         }
-        System.out.println("Created questions table successfully");
     }
 
     /**
-     * Queries the database for contents (will be changed!!!!).
+     * When passed the name of a Pokemon, collects and returns a String array of length 5
+     * containing the passed in Pokemon's name in index zero, different random Pokemon
+     * names in indexes 1, 2, and 3, and a file path to an image of the passed in Pokemon in
+     * index 4.
      *
-     * @param
+     * @param - String, the name of a first generation Pokemon. Assumes all lower case.
      */
-    public String[] queryDatabase(final String thePrimaryKey) {
+    public String[] getQuestionsFromDB(final String thePrimaryKey) {
         String[] output = new String[5];
         String query = "SELECT * FROM questions WHERE CORRECT = '" + thePrimaryKey + "'";
 
@@ -85,26 +78,29 @@ public class SQLDatabase {
             output[3] = rs.getString("WRONG3");
             output[4] = rs.getString("IMGPATH");
 
-
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.exit(0);
+            populateDatabase();
+            output = getQuestionsFromDB(thePrimaryKey);
         }
         return output;
     }
 
     /**
-     * Creates the questions and answers, and uploads them to the database.
+     * Populates the questions.db file with Pokemon question information
+     * in the following format:
+     * Column one: Primary key/correct answer Pokemon's name
+     * Column two: Incorrect answer, random Pokemon name.
+     * Column three: Incorrect answer, random Pokemon name.
+     * Column four: Incorrect answer, random Pokemon name.
+     * Column five: File path to an image of the primary key/correct answer Pokemon.
      */
-    private void queryAnswers() {
-        System.out.println("Attempting to insert two rows into questions table");
+    private void populateDatabase() {
         PokeListGenerator pl = new PokeListGenerator();
         ArrayList<String> sortedPokeArray = pl.getSortedPokeList();
         ArrayList<String> randomPokeArray = pl.getRandomPokeList();
 
         String questionInput;
         int j = 0;
-
 
         try (Connection conn = myDs.getConnection();
              Statement stmt = conn.createStatement()) {

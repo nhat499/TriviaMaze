@@ -122,7 +122,7 @@ public class Maze {
         // setup horizontal doors
         for (int i = 1; i < myWidth-2; i++) {
             for (int j = 1; j < myHeight-1; j++) {
-                questionInfo = myDatabase.queryDatabase(myPokeList.get(pokeCount));
+                questionInfo = myDatabase.getQuestionsFromDB(myPokeList.get(pokeCount));
                 d = new Door(questionInfo[0],questionInfo[1],
                         questionInfo[2],questionInfo[3],questionInfo[4]);
                 myMaze[i][j].setMyEastDoor(d);
@@ -134,7 +134,7 @@ public class Maze {
         // setup vertical doors
         for (int i = 1; i < myWidth-1; i++) {
             for (int j = 1; j < myHeight-2; j++) {
-                questionInfo = myDatabase.queryDatabase(myPokeList.get(pokeCount));
+                questionInfo = myDatabase.getQuestionsFromDB(myPokeList.get(pokeCount));
                 d = new Door(questionInfo[0],questionInfo[1],
                         questionInfo[2],questionInfo[3],questionInfo[4]);
                 myMaze[i][j].setMySouthDoor(d);
