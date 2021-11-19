@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * @author Andrew and Dylan
- * @version 1.0
+ * @version 2.0 - 11/19/2021
  * This class establishes a connection to the database and loads the questions and answers to it.
  * This class exits the system if it notices issues, and it currently prints out the contents loaded to
  * the database.
@@ -97,40 +97,23 @@ public class SQLDatabase {
     private void populateDatabase() {
         PokeListGenerator pl = new PokeListGenerator();
         ArrayList<String> sortedPokeArray = pl.getSortedPokeList();
-        ArrayList<String> randomPokeArray = pl.getRandomPokeList();
-
+        final int incorrectAnswerCount = 3;
+        String[] incorrectAnswers;
         String questionInput;
-        int j = 0;
 
         try (Connection conn = myDs.getConnection();
              Statement stmt = conn.createStatement()) {
 
             for (int i = 0; i < sortedPokeArray.size(); i++) {
-                if (j + 2 >= randomPokeArray.size()) {
-                    randomPokeArray = pl.getRandomPokeList();
-                    j = 0;
-                }
-                while (sortedPokeArray.get(i) == randomPokeArray.get(j) ||
-                        sortedPokeArray.get(i) == randomPokeArray.get(j + 1) ||
-                        sortedPokeArray.get(i) == randomPokeArray.get(j + 2)) {
-                    j += 3;
-
-                }
+                incorrectAnswers = pl.getSomeRandomPokemon(sortedPokeArray.get(i), incorrectAnswerCount);
 
                 questionInput = "INSERT INTO questions (CORRECT, WRONG1, WRONG2, WRONG3, IMGPATH) VALUES ( '"
-                        + sortedPokeArray.get(i) + "', '" + randomPokeArray.get(j) + "', '"
-                        + randomPokeArray.get(j + 1) + "', '" + randomPokeArray.get(j + 2) + "', '"
+                        + sortedPokeArray.get(i) + "', '" + incorrectAnswers[0] + "', '"
+                        + incorrectAnswers[1] + "', '" + incorrectAnswers[2] + "', '"
                         + "TriviaMaze/src/Model/PokeImages/" + sortedPokeArray.get(i) + ".jpg')";
                 stmt.executeUpdate(questionInput);
-
-                j += 3;
-
-                if (j >= randomPokeArray.size()) {
-                    randomPokeArray = pl.getRandomPokeList();
-                    j = 0;
-                }
             }
-
+            
         } catch (SQLException e) {
             e.printStackTrace();
             System.exit(0);
