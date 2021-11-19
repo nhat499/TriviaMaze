@@ -113,7 +113,7 @@ public class SQLDatabase {
                         + "TriviaMaze/src/Model/PokeImages/" + sortedPokeArray.get(i) + ".jpg')";
                 stmt.executeUpdate(questionInput);
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
             System.exit(0);
