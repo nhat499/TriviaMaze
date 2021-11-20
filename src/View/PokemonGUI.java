@@ -10,8 +10,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author Andrew
- * @version 1.0
+ * @author Andrew & Nhat
+ * @version 2.0
  * This is the class that creates the GUI for our players
  * to view and interact with.
  */
@@ -22,12 +22,24 @@ public class PokemonGUI extends JFrame {
      */
     private static final JButton HELP_BUTTON = new JButton("Help");
 
+    /**
+     * Button to move left.
+     */
     private static final JButton leftBtn = new JButton("move left");
 
+    /**
+     * Button to move right.
+     */
     private static final JButton rightBtn = new JButton("move right");
 
+    /**
+     * Button to move up.
+     */
     private static final JButton upBtn = new JButton("move up");
 
+    /**
+     * Button to move down.
+     */
     private static final JButton downBtn = new JButton("move down");
 
     /**
@@ -67,22 +79,42 @@ public class PokemonGUI extends JFrame {
         myMaze = new Maze(5, 5);
     }
 
+    /**
+     * Getter for the help button.
+     * @return HELP_BUTTON
+     */
     public JButton getHelpButton() {
         return HELP_BUTTON;
     }
 
+    /**
+     * Getter for the up button.
+     * @return upBtn
+     */
     public JButton getUpBtn() {
         return upBtn;
     }
 
+    /**
+     * Getter for the down button.
+     * @return downBtn
+     */
     public JButton getDownBtn() {
         return downBtn;
     }
 
+    /**
+     * Getter for the left button.
+     * @return leftBtn
+     */
     public JButton getLeftBtn() {
         return leftBtn;
     }
 
+    /**
+     * Getter for the right button.
+     * @return rightBtn
+     */
     public JButton getRightBtn() {
         return rightBtn;
     }

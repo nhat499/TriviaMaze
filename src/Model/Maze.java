@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * @author Nhat & Dylan
+ * @author Nhat & Dylan & Andrew
  * @version 2.0 - 11/19/2021
  * 2D array of Room objects representing the playing field or "Maze".
  */

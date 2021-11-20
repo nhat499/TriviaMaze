@@ -8,16 +8,52 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @author Andrew and Nhat
+ * @version 1.0
+ * This class allows the player to move throughout the maze utilizing
+ * the up, down, left, and right buttons provided in the GUI.
+ */
 public class Control {
 
+    /**
+     * Help button
+     */
     private JButton myHelp;
+
+    /**
+     * Up button
+     */
     private JButton myUp;
+
+    /**
+     * Down button
+     */
     private JButton myDown;
+
+    /**
+     * Left Button
+     */
     private JButton myLeft;
+
+    /**
+     * Right Button
+     */
     private JButton myRight;
+
+    /**
+     * Maze used for the game
+     */
     private Maze myMaze;
+
+    /**
+     * Player used for the game
+     */
     private Player myPlayer;
 
+    /**
+     * Constructor that initializes fields.
+     */
     public Control() {
         PokemonGUI pokemonGUI = new PokemonGUI();
         myHelp = pokemonGUI.getHelpButton();
@@ -30,6 +66,9 @@ public class Control {
 
     }
 
+    /**
+     * Class that houses action listeners and their anonymous inner classes.
+     */
     public void setupButtons() {
         myHelp.addActionListener(new ActionListener() {
             @Override
