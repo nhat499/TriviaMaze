@@ -10,9 +10,15 @@
     <option name="skipTestSources" value="false" />
   </component>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <component name="ProjectRootManager">
 =======
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
+>>>>>>> workshop
+=======
+
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
+
 >>>>>>> workshop
     <output url="file://$PROJECT_DIR$/out" />
   </component>

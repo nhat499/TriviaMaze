@@ -3,7 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/TriviaMaze.iml" filepath="$PROJECT_DIR$/.idea/TriviaMaze.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/TriviaMaze.iml" filepath="$PROJECT_DIR$/TriviaMaze.iml" />
+>>>>>>> workshop
 =======
       <module fileurl="file://$PROJECT_DIR$/TriviaMaze.iml" filepath="$PROJECT_DIR$/TriviaMaze.iml" />
 >>>>>>> workshop

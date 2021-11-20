@@ -10,7 +10,11 @@ import java.util.ArrayList;
 
 /**
  * @author Andrew and Dylan
+<<<<<<< HEAD
  * @version 1.0
+=======
+ * @version 2.0 - 11/19/2021
+>>>>>>> workshop
  * This class establishes a connection to the database and loads the questions and answers to it.
  * This class exits the system if it notices issues, and it currently prints out the contents loaded to
  * the database.
@@ -26,6 +30,7 @@ public class SQLDatabase {
      * Public constructor for SQLDatabase.
      */
     public SQLDatabase() {
+<<<<<<< HEAD
         start();
     }
 
@@ -33,6 +38,8 @@ public class SQLDatabase {
      * Start program that runs the methods.
      */
     private void start() {
+=======
+>>>>>>> workshop
         establishConnection();
         createTable();
     }
@@ -48,7 +55,10 @@ public class SQLDatabase {
             e.printStackTrace();
             System.exit(0);
         }
+<<<<<<< HEAD
         System.out.println("Opened database successfully");
+=======
+>>>>>>> workshop
     }
 
     /**
@@ -60,11 +70,15 @@ public class SQLDatabase {
         try (Connection conn = myDs.getConnection();
              Statement stmt = conn.createStatement();) {
             int rv = stmt.executeUpdate(query);
+<<<<<<< HEAD
             System.out.println("executeUpdate() returned " + rv);
+=======
+>>>>>>> workshop
         } catch (SQLException e) {
             e.printStackTrace();
             System.exit(0);
         }
+<<<<<<< HEAD
         System.out.println("Created questions table successfully");
     }
 
@@ -74,6 +88,19 @@ public class SQLDatabase {
      * @param
      */
     public String[] queryDatabase(final String thePrimaryKey) {
+=======
+    }
+
+    /**
+     * When passed the name of a Pokemon, collects and returns a String array of length 5
+     * containing the passed in Pokemon's name in index zero, different random Pokemon
+     * names in indexes 1, 2, and 3, and a file path to an image of the passed in Pokemon in
+     * index 4.
+     *
+     * @param - String, the name of a first generation Pokemon. Assumes all lower case.
+     */
+    public String[] getQuestionsFromDB(final String thePrimaryKey) {
+>>>>>>> workshop
         String[] output = new String[5];
         String query = "SELECT * FROM questions WHERE CORRECT = '" + thePrimaryKey + "'";
 
@@ -85,16 +112,23 @@ public class SQLDatabase {
             output[3] = rs.getString("WRONG3");
             output[4] = rs.getString("IMGPATH");
 
+<<<<<<< HEAD
 
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Huh");
             System.exit(0);
+=======
+        } catch (SQLException e) {
+            populateDatabase();
+            output = getQuestionsFromDB(thePrimaryKey);
+>>>>>>> workshop
         }
         return output;
     }
 
     /**
+<<<<<<< HEAD
      * Creates the questions and answers, and uploads them to the database.
      */
     private void queryAnswers() {
@@ -106,11 +140,28 @@ public class SQLDatabase {
         String questionInput;
         int j = 0;
 
+=======
+     * Populates the questions.db file with Pokemon question information
+     * in the following format:
+     * Column one: Primary key/correct answer Pokemon's name
+     * Column two: Incorrect answer, random Pokemon name.
+     * Column three: Incorrect answer, random Pokemon name.
+     * Column four: Incorrect answer, random Pokemon name.
+     * Column five: File path to an image of the primary key/correct answer Pokemon.
+     */
+    private void populateDatabase() {
+        PokeListGenerator pl = new PokeListGenerator();
+        ArrayList<String> sortedPokeArray = pl.getSortedPokeList();
+        final int incorrectAnswerCount = 3;
+        String[] incorrectAnswers;
+        String questionInput;
+>>>>>>> workshop
 
         try (Connection conn = myDs.getConnection();
              Statement stmt = conn.createStatement()) {
 
             for (int i = 0; i < sortedPokeArray.size(); i++) {
+<<<<<<< HEAD
                 if (j + 2 >= randomPokeArray.size()) {
                     randomPokeArray = pl.getRandomPokeList();
                     j = 0;
@@ -134,6 +185,15 @@ public class SQLDatabase {
                     randomPokeArray = pl.getRandomPokeList();
                     j = 0;
                 }
+=======
+                incorrectAnswers = pl.getSomeRandomPokemon(sortedPokeArray.get(i), incorrectAnswerCount);
+
+                questionInput = "INSERT INTO questions (CORRECT, WRONG1, WRONG2, WRONG3, IMGPATH) VALUES ( '"
+                        + sortedPokeArray.get(i) + "', '" + incorrectAnswers[0] + "', '"
+                        + incorrectAnswers[1] + "', '" + incorrectAnswers[2] + "', '"
+                        + "TriviaMaze/src/Model/PokeImages/" + sortedPokeArray.get(i) + ".jpg')";
+                stmt.executeUpdate(questionInput);
+>>>>>>> workshop
             }
 
         } catch (SQLException e) {
@@ -141,6 +201,7 @@ public class SQLDatabase {
             System.exit(0);
         }
     }
+<<<<<<< HEAD
 
 
     /**
@@ -151,3 +212,6 @@ public class SQLDatabase {
 
 }
 
+=======
+}
+>>>>>>> workshop
