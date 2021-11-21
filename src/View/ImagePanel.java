@@ -2,8 +2,12 @@ package View;
 
 import Controller.GameplayController;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * TODO!!!
@@ -44,9 +48,6 @@ public class ImagePanel extends JPanel {
         g.setStroke(new BasicStroke(5));
         g.draw(border);
 
-//        if (myImage != null) {
-//            g.drawImage(myImage, 0, 0, null);
-//        }
     }
 
     /**
@@ -54,6 +55,13 @@ public class ImagePanel extends JPanel {
      */
     public void setMyImage(final String theFilePath){
         myImage = new ImageIcon(theFilePath).getImage();
+        BufferedImage myPicture = null;
+        try {
+            myPicture = ImageIO.read(new File(theFilePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JLabel img = new JLabel(new ImageIcon(myImage));
     }
 
 }
