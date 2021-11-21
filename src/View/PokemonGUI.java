@@ -142,8 +142,8 @@ public class PokemonGUI extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         JPanel direction = directionsPanelHelper();
-        panel.add(direction,BorderLayout.CENTER);
-        myFrame.add(panel, BorderLayout.NORTH);
+        panel.add(direction,BorderLayout.SOUTH);
+        myFrame.add(panel, BorderLayout.EAST);
     }
 
     /**

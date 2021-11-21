@@ -17,6 +17,13 @@ public class Maze {
     private int myExitY;
     private Room[][] myMaze;
 
+    public int getMyExitX() {
+        return myExitX;
+    }
+
+    public int getMyExitY() {
+        return myExitY;
+    }
     /**
      * Used to generate a list of Pokemon.
      */
@@ -46,8 +53,10 @@ public class Maze {
         myDatabase = new SQLDatabase();
         setupDoors();
         Random rand = new Random();
-        myExitX = rand.nextInt(myWidth - 2) + 1;
-        myExitY = rand.nextInt(myWidth - 2) + 1;
+        //myExitX = rand.nextInt(myWidth - 2) + 1;
+        //myExitY = rand.nextInt(myWidth - 2) + 1;
+        myExitX = 3;
+        myExitY = 3;
         myMaze[myExitX][myExitY].setExit(true);
     }
 
@@ -75,30 +84,25 @@ public class Maze {
      * @return true if an escape can be made, otherwise false.
      */
     private boolean escapeAbleHelper(int theX, int theY) {
-        if (myMaze[theX][theY] == null || myMaze[theX][theY].getVisited() == true) {
+        boolean allDoor;
+        if (myMaze[theX][theY] == null) {
+            return false;
+        } else {
+            boolean wDoor = myMaze[theX][theY].getMyWestDoor().getMyLockedStatus();
+            boolean eDoor = myMaze[theX][theY].getMyEastDoor().getMyLockedStatus();
+            boolean nDoor = myMaze[theX][theY].getMyNorthDoor().getMyLockedStatus();
+            boolean sDoor = myMaze[theX][theY].getMySouthDoor().getMyLockedStatus();
+            allDoor = wDoor && eDoor && nDoor && sDoor;
+        }
+        if(myMaze[theX][theY].getVisited() || allDoor) {
             return false;
         } else if (theX == myExitX && theY == myExitY) {
             System.out.println("yes");
             return true;
         } else {
             myMaze[theX][theY].setVisited(true);
-            boolean wDoor = myMaze[theX][theY].getMyWestDoor().getMyLockedStatus();
-            boolean eDoor = myMaze[theX][theY].getMyWestDoor().getMyLockedStatus();
-            boolean nDoor = myMaze[theX][theY].getMyWestDoor().getMyLockedStatus();
-            boolean sDoor = myMaze[theX][theY].getMyWestDoor().getMyLockedStatus();
-            if (!wDoor) {
-                wDoor = escapeAble(theX - 1, theY);
-            }
-            if (!eDoor) {
-                eDoor = escapeAble(theX + 1, theY);
-            }
-            if (!nDoor) {
-                nDoor = escapeAble(theX, theY + 1);
-            }
-            if (!sDoor) {
-                sDoor = escapeAble(theX, theY - 1);
-            }
-            return wDoor || eDoor || nDoor ||sDoor;
+            return escapeAbleHelper(theX - 1, theY) || escapeAbleHelper(theX + 1, theY) ||
+                    escapeAbleHelper(theX, theY + 1) || escapeAbleHelper(theX, theY - 1);
         }
     }
 
@@ -224,7 +228,15 @@ public class Maze {
 
     public static void main(String[] args) {
         Maze m = new Maze(5, 5);
+        // System.out.println(m.getRoom(1,1).getMyWestDoor().);
         //System.out.println(m.getRoom(0,0));
-        System.out.println(m.escapeAble(0,2));
+        System.out.println(m.getMyExitX() + ", " + m.getMyExitY()) ;
+        m.getRoom(2,2).getMyEastDoor().setMyLockedStatus(true);
+
+        //m.getRoom(1,1).getMyEastDoor().setMyLockedStatus(true);
+        m.getRoom(1,1).getMyWestDoor().setMyLockedStatus(true);
+        //m.getRoom(1, 1).getMySouthDoor().setMyLockedStatus(true);
+        m.getRoom(1,1).getMyNorthDoor().setMyLockedStatus(true);
+        System.out.println(m.escapeAble(1,1));
     }
 }
