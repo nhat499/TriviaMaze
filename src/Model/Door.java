@@ -115,12 +115,6 @@ public class Door {
         return myImgFilePath;
     }
 
-    public void setMyOpenStatus(boolean b) {
-        myOpenStatus =b;
-    }
-
-    public void setMyLockedStatus(boolean b){
-        myLockedStatus =b;
-    }
+   
 
 }

@@ -69,18 +69,6 @@ public class MazePanel extends JPanel {
         Line2D horizontalDoor;
         Line2D verticalDoor;
 
-        myMaze.getRoom(1,1).getMyEastDoor().setMyOpenStatus(true);
-        myMaze.getRoom(2,1).getMyEastDoor().setMyOpenStatus(true);
-        myMaze.getRoom(2,2).getMyNorthDoor().setMyLockedStatus(true);
-        myMaze.getRoom(3,1).getMySouthDoor().setMyOpenStatus(true);
-        myMaze.getRoom(3,2).getMySouthDoor().setMyOpenStatus(true);
-        myMaze.getRoom(3,3).getMyWestDoor().setMyLockedStatus(true);
-        myMaze.getRoom(3,3).getMyEastDoor().setMyLockedStatus(true);
-
-
-
-
-
         for (int i = 1; i <= 5; i++) {
             horizontalWall = new Line2D.Double(128 * i, 4, 128 * i, 635);
             g2d.draw(horizontalWall);
