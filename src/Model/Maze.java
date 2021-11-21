@@ -209,5 +209,4 @@ public class Maze {
     public int getMyWidth() {
         return myWidth;
     }
-
 }
