@@ -44,6 +44,8 @@ public class DisplayFrame extends JFrame {
      */
     private void initSettings() {
         this.setTitle("Trivia Maze");
+        final Image icon = Toolkit.getDefaultToolkit().getImage("src\\Model\\PokeImages\\pikachu.jpg");
+        this.setIconImage(icon);
         this.setBackground(Color.darkGray);
         this.setSize(myWidth, myHeight);
         this.setResizable(false);

@@ -3,6 +3,8 @@ package Controller;
 import Model.Door;
 import Model.Maze;
 import Model.Player;
+import View.DisplayFrame;
+import View.HelpFrame;
 import View.ImagePanel;
 
 import javax.swing.*;
@@ -65,25 +67,37 @@ public class GameplayController {
 
         myMoveWestButton.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
-                // action
+                if(!myMaze.getRoom(myPlayer.getMyX(), myPlayer.getMyY()).getMyWestDoor().getMyLockedStatus()) {
+                    myPlayer.moveWest();
+                    System.out.println(myPlayer.getMyX() + ", " + myPlayer.getMyY());
+                }
             }
         });
 
         myMoveNorthButton.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
-                // action
+                if(!myMaze.getRoom(myPlayer.getMyX(), myPlayer.getMyY()).getMyNorthDoor().getMyLockedStatus()) {
+                    myPlayer.moveNorth();
+                    System.out.println(myPlayer.getMyX() + ", " + myPlayer.getMyY());
+                }
             }
         });
 
         myMoveEastButton.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
-
+                if(!myMaze.getRoom(myPlayer.getMyX(), myPlayer.getMyY()).getMyEastDoor().getMyLockedStatus()) {
+                    myPlayer.moveEast();
+                    System.out.println(myPlayer.getMyX() + ", " + myPlayer.getMyY());
+                }
             }
         });
 
         myMoveSouthButton.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
-                // action
+                if(!myMaze.getRoom(myPlayer.getMyX(), myPlayer.getMyY()).getMySouthDoor().getMyLockedStatus()) {
+                    myPlayer.moveSouth();
+                    System.out.println(myPlayer.getMyX() + ", " + myPlayer.getMyY());
+                }
             }
         });
 
@@ -127,7 +141,8 @@ public class GameplayController {
 
         myHelpButton.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
-                // action
+                HelpFrame frame = new HelpFrame();
+                frame.start();
             }
         });
 
