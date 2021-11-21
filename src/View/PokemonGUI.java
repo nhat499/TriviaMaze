@@ -10,8 +10,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @author Andrew
- * @version 1.0
+ * @author Andrew & Nhat
+ * @version 2.0
  * This is the class that creates the GUI for our players
  * to view and interact with.
  */
@@ -21,6 +21,26 @@ public class PokemonGUI extends JFrame {
      * Button to access the help tab.
      */
     private static final JButton HELP_BUTTON = new JButton("Help");
+
+    /**
+     * Button to move left.
+     */
+    private static final JButton leftBtn = new JButton("move left");
+
+    /**
+     * Button to move right.
+     */
+    private static final JButton rightBtn = new JButton("move right");
+
+    /**
+     * Button to move up.
+     */
+    private static final JButton upBtn = new JButton("move up");
+
+    /**
+     * Button to move down.
+     */
+    private static final JButton downBtn = new JButton("move down");
 
     /**
      * JFrame used for the GUI.
@@ -59,9 +79,47 @@ public class PokemonGUI extends JFrame {
         myMaze = new Maze(5, 5);
     }
 
+    /**
+     * Getter for the help button.
+     * @return HELP_BUTTON
+     */
     public JButton getHelpButton() {
         return HELP_BUTTON;
     }
+
+    /**
+     * Getter for the up button.
+     * @return upBtn
+     */
+    public JButton getUpBtn() {
+        return upBtn;
+    }
+
+    /**
+     * Getter for the down button.
+     * @return downBtn
+     */
+    public JButton getDownBtn() {
+        return downBtn;
+    }
+
+    /**
+     * Getter for the left button.
+     * @return leftBtn
+     */
+    public JButton getLeftBtn() {
+        return leftBtn;
+    }
+
+    /**
+     * Getter for the right button.
+     * @return rightBtn
+     */
+    public JButton getRightBtn() {
+        return rightBtn;
+    }
+
+
     /**
      * Start method used when compiling the GUI class.
      */
@@ -118,14 +176,14 @@ public class PokemonGUI extends JFrame {
     private JPanel directionsPanelHelper() {
         final JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-        JButton leftBtn = new JButton("move left");
+
         leftBtn.setEnabled(true);
-        JButton rightBtn = new JButton("move right");
+
         rightBtn.setEnabled(true);
-        JButton upBtn = new JButton("move up");
+
         upBtn.setEnabled(true);
-        JButton downBtn = new JButton("move down");
-        upBtn.setEnabled(true);
+
+        downBtn.setEnabled(true);
         JButton test = new JButton("test");
         panel.add(upBtn, BorderLayout.NORTH);
         panel.add(downBtn, BorderLayout.SOUTH);
@@ -168,7 +226,7 @@ public class PokemonGUI extends JFrame {
      */
     private JLabel getPicture() throws IOException {
         BufferedImage myPicture = ImageIO.read(new File(
-                ".\\TriviaMaze\\src\\Model\\PokeImages\\zubat.jpg"));
+                "src\\Model\\PokeImages\\zubat.jpg"));
         JLabel img = new JLabel(new ImageIcon(myPicture));
         return img;
     }

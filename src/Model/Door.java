@@ -5,9 +5,10 @@ import java.util.Collections;
 
 /**
  * @author Andrew & Dylan & Nhat
- * @version 2.0
- * This class creates the door objects and has boolean values
- * for whether the door is closed or open.
+ * @version 2.0 - 11/19/2021
+ * Door class used as pathways between Room objects. Each Door object
+ * contains unique question information. Doors can be either open,
+ * closed, or locked.
  */
 public class Door {
 
@@ -39,16 +40,17 @@ public class Door {
     private final String myImgFilePath;
 
     /**
-     * parameterless constructor, creates lock door
+     * Parameterless constructor, creates locked door.
      */
     public Door() {
+        myOpenStatus = false;
         myLockedStatus = true;
         myImgFilePath = null;
         myCorrectAnswer = null;
     }
 
     /**
-     * Parameterized Constructor that lets us create the door objects.
+     * Parameterized Constructor for Door.
      */
     public Door(final String theCorrectAnswer, final String theWrongAnswer1,
                 final String theWrongAnswer2, final String theWrongAnswer3,
@@ -73,9 +75,7 @@ public class Door {
      */
     public void attemptToOpen(final String thePlayersAnswer) {
         if (thePlayersAnswer.equals(myCorrectAnswer)) {
-            myOpenStatus = true;
-        } else {
-            myLockedStatus = true;
+            myLockedStatus = false;
         }
     }
 
@@ -107,9 +107,11 @@ public class Door {
         return myLockedStatus;
     }
 
-    public void setMyLockedStatus(boolean theLockStatus) { myLockedStatus = theLockStatus; }
-
-    public String printDoor() {
-        return "Correct Answer: "+ myCorrectAnswer + ". All Answers: " + getMyAnswers().toString();
+    /**
+     * Getter for myFilePath.
+     * @return myFilePath
+     */
+    public String getMyFilePath() {
+        return myImgFilePath;
     }
 }

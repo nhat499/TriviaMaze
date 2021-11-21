@@ -4,28 +4,51 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
 
+/**
+ * @author Andrew
+ * @version 1.0
+ * This class creates a graphic for the maze as well as puts a visible
+ * player object as a graphic on the maze.
+ */
 public class DrawMaze extends JPanel {
-    /** The width of the panel. */
+    /**
+     * The width of the panel.
+     */
     private static final int WIDTH = 800;
 
-    /** The height of the panel. */
+    /**
+     * The height of the panel.
+     */
     private static final int HEIGHT = 800;
 
-    /** The stroke width in pixels. */
+    /**
+     * The stroke width in pixels.
+     */
     private static final int STROKE_WIDTH = 10;
 
-    /** The width for the rectangle. */
+    /**
+     * The width for the rectangle.
+     */
     private static final int RECTANGLE_WIDTH = 156;
 
-    /** The height for the rectangle. */
+    /**
+     * The height for the rectangle.
+     */
     private static final int RECTANGLE_HEIGHT = 150;
 
+    /**
+     * Constructor to initialize background color and size.
+     */
     public DrawMaze() {
         super();
         setBackground(Color.WHITE);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
     }
 
+    /**
+     * Method that actually creates the graphics for the maze.
+     * @param theGraphics
+     */
     public void paintComponent(final Graphics theGraphics) {
         super.paintComponent(theGraphics);
         final Graphics2D g2d = (Graphics2D) theGraphics;
@@ -38,19 +61,19 @@ public class DrawMaze extends JPanel {
         g2d.setStroke(new BasicStroke(STROKE_WIDTH));
         g2d.draw(mazeBorder);
 
-        final Line2D verticleline = new Line2D.Double(262, 500, 262, 200);
+        final Line2D verticleline = new Line2D.Double(262, 490, 262, 190);
         g2d.setStroke(new BasicStroke(STROKE_WIDTH/5));
         g2d.draw(verticleline);
 
-        final Line2D verticleline2 = new Line2D.Double(325, 500, 325, 200);
+        final Line2D verticleline2 = new Line2D.Double(325, 490, 325, 190);
         g2d.setStroke(new BasicStroke(STROKE_WIDTH/5));
         g2d.draw(verticleline2);
 
-        final Line2D verticleline3 = new Line2D.Double(390, 500, 390, 200);
+        final Line2D verticleline3 = new Line2D.Double(390, 490, 390, 190);
         g2d.setStroke(new BasicStroke(STROKE_WIDTH/5));
         g2d.draw(verticleline3);
 
-        final Line2D verticleline4 = new Line2D.Double(450, 500, 450, 200);
+        final Line2D verticleline4 = new Line2D.Double(450, 490, 450, 190);
         g2d.setStroke(new BasicStroke(STROKE_WIDTH/5));
         g2d.draw(verticleline4);
 
@@ -71,6 +94,7 @@ public class DrawMaze extends JPanel {
         g2d.draw(horizontalline4);
 
     }
+    // Main for testing.
     public static void main(final String... theArgs) {
         final DrawMaze panel = new DrawMaze();
         final JFrame frame = new JFrame("DrawMaze Demo");
