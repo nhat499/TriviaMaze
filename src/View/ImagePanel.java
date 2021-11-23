@@ -14,16 +14,11 @@ import java.io.IOException;
  */
 public class ImagePanel extends JPanel {
 
-    /**
-     * TODO!!!
-     */
-    private static ImagePanel myUniqueInstance;
 
-    /**
-     * TODO!!!
-     */
-    private final GameplayController myController;
 
+
+
+    private ImageIcon myIcon;
     private Image myImage;
 
 
@@ -31,7 +26,7 @@ public class ImagePanel extends JPanel {
      * Public constructor for ImagePanel.
      */
     public ImagePanel() {
-        myController = GameplayController.getUniqueInstance();
+        this.setLayout(null);
         setSize(450, 350);
         setLocation(660, 10);
         setBackground(Color.white);
@@ -47,21 +42,25 @@ public class ImagePanel extends JPanel {
         g.setPaint(Color.BLACK);
         g.setStroke(new BasicStroke(5));
         g.draw(border);
-
+        if (myIcon != null) {
+            myIcon.paintIcon(this, g, 70, 20);
+        }
     }
 
     /**
      * TODO!!!
      */
-    public void setMyImage(final String theFilePath){
-        myImage = new ImageIcon(theFilePath).getImage();
-        BufferedImage myPicture = null;
+    public void updateMyImage(final String theFilePath){
+
         try {
-            myPicture = ImageIO.read(new File(theFilePath));
+            BufferedImage buff = ImageIO.read(new File(theFilePath));
+            myImage = buff.getScaledInstance(300, 300, 0);
+            myIcon = new ImageIcon(myImage);
+            repaint();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        JLabel img = new JLabel(new ImageIcon(myImage));
+
     }
 
 }

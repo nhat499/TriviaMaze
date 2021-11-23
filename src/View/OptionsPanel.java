@@ -10,7 +10,13 @@ import java.awt.*;
  */
 public class OptionsPanel extends JPanel {
 
-    GameplayController myC;
+
+
+    //TODO!!! Javadocs
+    private final JButton myResetButton;
+    private final JButton myHelpButton;
+    private final JButton myLoadButton;
+
 
     /**
      * Public constructor for OptionsPanel.
@@ -20,10 +26,12 @@ public class OptionsPanel extends JPanel {
         setSize(190, 170);
         setLocation(920, 480);
         setBackground(Color.white);
-        myC = GameplayController.getUniqueInstance();
-        this.add(myC.getResetButton());
-        this.add(myC.getLoadButton());
-        this.add(myC.getMyHelpButton());
+        myResetButton = new JButton("Reset");
+        myHelpButton = new JButton("Help");
+        myLoadButton = new JButton("Load");
+        this.add(myResetButton);
+        this.add(myHelpButton);
+        this.add(myLoadButton);
 
     }
 
@@ -36,5 +44,17 @@ public class OptionsPanel extends JPanel {
         g.setPaint(Color.BLACK);
         g.setStroke(new BasicStroke(5));
         g.draw(border);
+    }
+
+    public JButton getMyLoadButton() {
+        return myLoadButton;
+    }
+
+    public JButton getMyHelpButton() {
+        return myHelpButton;
+    }
+
+    public JButton getMyResetButton() {
+        return myResetButton;
     }
 }

@@ -15,35 +15,41 @@ public class MazePanel extends JPanel {
 
     /** The height & width of the panel in pixels. */
     private static final int MAZE_SIZE = 640;
-
     private static final int PANEL_INSET = 10;
 
     /**
      * TODO!!!
      */
-    private final Maze myMaze;
+    private Maze myMaze;
 
     /**
      * TODO!!!
      */
-    private final Player myPlayer;
+    private Player myPlayer;
 
-    /**
-     * TODO!!!
-     */
-    private final GameplayController myController;
+
 
     /**
      * Public constructor for MazePanel.
      */
-    public MazePanel() {
+    public MazePanel(final Maze theMaze, final Player thePlayer) {
         super();
+        myMaze = theMaze;
+        myPlayer = thePlayer;
         this.setSize(MAZE_SIZE, MAZE_SIZE);
         this.setLocation(PANEL_INSET, PANEL_INSET);
         setBackground(Color.white);
-        myController = GameplayController.getUniqueInstance();
-        myMaze = myController.getMyMaze();
-        myPlayer = myController.getMyPlayer();
+    }
+
+    /**
+     * TODO!!!
+     * @param theMaze
+     * @param thePlayer
+     */
+    public void updateMaze(final Maze theMaze, final Player thePlayer) {
+        myMaze = theMaze;
+        myPlayer = thePlayer;
+        this.repaint();
     }
 
     /**
@@ -65,7 +71,7 @@ public class MazePanel extends JPanel {
         final int upperDoorBound = 30;
         final int lowerDoorBound = 100;
         final int playerPieceSize = 50;
-        final int playerLocationMultiplier = 40;
+        final int playerBaseLocation = 40;
         Line2D horizontalWall;
         Line2D verticalWall;
         Line2D horizontalDoor;
@@ -87,8 +93,8 @@ public class MazePanel extends JPanel {
         }
 
         g2d.setStroke(new BasicStroke(doorStrokeWidth));
-        for (int i = 1; i < myMaze.getMyWidth()-2; i++) {
-            for (int j = 1; j < myMaze.getMyWidth()-1; j++) {
+        for (int i = 1; i < 5; i++) {
+            for (int j = 1; j < 6; j++) {
                 verticalDoor = new Line2D.Double(spaceBetweenVerDoors * i + i,
                         upperDoorBound + (spaceBetweenHorDoors * (j - 1)), spaceBetweenVerDoors * i + i,
                         lowerDoorBound + (spaceBetweenHorDoors * (j - 1)));
@@ -120,7 +126,7 @@ public class MazePanel extends JPanel {
         }
 
         g2d.setColor(Color.MAGENTA);
-        g2d.drawOval(myPlayer.getMyX() * playerLocationMultiplier, myPlayer.getMyY() * playerLocationMultiplier,
+        g2d.drawOval(playerBaseLocation + ((myPlayer.getMyX() - 1) * spaceBetweenHorDoors) , playerBaseLocation + ((myPlayer.getMyY() - 1) * spaceBetweenVerDoors),
                 playerPieceSize, playerPieceSize);
     }
 }

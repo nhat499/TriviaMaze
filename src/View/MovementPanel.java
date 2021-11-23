@@ -11,23 +11,28 @@ import java.awt.geom.Ellipse2D;
  */
 public class MovementPanel extends JPanel {
 
-    GameplayController myC;
+
+    private final JButton myMoveWestButton;
+    private final JButton myMoveNorthButton;
+    private final JButton myMoveEastButton;
+    private final JButton myMoveSouthButton;
 
     /**
      * Public constructor for MovementPanel.
      */
     public MovementPanel() {
-        myC = GameplayController.getUniqueInstance();
         this.setLayout(null);
         setSize(250, 170);
         setLocation(660, 480);
         setBackground(Color.white);
-        this.add(myC.getMyMoveWestButton());
-        this.add(myC.getMyMoveNorthButton());
-        this.add(myC.getMyMoveEastButton());
-        this.add(myC.getMyMoveSouthButton());
-
-
+        myMoveWestButton = new JButton("West");
+        myMoveNorthButton = new JButton("North");
+        myMoveEastButton = new JButton("East");
+        myMoveSouthButton = new JButton("South");
+        this.add(myMoveWestButton);
+        this.add(myMoveNorthButton);
+        this.add(myMoveEastButton);
+        this.add(myMoveSouthButton);
     }
 
     @Override
@@ -46,5 +51,21 @@ public class MovementPanel extends JPanel {
         g.draw(circle);
         g.fill(circle);
 
+    }
+
+    public JButton getMyMoveSouthButton() {
+        return myMoveSouthButton;
+    }
+
+    public JButton getMyMoveEastButton() {
+        return myMoveEastButton;
+    }
+
+    public JButton getMyMoveNorthButton() {
+        return myMoveNorthButton;
+    }
+
+    public JButton getMyMoveWestButton() {
+        return myMoveWestButton;
     }
 }

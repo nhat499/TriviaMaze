@@ -1,5 +1,8 @@
 package View;
 
+import Model.Maze;
+import Model.Player;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -29,8 +32,8 @@ public class DisplayFrame extends JFrame {
      * Public constructor for DisplayFrame. Sets the size, default close operation,
      * resizable status, layout, and visibility of this JFrame.
      */
-    public DisplayFrame() {
-        myMazePanel = new MazePanel();
+    public DisplayFrame(final Maze theMaze, final Player thePlayer) {
+        myMazePanel = new MazePanel(theMaze, thePlayer);
         myImagePanel = new ImagePanel();
         myQuestionPanel = new QuestionPanel();
         myMovementPanel = new MovementPanel();
@@ -66,8 +69,23 @@ public class DisplayFrame extends JFrame {
         this.add(myOptionsPanel);
     }
 
-    // main method for testing during development
-    public static void main(String[] args) {
-        DisplayFrame d = new DisplayFrame();
+    public OptionsPanel getMyOptionsPanel() {
+        return myOptionsPanel;
+    }
+
+    public MovementPanel getMyMovementPanel() {
+        return myMovementPanel;
+    }
+
+    public QuestionPanel getMyQuestionPanel() {
+        return myQuestionPanel;
+    }
+
+    public ImagePanel getMyImagePanel() {
+        return myImagePanel;
+    }
+
+    public MazePanel getMyMazePanel() {
+        return myMazePanel;
     }
 }
