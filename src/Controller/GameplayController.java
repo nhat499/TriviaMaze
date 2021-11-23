@@ -247,6 +247,12 @@ public class GameplayController {
      * TODO!!!
      * @return
      */
+    public Player getMyPlayer() {return myPlayer;}
+
+    /**
+     * TODO!!!
+     * @return
+     */
     public Door getMyFocusDoor() {
         return myFocusDoor;
     }

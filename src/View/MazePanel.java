@@ -2,6 +2,7 @@ package View;
 
 import Controller.GameplayController;
 import Model.Maze;
+import Model.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,26 +13,20 @@ import java.awt.geom.Line2D;
  */
 public class MazePanel extends JPanel {
 
+    /** The height & width of the panel in pixels. */
+    private static final int MAZE_SIZE = 640;
 
-    /** The width of the panel. */
-    private static final int WIDTH = 300;
-
-    /** The height of the panel. */
-    private static final int HEIGHT = 300;
-
-    /** The stroke width in pixels. */
-    private static final int STROKE_WIDTH = 5;
-
-    /** The width for the rectangle. */
-    private static final int RECTANGLE_WIDTH = 640;
-
-    /** The height for the rectangle. */
-    private static final int RECTANGLE_HEIGHT = 640;
+    private static final int PANEL_INSET = 10;
 
     /**
      * TODO!!!
      */
     private final Maze myMaze;
+
+    /**
+     * TODO!!!
+     */
+    private final Player myPlayer;
 
     /**
      * TODO!!!
@@ -43,11 +38,12 @@ public class MazePanel extends JPanel {
      */
     public MazePanel() {
         super();
-        this.setSize(640, 640);
-        this.setLocation(10, 10);
+        this.setSize(MAZE_SIZE, MAZE_SIZE);
+        this.setLocation(PANEL_INSET, PANEL_INSET);
         setBackground(Color.white);
         myController = GameplayController.getUniqueInstance();
         myMaze = myController.getMyMaze();
+        myPlayer = myController.getMyPlayer();
     }
 
     /**
@@ -57,29 +53,45 @@ public class MazePanel extends JPanel {
     public void paintComponent(final Graphics theGraphics) {
         super.paintComponent(theGraphics);
         final Graphics2D g2d = (Graphics2D) theGraphics;
-
-        final Rectangle border = new Rectangle(2, 3, 635, 635);
-        g2d.setPaint(Color.BLACK);
-        g2d.setStroke(new BasicStroke(STROKE_WIDTH));
-        g2d.draw(border);
-
-        g2d.setStroke(new BasicStroke(3));
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        final int borderInset = 2;
+        final int borderSize = 635;
+        final int borderStrokeWidth = 5;
+        final int wallStrokeWidth = 3;
+        final int doorStrokeWidth = 10;
+        final int spaceBetweenHorDoors = 128;
+        final int spaceBetweenVerDoors = 127;
+        final int upperDoorBound = 30;
+        final int lowerDoorBound = 100;
+        final int playerPieceSize = 50;
+        final int playerLocationMultiplier = 40;
         Line2D horizontalWall;
         Line2D verticalWall;
         Line2D horizontalDoor;
         Line2D verticalDoor;
 
+        final Rectangle border = new Rectangle(borderInset, borderInset, borderSize, borderSize);
+        g2d.setPaint(Color.BLACK);
+        g2d.setStroke(new BasicStroke(borderStrokeWidth));
+        g2d.draw(border);
+
+        g2d.setStroke(new BasicStroke(wallStrokeWidth));
         for (int i = 1; i <= 5; i++) {
-            horizontalWall = new Line2D.Double(128 * i, 4, 128 * i, 635);
+            horizontalWall = new Line2D.Double(spaceBetweenHorDoors * i, 4,
+                    spaceBetweenHorDoors * i, 635);
             g2d.draw(horizontalWall);
-            verticalWall = new Line2D.Double(2, 128 * i, 635, 128 * i);
+            verticalWall = new Line2D.Double(borderInset, spaceBetweenHorDoors * i,
+                    borderSize, spaceBetweenHorDoors * i);
             g2d.draw(verticalWall);
         }
 
-        g2d.setStroke(new BasicStroke(10));
+        g2d.setStroke(new BasicStroke(doorStrokeWidth));
         for (int i = 1; i < myMaze.getMyWidth()-2; i++) {
             for (int j = 1; j < myMaze.getMyWidth()-1; j++) {
-                verticalDoor = new Line2D.Double(127 * i + i, 30 + (128 * (j - 1)), 127 * i + i, 100 + (128 * (j - 1)));
+                verticalDoor = new Line2D.Double(spaceBetweenVerDoors * i + i,
+                        upperDoorBound + (spaceBetweenHorDoors * (j - 1)), spaceBetweenVerDoors * i + i,
+                        lowerDoorBound + (spaceBetweenHorDoors * (j - 1)));
                 if (!myMaze.getRoom(i, j).getMyEastDoor().getMyOpenStatus()) {
                     g2d.setPaint(Color.black);
                 } else if (myMaze.getRoom(i, j).getMyEastDoor().getMyOpenStatus()) {
@@ -93,7 +105,8 @@ public class MazePanel extends JPanel {
         }
         for (int i = 1; i < myMaze.getMyWidth() - 2; i++) {
             for (int j = 1; j < myMaze.getMyWidth() - 1; j++) {
-                horizontalDoor = new Line2D.Double(30 + (128 * (j - 1)), 128 * i, 100 + (128 * (j - 1)), 128 * i);
+                horizontalDoor = new Line2D.Double(30 + (128 * (j - 1)),
+                        128 * i, 100 + (128 * (j - 1)), 128 * i);
                 if (!myMaze.getRoom(j, i).getMySouthDoor().getMyOpenStatus()) {
                     g2d.setPaint(Color.black);
                 } else if (myMaze.getRoom(j, i).getMySouthDoor().getMyOpenStatus()) {
@@ -105,5 +118,9 @@ public class MazePanel extends JPanel {
                 g2d.draw(horizontalDoor);
             }
         }
+
+        g2d.setColor(Color.MAGENTA);
+        g2d.drawOval(myPlayer.getMyX() * playerLocationMultiplier, myPlayer.getMyY() * playerLocationMultiplier,
+                playerPieceSize, playerPieceSize);
     }
 }
