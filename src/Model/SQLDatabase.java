@@ -110,7 +110,7 @@ public class SQLDatabase {
                 questionInput = "INSERT INTO questions (CORRECT, WRONG1, WRONG2, WRONG3, IMGPATH) VALUES ( '"
                         + sortedPokeArray.get(i) + "', '" + incorrectAnswers[0] + "', '"
                         + incorrectAnswers[1] + "', '" + incorrectAnswers[2] + "', '"
-                        + "TriviaMaze/src/Model/PokeImages/" + sortedPokeArray.get(i) + ".jpg')";
+                        + "src/Model/PokeImages/" + sortedPokeArray.get(i) + ".jpg')";
                 stmt.executeUpdate(questionInput);
             }
 
