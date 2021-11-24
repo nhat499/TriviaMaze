@@ -112,6 +112,13 @@ public class Door {
     }
 
     /**
+     * setter for myLockedStatus.
+     */
+    public void setMyLockedStatus(boolean theLockStatus) {
+        myLockedStatus = theLockStatus;
+    }
+
+    /**
      * Getter for myFilePath.
      * @return myFilePath
      */

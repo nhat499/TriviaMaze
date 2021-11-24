@@ -12,27 +12,27 @@ public class Maze {
     /**
      * Height of the 2D array of rooms.
      */
-    private int myHeight;
+    private final int myHeight;
 
     /**
      * Width of the 2D array of rooms.
      */
-    private int myWidth;
+    private final int myWidth;
 
     /**
      * X-Coordinate for the room that acts as the exit from the maze.
      */
-    private int myExitX;
+    private final int myExitX;
 
     /**
      * Y-Coordinate for the room that acts as the exit from the maze.
      */
-    private int myExitY;
+    private final int myExitY;
 
     /**
      * 2D Array of rooms representing the layout of the maze.
      */
-    private Room[][] myMaze;
+    private final Room[][] myMaze;
 
     public int getMyExitX() {
         return myExitX;
@@ -58,12 +58,10 @@ public class Maze {
 
     /**
      * Public construct for Maze class.
-     * @param theHeight the number of rooms counted vertically in the maze.
-     * @param theWidth the number of rooms counted horizontally in the maze.
      */
-    public Maze(final int theWidth, final int theHeight){
-        myWidth = theWidth + 2;
-        myHeight = theHeight + 2;
+    public Maze(){
+        myWidth = 7;
+        myHeight = 7;
         myMaze = new Room[myWidth][myHeight];
         myPokeGenerator = new PokeListGenerator();
         myPokeList = myPokeGenerator.getRandomPokeList();
@@ -199,7 +197,7 @@ public class Maze {
      * @return the maze length
      */
     public int getMyHeight() {
-        return myHeight;
+        return myHeight - 2;
     }
 
     /**
@@ -207,6 +205,8 @@ public class Maze {
      * @return the maze's width
      */
     public int getMyWidth() {
-        return myWidth;
+        return myWidth - 2;
     }
+
+
 }

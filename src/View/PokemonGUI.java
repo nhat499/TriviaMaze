@@ -81,7 +81,7 @@ public class PokemonGUI extends JFrame {
         myFrame = new JFrame();
         myLabel = new JLabel();
         mySize = new Dimension();
-        myMaze = new Maze(5, 5);
+        myMaze = new Maze();
     }
 
     /**

@@ -61,7 +61,7 @@ public class Control {
         myDown = pokemonGUI.getDownBtn();
         myRight = pokemonGUI.getRightBtn();
         myLeft = pokemonGUI.getLeftBtn();
-        myMaze = new Maze(5, 5);
+        myMaze = new Maze();
         myPlayer = new Player(1, 1, myMaze);
 
     }
