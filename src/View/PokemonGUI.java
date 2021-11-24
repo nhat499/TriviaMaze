@@ -1,5 +1,6 @@
 package View;
 
+import Model.Door;
 import Model.Maze;
 
 import javax.imageio.ImageIO;
@@ -43,6 +44,10 @@ public class PokemonGUI extends JFrame {
     private static final JButton downBtn = new JButton("move down");
 
     /**
+     * Pokemon image.
+     */
+    public JLabel pokeImage;
+    /**
      * JFrame used for the GUI.
      */
     private final JFrame myFrame;
@@ -71,7 +76,7 @@ public class PokemonGUI extends JFrame {
      * Constructor for instantiating fields.
      */
     public PokemonGUI() {
-        super();
+        //super();
         myPanel = new JPanel();
         myFrame = new JFrame();
         myLabel = new JLabel();
@@ -139,10 +144,14 @@ public class PokemonGUI extends JFrame {
         questionAndAns();
         directionsPanel();
 
+        pokeImage = getNewPicture("zubat");
+        revalidate();
+        repaint();
         myFrame.pack();
         myFrame.setResizable(true);
         myFrame.setVisible(true);
         myFrame.setLocationRelativeTo(null);
+
     }
 
     /**
@@ -213,21 +222,38 @@ public class PokemonGUI extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         JLabel question = new JLabel("whos that pokemon?");
-        JLabel img = getPicture();
+        //String pokeName = theDoor.getTheCorrectAnswer();
+        pokeImage = getNewPicture("weepinbell");
+
         JLabel answer = new JLabel("the answer ...");
         panel.add(question, BorderLayout.NORTH);
-        panel.add(img, BorderLayout.CENTER);
+        panel.add(pokeImage, BorderLayout.CENTER);
+        pokeImage = getNewPicture("zubat");
+        pokeImage.repaint();
+        pokeImage.revalidate();
+        panel.repaint();
+        panel.revalidate();
         panel.add(answer, BorderLayout.SOUTH);
         myFrame.add(panel, BorderLayout.CENTER);
+        myFrame.repaint();
+        myFrame.revalidate();
     }
 
     /**
      * gets a picture of a pokemon.
      */
-    private JLabel getPicture() throws IOException {
+    public JLabel getNewPicture(String thePokeName) throws IOException {
         BufferedImage myPicture = ImageIO.read(new File(
-                "src\\Model\\PokeImages\\zubat.jpg"));
+                "src\\Model\\PokeImages\\" + thePokeName + ".jpg"));
         JLabel img = new JLabel(new ImageIcon(myPicture));
+        myFrame.repaint();
+        myFrame.revalidate();
         return img;
+    }
+
+    public void setPokeImage(String theImg) throws IOException {
+        pokeImage = getNewPicture(theImg);
+        myFrame.repaint();
+        myFrame.revalidate();
     }
 }

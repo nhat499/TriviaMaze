@@ -91,6 +91,10 @@ public class Door {
         return myAnswers;
     }
 
+    public String getTheCorrectAnswer() {
+        return myAnswers.get(0);
+    }
+
     /**
      * Getter for myOpenStatus.
      * @return myOpenStatus
