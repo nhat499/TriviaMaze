@@ -11,9 +11,9 @@ import java.io.*;
 public class SaveUserData implements Serializable{
 
     private static final long serialversionUID = 5L;
-    String filename = "SaveData.txt";
+    private String filename = "SaveData.txt";
 
-    GameplayController object = new GameplayController();
+    private GameplayController object = new GameplayController();
 
     public void save(){
 
