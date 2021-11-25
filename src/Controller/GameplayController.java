@@ -11,9 +11,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 
-public class GameplayController {
-
+public class GameplayController implements Serializable {
 
 
     // TODO!!! Javadocs
@@ -43,7 +43,7 @@ public class GameplayController {
                 if (!myMaze.getRoom(myPlayer.getMyX(), myPlayer.getMyY()).getMyWestDoor().getMyLockedStatus()) {
                     myPlayer.moveWest();
                     System.out.println(myPlayer.getMyX() + ", " + myPlayer.getMyY());
-                    myDisplayFrame.getMyMazePanel().updateMaze(myMaze,myPlayer);
+                    myDisplayFrame.getMyMazePanel().updateMaze(myMaze, myPlayer);
                     myDisplayFrame.getMyImagePanel().updateMyImage(myMaze.getRoom(myPlayer.getMyX(),
                             myPlayer.getMyY()).getMyWestDoor().getMyFilePath());
                 }
@@ -55,7 +55,7 @@ public class GameplayController {
                 if (!myMaze.getRoom(myPlayer.getMyX(), myPlayer.getMyY()).getMyNorthDoor().getMyLockedStatus()) {
                     myPlayer.moveNorth();
                     System.out.println(myPlayer.getMyX() + ", " + myPlayer.getMyY());
-                    myDisplayFrame.getMyMazePanel().updateMaze(myMaze,myPlayer);
+                    myDisplayFrame.getMyMazePanel().updateMaze(myMaze, myPlayer);
                     myDisplayFrame.getMyImagePanel().updateMyImage(myMaze.getRoom(myPlayer.getMyX(),
                             myPlayer.getMyY()).getMyNorthDoor().getMyFilePath());
                 }
@@ -67,7 +67,7 @@ public class GameplayController {
                 if (!myMaze.getRoom(myPlayer.getMyX(), myPlayer.getMyY()).getMyEastDoor().getMyLockedStatus()) {
                     myPlayer.moveEast();
                     System.out.println(myPlayer.getMyX() + ", " + myPlayer.getMyY());
-                    myDisplayFrame.getMyMazePanel().updateMaze(myMaze,myPlayer);
+                    myDisplayFrame.getMyMazePanel().updateMaze(myMaze, myPlayer);
                     myDisplayFrame.getMyImagePanel().updateMyImage(myMaze.getRoom(myPlayer.getMyX(),
                             myPlayer.getMyY()).getMyEastDoor().getMyFilePath());
                 }
@@ -79,7 +79,7 @@ public class GameplayController {
                 if (!myMaze.getRoom(myPlayer.getMyX(), myPlayer.getMyY()).getMySouthDoor().getMyLockedStatus()) {
                     myPlayer.moveSouth();
                     System.out.println(myPlayer.getMyX() + ", " + myPlayer.getMyY());
-                    myDisplayFrame.getMyMazePanel().updateMaze(myMaze,myPlayer);
+                    myDisplayFrame.getMyMazePanel().updateMaze(myMaze, myPlayer);
                     myDisplayFrame.getMyImagePanel().updateMyImage(myMaze.getRoom(myPlayer.getMyX(),
                             myPlayer.getMyY()).getMySouthDoor().getMyFilePath());
                 }
@@ -213,4 +213,5 @@ public class GameplayController {
     public static void main(String[] args) {
         GameplayController g = new GameplayController();
     }
+
 }
