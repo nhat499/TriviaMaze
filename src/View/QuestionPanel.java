@@ -26,10 +26,10 @@ public class QuestionPanel extends JPanel {
         setSize(450, 100);
         setLocation(660, 370);
         setBackground(Color.white);
-        myOptionButton1 = new JRadioButton("Place Holder");
-        myOptionButton2 = new JRadioButton("Place Holder");
-        myOptionButton3 = new JRadioButton("Place Holder");
-        myOptionButton4 = new JRadioButton("Place Holder");
+        myOptionButton1 = new JRadioButton();
+        myOptionButton2 = new JRadioButton();
+        myOptionButton3 = new JRadioButton();
+        myOptionButton4 = new JRadioButton();
         myEnterButton = new JButton("Enter!");
         this.add(myOptionButton1);
         this.add(myOptionButton2);

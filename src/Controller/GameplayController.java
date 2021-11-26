@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.util.ArrayList;
 
 public class GameplayController implements Serializable {
 
@@ -37,51 +38,52 @@ public class GameplayController implements Serializable {
      * TODO!!!
      */
     private void setupButtonActions() {
+        //final Door[] myFocusDoor = {null};
 
         myDisplayFrame.getMyMovementPanel().getMyMoveWestButton().addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
-                if (!myMaze.getRoom(myPlayer.getMyX(), myPlayer.getMyY()).getMyWestDoor().getMyLockedStatus()) {
+                myFocusDoor = myMaze.getRoom(myPlayer.getMyX(), myPlayer.getMyY()).getMyWestDoor();
+                if (!myFocusDoor.getMyLockedStatus() && !myFocusDoor.getMyOpenStatus()) {
+                    deployQuestion();
+                } else if (myFocusDoor.getMyOpenStatus()){
                     myPlayer.moveWest();
-                    System.out.println(myPlayer.getMyX() + ", " + myPlayer.getMyY());
-                    myDisplayFrame.getMyMazePanel().updateMaze(myMaze, myPlayer);
-                    myDisplayFrame.getMyImagePanel().updateMyImage(myMaze.getRoom(myPlayer.getMyX(),
-                            myPlayer.getMyY()).getMyWestDoor().getMyFilePath());
+                    myDisplayFrame.getMyMazePanel().repaint();
                 }
             }
         });
 
         myDisplayFrame.getMyMovementPanel().getMyMoveNorthButton().addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
-                if (!myMaze.getRoom(myPlayer.getMyX(), myPlayer.getMyY()).getMyNorthDoor().getMyLockedStatus()) {
+                myFocusDoor = myMaze.getRoom(myPlayer.getMyX(), myPlayer.getMyY()).getMyNorthDoor();
+                if (!myFocusDoor.getMyLockedStatus() && !myFocusDoor.getMyOpenStatus()) {
+                    deployQuestion();
+                } else if (myFocusDoor.getMyOpenStatus()){
                     myPlayer.moveNorth();
-                    System.out.println(myPlayer.getMyX() + ", " + myPlayer.getMyY());
-                    myDisplayFrame.getMyMazePanel().updateMaze(myMaze, myPlayer);
-                    myDisplayFrame.getMyImagePanel().updateMyImage(myMaze.getRoom(myPlayer.getMyX(),
-                            myPlayer.getMyY()).getMyNorthDoor().getMyFilePath());
+                    myDisplayFrame.getMyMazePanel().repaint();
                 }
             }
         });
 
         myDisplayFrame.getMyMovementPanel().getMyMoveEastButton().addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
-                if (!myMaze.getRoom(myPlayer.getMyX(), myPlayer.getMyY()).getMyEastDoor().getMyLockedStatus()) {
+                myFocusDoor = myMaze.getRoom(myPlayer.getMyX(), myPlayer.getMyY()).getMyEastDoor();
+                if (!myFocusDoor.getMyLockedStatus() && !myFocusDoor.getMyOpenStatus()) {
+                    deployQuestion();
+                } else if (myFocusDoor.getMyOpenStatus()){
                     myPlayer.moveEast();
-                    System.out.println(myPlayer.getMyX() + ", " + myPlayer.getMyY());
-                    myDisplayFrame.getMyMazePanel().updateMaze(myMaze, myPlayer);
-                    myDisplayFrame.getMyImagePanel().updateMyImage(myMaze.getRoom(myPlayer.getMyX(),
-                            myPlayer.getMyY()).getMyEastDoor().getMyFilePath());
+                    myDisplayFrame.getMyMazePanel().repaint();
                 }
             }
         });
 
         myDisplayFrame.getMyMovementPanel().getMyMoveSouthButton().addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
-                if (!myMaze.getRoom(myPlayer.getMyX(), myPlayer.getMyY()).getMySouthDoor().getMyLockedStatus()) {
+                myFocusDoor = myMaze.getRoom(myPlayer.getMyX(), myPlayer.getMyY()).getMySouthDoor();
+                if (!myFocusDoor.getMyLockedStatus() && !myFocusDoor.getMyOpenStatus()) {
+                    deployQuestion();
+                } else if (myFocusDoor.getMyOpenStatus()){
                     myPlayer.moveSouth();
-                    System.out.println(myPlayer.getMyX() + ", " + myPlayer.getMyY());
-                    myDisplayFrame.getMyMazePanel().updateMaze(myMaze, myPlayer);
-                    myDisplayFrame.getMyImagePanel().updateMyImage(myMaze.getRoom(myPlayer.getMyX(),
-                            myPlayer.getMyY()).getMySouthDoor().getMyFilePath());
+                    myDisplayFrame.getMyMazePanel().repaint();
                 }
             }
         });
@@ -121,6 +123,24 @@ public class GameplayController implements Serializable {
                 myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setSelected(false);
                 myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().setSelected(false);
                 myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setSelected(false);
+            }
+        });
+
+        myDisplayFrame.getMyQuestionPanel().getMyEnterButton().addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent theEvent) {
+                String answerInput = null;
+                if (myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().isSelected()) {
+                    answerInput = myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().getText();
+                } else if (myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().isSelected()) {
+                    answerInput = myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().getText();
+                } else if (myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().isSelected()) {
+                    answerInput = myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().getText();
+                } else if (myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().isSelected()){
+                    answerInput = myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().getText();
+                }
+                myFocusDoor.attemptToOpen(answerInput);
+                myDisplayFrame.getMyMazePanel().repaint();
+                dismissQuestion();
             }
         });
 
@@ -207,6 +227,37 @@ public class GameplayController implements Serializable {
         myDisplayFrame.getMyOptionsPanel().getMyHelpButton().setForeground(Color.white);
         myDisplayFrame.getMyOptionsPanel().getMyHelpButton().setBounds(29, 113, 130, 45);
         myDisplayFrame.getMyOptionsPanel().getMyHelpButton().setEnabled(true);
+    }
+
+    // TODO!!!
+    private void deployQuestion() {
+        ArrayList<String> answers = myFocusDoor.getMyAnswers();
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setEnabled(true);
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().setEnabled(true);
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setEnabled(true);
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().setEnabled(true);
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setText(answers.get(0));
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().setText(answers.get(1));
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setText(answers.get(2));
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().setText(answers.get(3));
+
+        myDisplayFrame.getMyImagePanel().updateMyImage(myFocusDoor.getMyFilePath());
+    }
+
+    // TODO!!!
+    private void dismissQuestion() {
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setText("");
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().setText("");
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setText("");
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().setText("");
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setSelected(false);
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().setSelected(false);
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setSelected(false);
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().setSelected(false);
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setEnabled(false);
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().setEnabled(false);
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setEnabled(false);
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().setEnabled(false);
     }
 
     // main method for testing

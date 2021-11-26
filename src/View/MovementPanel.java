@@ -45,11 +45,11 @@ public class MovementPanel extends JPanel {
         g.setStroke(new BasicStroke(5));
         g.draw(border);
 
-        final Shape circle = new Ellipse2D.Double(3.0, 5.1, 3.0, 5.1);
-        g.setPaint(Color.blue);
-        g.setStroke(new BasicStroke(2));
-        g.draw(circle);
-        g.fill(circle);
+//        final Shape circle = new Ellipse2D.Double(3.0, 5.1, 3.0, 5.1);
+//        g.setPaint(Color.blue);
+//        g.setStroke(new BasicStroke(2));
+//        g.draw(circle);
+//        g.fill(circle);
 
     }
 

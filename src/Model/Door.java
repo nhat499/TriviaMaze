@@ -75,7 +75,9 @@ public class Door {
      */
     public void attemptToOpen(final String thePlayersAnswer) {
         if (thePlayersAnswer.equals(myCorrectAnswer)) {
-            myLockedStatus = false;
+            myOpenStatus = true;
+        } else if (!thePlayersAnswer.equals(myCorrectAnswer) && !myOpenStatus){
+            myLockedStatus = true;
         }
     }
 
@@ -113,6 +115,14 @@ public class Door {
      */
     public String getMyFilePath() {
         return myImgFilePath;
+    }
+
+    /**
+     * TODO!!!
+     * @return
+     */
+    public String getMyCorrectAnswer() {
+        return myCorrectAnswer;
     }
 
 

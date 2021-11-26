@@ -47,8 +47,8 @@ public class MazePanel extends JPanel {
      * @param thePlayer
      */
     public void updateMaze(final Maze theMaze, final Player thePlayer) {
-        myMaze = theMaze;
-        myPlayer = thePlayer;
+        //myMaze = theMaze;
+        //myPlayer = thePlayer;
         this.repaint();
     }
 
