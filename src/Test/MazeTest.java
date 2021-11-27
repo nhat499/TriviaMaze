@@ -2,31 +2,35 @@ package Test;
 
 import Model.Maze;
 import Model.Player;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 class MazeTest {
     Maze maze;
     Player player;
 
-    @org.junit.jupiter.api.BeforeEach
+    @BeforeEach
     void setUp() {
         maze = new Maze();
         player = new Player(1,1, maze);
     }
 
-    @org.junit.jupiter.api.AfterEach
+    @AfterEach
     void tearDown() {
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void escapeAbleDoorLockAroundPlayer() {
         maze.getRoom(1,1).getMySouthDoor().setMyLockedStatus(true);
         maze.getRoom(1,1).getMyEastDoor().setMyLockedStatus(true);
         assertFalse(maze.escapeAble(player.getMyX(),player.getMyY()));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void escapeAbleDoorLockAroundExit() {
         maze.getRoom(maze.getMyExitX(), maze.getMyExitY()).
                 getMyWestDoor().setMyLockedStatus(true);
@@ -39,7 +43,7 @@ class MazeTest {
         assertFalse(maze.escapeAble(player.getMyX(),player.getMyY()));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void escapeAbleSomeLockDoor() {
         maze.getRoom(1,1).getMySouthDoor().setMyLockedStatus(true);
         maze.getRoom(3,2).getMyEastDoor().setMyLockedStatus(true);
@@ -47,8 +51,22 @@ class MazeTest {
         assertTrue(maze.escapeAble(player.getMyX(),player.getMyY()));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void getMyHeight() {
         assertEquals(maze.getMyHeight(), 5);
+    }
+
+    @Test
+    void getRoomNotNull() {
+        assertNotNull(maze.getRoom(1,1));
+        assertNotNull(maze.getRoom(3,3));
+        assertNotNull(maze.getRoom(5,5));
+    }
+
+    @Test
+    void getRoomNull() {
+        assertNull(maze.getRoom(0,0));
+        assertNull(maze.getRoom(8,8));
+        assertNull(maze.getRoom(-1,-3));
     }
 }

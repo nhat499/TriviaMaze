@@ -34,13 +34,22 @@ public class Maze {
      */
     private final Room[][] myMaze;
 
+    /**
+     * Getter for the exit x.
+     * @return the x exit location.
+     */
     public int getMyExitX() {
         return myExitX;
     }
 
+    /**
+     * Getter for the exit .
+     * @return the y exit.
+     */
     public int getMyExitY() {
         return myExitY;
     }
+
     /**
      * Used to generate a list of Pokemon.
      */
@@ -179,9 +188,9 @@ public class Maze {
 
     /**
      * Get a room from the maze.
-     * @param theX the x position of the room
-     * @param theY the y position of the room
-     * @return the room if exist or null
+     * @param theX the x position of the room.
+     * @param theY the y position of the room.
+     * @return the room if exist or null.
      */
     public Room getRoom(final int theX, final int theY) {
         if (theX >= myWidth || theY >= myHeight || theX < 1 || theY < 1) {
@@ -194,7 +203,7 @@ public class Maze {
 
     /**
      * Get the length of the maze.
-     * @return the maze length
+     * @return the maze length.
      */
     public int getMyHeight() {
         return myHeight - 2;
@@ -202,7 +211,7 @@ public class Maze {
 
     /**
      * Get the width of the maze.
-     * @return the maze's width
+     * @return the maze's width.
      */
     public int getMyWidth() {
         return myWidth - 2;
