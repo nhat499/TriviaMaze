@@ -13,15 +13,16 @@ public class SaveUserData implements Serializable{
     private static final long serialversionUID = 5L;
     private String filename = "SaveData.txt";
 
-    private GameplayController object = new GameplayController();
 
-    public void save(){
+//    private GameplayController object = new GameplayController();
+
+    public void save(final GameplayController theObject){
 
         try {
             FileOutputStream file = new FileOutputStream(filename);
             ObjectOutputStream out = new ObjectOutputStream(file);
 
-            out.writeObject(object);
+            out.writeObject(theObject);
             out.close();
             file.close();
 
@@ -37,7 +38,7 @@ public class SaveUserData implements Serializable{
         try {
             FileInputStream file = new FileInputStream(filename);
             ObjectInputStream in = new ObjectInputStream(file);
-            object = (GameplayController)in.readObject();
+            GameplayController object = (GameplayController) in.readObject();
 
             in.close();
             file.close();

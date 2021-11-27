@@ -1,6 +1,8 @@
 package Main;
 
 import Controller.Control;
+import Controller.GameplayController;
+import Controller.SaveUserData;
 import Model.Maze;
 import Model.Player;
 import View.PokemonGUI;
@@ -32,16 +34,9 @@ public class PokemonTriviaMazeMain {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                PokemonGUI pokemonGUI = new PokemonGUI();
-                try {
-                    pokemonGUI.start();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Control c = new Control();
-                c.setupButtons();
-            }
+                GameplayController startGame = new GameplayController();
 
+            }
         });
     }
 }
