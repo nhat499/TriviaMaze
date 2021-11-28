@@ -6,7 +6,10 @@ import Model.Maze;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.ColorConvertOp;
 import java.io.File;
 import java.io.IOException;
 
@@ -228,9 +231,7 @@ public class PokemonGUI extends JFrame {
         JLabel answer = new JLabel("the answer ...");
         panel.add(question, BorderLayout.NORTH);
         panel.add(pokeImage, BorderLayout.CENTER);
-        pokeImage = getNewPicture("zubat");
-        pokeImage.repaint();
-        pokeImage.revalidate();
+
         panel.repaint();
         panel.revalidate();
         panel.add(answer, BorderLayout.SOUTH);
@@ -245,11 +246,73 @@ public class PokemonGUI extends JFrame {
     public JLabel getNewPicture(String thePokeName) throws IOException {
         BufferedImage myPicture = ImageIO.read(new File(
                 "src\\Model\\PokeImages\\" + thePokeName + ".jpg"));
+
+        myPicture = blackOutPokemon(myPicture);
+
         JLabel img = new JLabel(new ImageIcon(myPicture));
-        myFrame.repaint();
-        myFrame.revalidate();
+
         return img;
     }
+
+    public BufferedImage blackOutPokemon(final BufferedImage theImg) {
+        BufferedImage img = theImg;
+        int colorOffset = 15;
+        int height = img.getHeight();
+        int width = img.getWidth();
+        //int innerWhite[][] = new int[width][height];
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Color color = new Color(img.getRGB(x,y));
+                if (!isSameColor(color, Color.white, colorOffset)) {
+                    img.setRGB(x, y, Color.black.getRGB());
+                    //colored[x][y] = 1;
+                }
+            }
+        }
+
+        for (int y = 0; y <height; y++) {
+            for (int x = 0; x < width; x++) {
+                int visited[][] = new int[width][height];
+                if (!outerWhite(img,x,y, visited)) {
+                    img.setRGB(x,y, Color.black.getRGB());
+                }
+            }
+        }
+
+        return img;
+    }
+
+
+    private boolean outerWhite(BufferedImage theImg, int x, int y, int[][] visited) {
+        int height = theImg.getHeight();
+        int width = theImg.getWidth();
+        int blackRgb = Color.black.getRGB();
+        if (x == width || y == height || x == 0 || y == 0) {
+            return true;
+        } else if (theImg.getRGB(x,y) == blackRgb || visited[x][y] == 1) {
+            return false;
+        } else {
+            visited[x][y] = 1;
+            return outerWhite(theImg, x + 1, y, visited) ||
+                    outerWhite(theImg, x - 1, y, visited) ||
+                    outerWhite(theImg, x, y + 1, visited) ||
+                    outerWhite(theImg, x, y - 1, visited);
+        }
+    }
+
+    private boolean isSameColor(final Color theTarget, final Color theCurr, int offset) {
+        int rT = theTarget.getRed();
+        int gT = theTarget.getGreen();
+        int bT = theTarget.getBlue();
+        int rC = theCurr.getRed();
+        int gC = theCurr.getGreen();
+        int bC = theCurr.getBlue();
+        return(
+                (rC-offset<=rT) && (rT<=rC+offset) &&
+                        (gC-offset<=gT) && (gT<=bC+offset) &&
+                        (bC-offset<=bT) && (bT<=bC+offset) );
+    }
+
 
     public void setPokeImage(String theImg) throws IOException {
         pokeImage = getNewPicture(theImg);
