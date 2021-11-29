@@ -14,32 +14,51 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * GameplayController class. Dictates communication between Model and View packages.
+ * @Authors - Nhat, Andrew, Dylan
+ * @Version - 11/28/2021
+ */
 public class GameplayController implements Serializable {
 
 
-    // TODO!!! Javadocs
+    /**
+     * Reference to Maze class, used for updating the state in the Model package.
+     */
     private final Maze myMaze;
+
+    /**
+     * Reference to Player class, used for keeping track of the user while they traverse the Maze.
+     */
     private final Player myPlayer;
+
+    /**
+     * Reference to door class, reference is updated to different doors while the user traverses the Maze.
+     */
     private Door myFocusDoor;
+
+    /**
+     * Reference to DisplayFrame class, used to update state in the View package.
+     */
     private DisplayFrame myDisplayFrame;
 
     /**
-     * TODO!!!
+     * Parameterless constructor for GameplayController.
      */
     public GameplayController() {
         myMaze = new Maze(5, 5);
         myPlayer = new Player(1, 1, myMaze);
         myDisplayFrame = new DisplayFrame(myMaze, myPlayer);
-        setupButtonStyles();
-        setupButtonActions();
+        setupMovementActions();
+        setupQuestionActions();
+        setupOptionsActions();
     }
 
     /**
-     * TODO!!!
+     * Adds action listeners to JButtons from MovementPanel, and dictates data manipulation
+     * that occurs when said buttons are utilized.
      */
-    private void setupButtonActions() {
-        //final Door[] myFocusDoor = {null};
-
+    private void setupMovementActions() {
         myDisplayFrame.getMyMovementPanel().getMyMoveWestButton().addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
                 myFocusDoor = myMaze.getRoom(myPlayer.getMyX(), myPlayer.getMyY()).getMyWestDoor();
@@ -87,13 +106,13 @@ public class GameplayController implements Serializable {
                 }
             }
         });
+    }
 
-        myDisplayFrame.getMyQuestionPanel().getMyEnterButton().addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent theEvent) {
-                // action
-            }
-        });
-
+    /**
+     * Adds action listeners to JButtons from QuestionPanel, and dictates data manipulation
+     * that occurs when said buttons are utilized.
+     */
+    private void setupQuestionActions() {
         myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
                 myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().setSelected(false);
@@ -143,7 +162,13 @@ public class GameplayController implements Serializable {
                 dismissQuestion();
             }
         });
+    }
 
+    /**
+     * Adds action listeners to JButtons from OptionsPanel, and dictates data manipulation
+     * that occurs when said buttons are utilized.
+     */
+    private void setupOptionsActions() {
         myDisplayFrame.getMyOptionsPanel().getMyHelpButton().addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
                 HelpFrame frame = new HelpFrame();
@@ -165,71 +190,9 @@ public class GameplayController implements Serializable {
     }
 
     /**
-     * TODO!!!
+     * Collect question information from myFocusDoor and display the possible answers
+     * via myOptionButtons on the questionPanel associated with myDisplayFrame.
      */
-    private void setupButtonStyles() {
-        myDisplayFrame.getMyMovementPanel().getMyMoveWestButton().setBackground(Color.black);
-        myDisplayFrame.getMyMovementPanel().getMyMoveWestButton().setForeground(Color.white);
-        myDisplayFrame.getMyMovementPanel().getMyMoveWestButton().setBounds(10, 63, 110, 45);
-        myDisplayFrame.getMyMovementPanel().getMyMoveWestButton().setEnabled(true);
-
-        myDisplayFrame.getMyMovementPanel().getMyMoveNorthButton().setBackground(Color.black);
-        myDisplayFrame.getMyMovementPanel().getMyMoveNorthButton().setForeground(Color.white);
-        myDisplayFrame.getMyMovementPanel().getMyMoveNorthButton().setBounds(70, 13, 110, 45);
-        myDisplayFrame.getMyMovementPanel().getMyMoveNorthButton().setEnabled(true);
-
-        myDisplayFrame.getMyMovementPanel().getMyMoveEastButton().setBackground(Color.black);
-        myDisplayFrame.getMyMovementPanel().getMyMoveEastButton().setForeground(Color.white);
-        myDisplayFrame.getMyMovementPanel().getMyMoveEastButton().setBounds(130, 63, 110, 45);
-        myDisplayFrame.getMyMovementPanel().getMyMoveEastButton().setEnabled(true);
-
-        myDisplayFrame.getMyMovementPanel().getMyMoveSouthButton().setBackground(Color.black);
-        myDisplayFrame.getMyMovementPanel().getMyMoveSouthButton().setForeground(Color.white);
-        myDisplayFrame.getMyMovementPanel().getMyMoveSouthButton().setBounds(70, 113, 110, 45);
-        myDisplayFrame.getMyMovementPanel().getMyMoveSouthButton().setEnabled(true);
-
-        myDisplayFrame.getMyQuestionPanel().getMyEnterButton().setBackground(Color.black);
-        myDisplayFrame.getMyQuestionPanel().getMyEnterButton().setForeground(Color.white);
-        myDisplayFrame.getMyQuestionPanel().getMyEnterButton().setBounds(360, 11, 80, 80);
-        myDisplayFrame.getMyQuestionPanel().getMyEnterButton().setEnabled(true);
-
-        myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setBackground(Color.white);
-        myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setForeground(Color.black);
-        myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setBounds(20, 10, 130, 45);
-        myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setEnabled(true);
-
-        myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().setBackground(Color.white);
-        myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().setForeground(Color.black);
-        myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().setBounds(20, 48, 130, 45);
-        myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().setEnabled(true);
-
-        myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setBackground(Color.white);
-        myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setForeground(Color.black);
-        myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setBounds(185, 10, 130, 45);
-        myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setEnabled(true);
-
-        myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().setBackground(Color.white);
-        myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().setForeground(Color.black);
-        myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().setBounds(185, 48, 130, 45);
-        myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().setEnabled(true);
-
-        myDisplayFrame.getMyOptionsPanel().getMyResetButton().setBackground(Color.black);
-        myDisplayFrame.getMyOptionsPanel().getMyResetButton().setForeground(Color.white);
-        myDisplayFrame.getMyOptionsPanel().getMyResetButton().setBounds(29, 13, 130, 45);
-        myDisplayFrame.getMyOptionsPanel().getMyResetButton().setEnabled(true);
-
-        myDisplayFrame.getMyOptionsPanel().getMyLoadButton().setBackground(Color.black);
-        myDisplayFrame.getMyOptionsPanel().getMyLoadButton().setForeground(Color.white);
-        myDisplayFrame.getMyOptionsPanel().getMyLoadButton().setBounds(29, 63, 130, 45);
-        myDisplayFrame.getMyOptionsPanel().getMyLoadButton().setEnabled(true);
-
-        myDisplayFrame.getMyOptionsPanel().getMyHelpButton().setBackground(Color.black);
-        myDisplayFrame.getMyOptionsPanel().getMyHelpButton().setForeground(Color.white);
-        myDisplayFrame.getMyOptionsPanel().getMyHelpButton().setBounds(29, 113, 130, 45);
-        myDisplayFrame.getMyOptionsPanel().getMyHelpButton().setEnabled(true);
-    }
-
-    // TODO!!!
     private void deployQuestion() {
         ArrayList<String> answers = myFocusDoor.getMyAnswers();
         myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setEnabled(true);
@@ -244,7 +207,10 @@ public class GameplayController implements Serializable {
         myDisplayFrame.getMyImagePanel().updateMyImage(myFocusDoor.getMyFilePath());
     }
 
-    // TODO!!!
+    /**
+     * Called after the user answers a question. Clears the question information
+     * from myOptionButtons.
+     */
     private void dismissQuestion() {
         myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setText("");
         myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().setText("");
