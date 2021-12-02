@@ -36,7 +36,7 @@ public class OptionsPanel extends JPanel {
         setSize(190, 170);
         setLocation(920, 480);
         setBackground(Color.white);
-        myResetButton = new JButton("Reset");
+        myResetButton = new JButton("Save");
         myHelpButton = new JButton("Help");
         myLoadButton = new JButton("Load");
         setupButtons();
@@ -99,7 +99,7 @@ public class OptionsPanel extends JPanel {
      * Get myResetButton.
      * @return JButton
      */
-    public JButton getMyResetButton() {
+    public JButton getMySaveButton() {
         return myResetButton;
     }
 }

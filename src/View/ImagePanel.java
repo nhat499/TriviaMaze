@@ -8,18 +8,19 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * TODO!!!
  */
-public class ImagePanel extends JPanel {
+public class ImagePanel extends JPanel implements Serializable {
 
 
 
 
 
     private ImageIcon myIcon;
-    private Image myImage;
+    private transient Image myImage;
 
 
     /**

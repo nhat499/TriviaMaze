@@ -5,6 +5,7 @@ package Model;
 
 import org.sqlite.SQLiteDataSource;
 
+import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -15,12 +16,12 @@ import java.util.ArrayList;
  * This class exits the system if it notices issues, and it currently prints out the contents loaded to
  * the database.
  */
-public class SQLDatabase {
+public class SQLDatabase implements Serializable {
 
     /**
      * Connection to the database.
      */
-    SQLiteDataSource myDs = null;
+    transient SQLiteDataSource myDs = null;
 
     /**
      * Public constructor for SQLDatabase.

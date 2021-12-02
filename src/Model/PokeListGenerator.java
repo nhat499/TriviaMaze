@@ -4,6 +4,7 @@
 
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -14,7 +15,7 @@ import java.util.Scanner;
  * @version 11/19/2021
  * This class creates and maintains ordered and random Arraylists of first generation Pokemon.
  */
-public class PokeListGenerator {
+public class PokeListGenerator implements Serializable {
 
     /**
      * String containing the names of all first generation Pokemon.
@@ -40,12 +41,12 @@ public class PokeListGenerator {
     /**
      * Scanner used to create an ordered ArrayList of Pokemon names.
      */
-    private final Scanner myScanner;
+    private transient final Scanner myScanner;
 
     /**
      * Additional scanner used to create a randomized Arraylist of Pokemon names.
      */
-    private final Scanner myScanner2;
+    private transient final Scanner myScanner2;
 
     /**
      * Ordered Arraylist of first generation Pokemon names.

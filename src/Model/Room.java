@@ -1,12 +1,14 @@
 package Model;
 
+import java.io.Serializable;
+
 /**
  * @author Nhat & Dylan
  * @version 2.0 - 11/19/2021
  * This class creates the room objects and each room
  * hold 4 doors. The Room also will specify if it is an exit room
  */
-public class Room {
+public class Room implements Serializable {
 
     /**
      * Reference to Room's northern door.

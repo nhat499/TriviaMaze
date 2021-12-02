@@ -5,11 +5,12 @@ import Model.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * TODO!!!
  */
-public class DisplayFrame extends JFrame {
+public class DisplayFrame extends JFrame implements Serializable {
 
     /**
      * Width for this JFrame.

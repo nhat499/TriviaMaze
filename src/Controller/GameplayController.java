@@ -5,10 +5,7 @@ import Model.Maze;
 import Model.Player;
 import View.DisplayFrame;
 import View.HelpFrame;
-import View.ImagePanel;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -41,6 +38,7 @@ public class GameplayController implements Serializable {
      * Reference to DisplayFrame class, used to update state in the View package.
      */
     private DisplayFrame myDisplayFrame;
+
 
     /**
      * Parameterless constructor for GameplayController.
@@ -168,7 +166,7 @@ public class GameplayController implements Serializable {
      * Adds action listeners to JButtons from OptionsPanel, and dictates data manipulation
      * that occurs when said buttons are utilized.
      */
-    private void setupOptionsActions() {
+    public void setupOptionsActions() {
         myDisplayFrame.getMyOptionsPanel().getMyHelpButton().addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
                 HelpFrame frame = new HelpFrame();
@@ -176,15 +174,21 @@ public class GameplayController implements Serializable {
             }
         });
 
-        myDisplayFrame.getMyOptionsPanel().getMyResetButton().addActionListener(new ActionListener() {
+        myDisplayFrame.getMyOptionsPanel().getMySaveButton().addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
-                // action
+                SaveUserData.save(GameplayController.this);
             }
         });
 
         myDisplayFrame.getMyOptionsPanel().getMyLoadButton().addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
-                // action
+                try {
+                    SaveUserData.retrieve();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -225,6 +229,23 @@ public class GameplayController implements Serializable {
         myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setEnabled(false);
         myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().setEnabled(false);
     }
+
+//    public void save(final GameplayController theObject){
+//
+//        try {
+//            FileOutputStream file = new FileOutputStream(filename);
+//            ObjectOutputStream out = new ObjectOutputStream(file);
+//
+//            out.writeObject(theObject);
+//            out.close();
+//            file.close();
+//
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     // main method for testing
     public static void main(String[] args) {

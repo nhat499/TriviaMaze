@@ -11,12 +11,10 @@ import java.io.*;
 public class SaveUserData {
 
     private static final long serialversionUID = 5L;
-    private String filename = "SaveData.txt";
+    private static String filename = "SaveData.txt";
 
 
-//    private GameplayController object = new GameplayController();
-
-    public void save(final GameplayController theObject){
+    public static void save(final GameplayController theObject){
 
         try {
             FileOutputStream file = new FileOutputStream(filename);
@@ -33,20 +31,21 @@ public class SaveUserData {
         }
     }
 
-    public void retrieve() {
+    public static GameplayController retrieve() throws IOException, ClassNotFoundException {
 
-        try {
+        //try {
             FileInputStream file = new FileInputStream(filename);
             ObjectInputStream in = new ObjectInputStream(file);
-            GameplayController object = (GameplayController) in.readObject();
+            GameplayController game = (GameplayController) in.readObject();
+
 
             in.close();
             file.close();
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+       // } catch (ClassNotFoundException e) {
+           // e.printStackTrace();
+       // } catch (IOException e) {
+        //}
+        return game;
     }
 }

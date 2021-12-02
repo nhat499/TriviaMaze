@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -10,7 +11,7 @@ import java.util.Collections;
  * contains unique question information. Doors can be either open,
  * closed, or locked.
  */
-public class Door {
+public class Door implements Serializable {
 
     /**
      * Indicates whether this door is open or closed.

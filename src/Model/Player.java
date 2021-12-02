@@ -1,12 +1,14 @@
 package Model;
 
+import java.io.Serializable;
+
 /**
  * @author Andrew and Dylan
  * @version 1.0 - 11/19/2021
  * The main function of the player class is keep tracker of the user's location
  * and movement throughout their traversal of the TriviaMaze.
  */
-public class Player {
+public class Player implements Serializable {
 
     /**
      * The position the player is at according to the doors.

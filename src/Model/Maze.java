@@ -1,5 +1,6 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,7 +9,7 @@ import java.util.Random;
  * @version 2.0 - 11/19/2021
  * 2D array of Room objects representing the playing field or "Maze".
  */
-public class Maze {
+public class Maze implements Serializable {
     /**
      * Height of the 2D array of rooms.
      */
