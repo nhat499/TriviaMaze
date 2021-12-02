@@ -12,27 +12,27 @@ public class Maze {
     /**
      * Height of the 2D array of rooms.
      */
-    private int myHeight;
+    private final int myHeight;
 
     /**
      * Width of the 2D array of rooms.
      */
-    private int myWidth;
+    private final int myWidth;
 
     /**
      * X-Coordinate for the room that acts as the exit from the maze.
      */
-    private int myExitX;
+    private final int myExitX;
 
     /**
      * Y-Coordinate for the room that acts as the exit from the maze.
      */
-    private int myExitY;
+    private final int myExitY;
 
     /**
      * 2D Array of rooms representing the layout of the maze.
      */
-    private Room[][] myMaze;
+    private final Room[][] myMaze;
 
     /**
      * Used to generate a list of Pokemon.
@@ -63,7 +63,8 @@ public class Maze {
         myDatabase = new SQLDatabase();
         setupDoors();
         Random rand = new Random();
-        myExitX = rand.nextInt(myWidth - 2) + 1;
+        myExitX = rand.nextInt(myWidth - 2) + 1; //Consider refactoring random stuff into
+                                                       //helper method
         myExitY = rand.nextInt(myWidth - 2) + 1;
         myMaze[myExitX][myExitY].setExit(true);
     }
@@ -157,9 +158,9 @@ public class Maze {
                 pokeCount++;
             }
         }
-        if (myMaze[2][1] == null) {
-            System.out.println("...");
-        }
+//        if (myMaze[2][1] == null) {
+//            System.out.println("...");
+//        }
 
         Door northDoor;
         Door southDoor;

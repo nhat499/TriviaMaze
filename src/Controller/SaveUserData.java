@@ -8,7 +8,7 @@ import java.io.*;
  * This class is supposed to save the data of the user so that
  * they may come back to it at a later time.
  */
-public class SaveUserData implements Serializable{
+public class SaveUserData {
 
     private static final long serialversionUID = 5L;
     private String filename = "SaveData.txt";

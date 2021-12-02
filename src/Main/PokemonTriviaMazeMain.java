@@ -23,7 +23,8 @@ public class PokemonTriviaMazeMain {
      * construct elsewhere.
      */
     private PokemonTriviaMazeMain() {
-        throw new IllegalStateException();
+        throw new IllegalStateException("Creating an instance of the main " +
+                "class is not allowed");
     }
 
     /**

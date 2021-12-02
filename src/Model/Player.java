@@ -11,7 +11,7 @@ public class Player {
     /**
      * The position the player is at according to the doors.
      */
-    private Maze myMaze;
+    private final Maze myMaze;
 
     /**
      * The X-coordinate of the player.
