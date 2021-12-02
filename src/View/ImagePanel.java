@@ -11,17 +11,22 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * TODO!!!
+ * ImagePanel class. Used for displaying the image of the Pokemon associated with the
+ * current in focus question/door.
+ * @author Dylan & Andrew
+ * @version 12/2/2021
  */
 public class ImagePanel extends JPanel implements Serializable {
 
-
-
-
-
+    /**
+     * Used for displaying images to this panel.
+     */
     private ImageIcon myIcon;
-    private transient Image myImage;
 
+    /**
+     * Used for converting BufferedImages to ImageIcons.
+     */
+    private transient Image myImage;
 
     /**
      * Public constructor for ImagePanel.
@@ -49,7 +54,7 @@ public class ImagePanel extends JPanel implements Serializable {
     }
 
     /**
-     * TODO!!!
+     * Update the image currently displayed within this JPanel.
      */
     public void updateMyImage(final String theFilePath){
 

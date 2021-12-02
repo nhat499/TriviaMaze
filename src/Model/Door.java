@@ -117,14 +117,4 @@ public class Door implements Serializable {
     public String getMyFilePath() {
         return myImgFilePath;
     }
-
-    /**
-     * TODO!!!
-     * @return
-     */
-    public String getMyCorrectAnswer() {
-        return myCorrectAnswer;
-    }
-
-
 }

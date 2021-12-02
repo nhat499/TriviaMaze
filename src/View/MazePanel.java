@@ -9,25 +9,31 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 
 /**
- * TODO!!!
+ * MazePanel class. Produces a visualization of the maze and the player while they traverse it.
+ * @author Dylan
+ * @version 12/2/2021
  */
 public class MazePanel extends JPanel {
 
-    /** The height & width of the panel in pixels. */
+    /**
+     * The height & width of the panel in pixels.
+     * */
     private static final int MAZE_SIZE = 640;
+
+    /**
+     * Distance that the painting on the panel is inset from the border in pixels.
+     */
     private static final int PANEL_INSET = 10;
 
     /**
-     * TODO!!!
+     * Reference to the main Maze instance.
      */
     private Maze myMaze;
 
     /**
-     * TODO!!!
+     * Reference to the main Player instance.
      */
     private Player myPlayer;
-
-
 
     /**
      * Public constructor for MazePanel.
@@ -41,21 +47,7 @@ public class MazePanel extends JPanel {
         setBackground(Color.white);
     }
 
-    /**
-     * TODO!!!
-     * @param theMaze
-     * @param thePlayer
-     */
-    public void updateMaze(final Maze theMaze, final Player thePlayer) {
-        //myMaze = theMaze;
-        //myPlayer = thePlayer;
-        this.repaint();
-    }
-
-    /**
-     * TODO!!!
-     * @param theGraphics
-     */
+    @Override
     public void paintComponent(final Graphics theGraphics) {
         super.paintComponent(theGraphics);
         final Graphics2D g2d = (Graphics2D) theGraphics;
@@ -85,7 +77,7 @@ public class MazePanel extends JPanel {
         g2d.setStroke(new BasicStroke(wallStrokeWidth));
         for (int i = 1; i <= 5; i++) {
             horizontalWall = new Line2D.Double(spaceBetweenHorDoors * i, 4,
-                    spaceBetweenHorDoors * i, 635);
+                    spaceBetweenHorDoors * i, borderSize);
             g2d.draw(horizontalWall);
             verticalWall = new Line2D.Double(borderInset, spaceBetweenHorDoors * i,
                     borderSize, spaceBetweenHorDoors * i);
@@ -93,8 +85,8 @@ public class MazePanel extends JPanel {
         }
 
         g2d.setStroke(new BasicStroke(doorStrokeWidth));
-        for (int i = 1; i < 5; i++) {
-            for (int j = 1; j < 6; j++) {
+        for (int i = 1; i < myMaze.getMyWidth() - 2; i++) {
+            for (int j = 1; j < myMaze.getMyWidth() - 1; j++) {
                 verticalDoor = new Line2D.Double(spaceBetweenVerDoors * i + i,
                         upperDoorBound + (spaceBetweenHorDoors * (j - 1)), spaceBetweenVerDoors * i + i,
                         lowerDoorBound + (spaceBetweenHorDoors * (j - 1)));
@@ -111,8 +103,8 @@ public class MazePanel extends JPanel {
         }
         for (int i = 1; i < myMaze.getMyWidth() - 2; i++) {
             for (int j = 1; j < myMaze.getMyWidth() - 1; j++) {
-                horizontalDoor = new Line2D.Double(30 + (128 * (j - 1)),
-                        128 * i, 100 + (128 * (j - 1)), 128 * i);
+                horizontalDoor = new Line2D.Double(upperDoorBound + (spaceBetweenHorDoors * (j - 1)),
+                        spaceBetweenHorDoors * i, lowerDoorBound + (spaceBetweenHorDoors * (j - 1)), spaceBetweenHorDoors * i);
                 if (!myMaze.getRoom(j, i).getMySouthDoor().getMyOpenStatus()) {
                     g2d.setPaint(Color.black);
                 } else if (myMaze.getRoom(j, i).getMySouthDoor().getMyOpenStatus()) {

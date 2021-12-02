@@ -8,7 +8,9 @@ import java.awt.*;
 import java.io.Serializable;
 
 /**
- * TODO!!!
+ * DisplayFrame class. Acts at the main JFrame on which all the JPanels reside.
+ * @author Dylan & Andrew
+ * @version 12/2/2021
  */
 public class DisplayFrame extends JFrame implements Serializable {
 
@@ -22,11 +24,29 @@ public class DisplayFrame extends JFrame implements Serializable {
      */
     private final int myHeight = 698;
 
-    // TODO!!! Javadocs
+    /**
+     * Reference to the main Maze instance for the program.
+     */
     private final MazePanel myMazePanel;
+
+    /**
+     * Reference to ImagePanel used for displaying Pokemon images.
+     */
     private final ImagePanel myImagePanel;
+
+    /**
+     * Reference to QuestionPanel used for displaying question information.
+     */
     private final QuestionPanel myQuestionPanel;
+
+    /**
+     * Reference to MovementPanel used for housing movement JButtons.
+     */
     private final MovementPanel myMovementPanel;
+
+    /**
+     * Reference to OptionsPanel used to house options JButtons.
+     */
     private final OptionsPanel myOptionsPanel;
 
     /**
@@ -44,7 +64,7 @@ public class DisplayFrame extends JFrame implements Serializable {
     }
 
     /**
-     * TODO!!!
+     * Dictates general settings for this JFrame, such as size, title, color, and closing operation.
      */
     private void initSettings() {
         this.setTitle("Trivia Maze");
@@ -60,7 +80,7 @@ public class DisplayFrame extends JFrame implements Serializable {
     }
 
     /**
-     * TODO!!!
+     * Adds all JPanels to this JFrame.
      */
     private void initPanels() {
         this.add(myMazePanel);
@@ -70,22 +90,42 @@ public class DisplayFrame extends JFrame implements Serializable {
         this.add(myOptionsPanel);
     }
 
+    /**
+     * Getter for myOptionPanel.
+     * @return OptionPanel
+     */
     public OptionsPanel getMyOptionsPanel() {
         return myOptionsPanel;
     }
 
+    /**
+     * Getter for myMovementPanel.
+     * @return MovementPanel
+     */
     public MovementPanel getMyMovementPanel() {
         return myMovementPanel;
     }
 
+    /**
+     * Getting for myQuestionPanel.
+     * @return QuestionPanel
+     */
     public QuestionPanel getMyQuestionPanel() {
         return myQuestionPanel;
     }
 
+    /**
+     * Getting for myImagePanel.
+     * @return ImagePanel
+     */
     public ImagePanel getMyImagePanel() {
         return myImagePanel;
     }
 
+    /**
+     * Getter for myMazePanel.
+     * @return MazePanel
+     */
     public MazePanel getMyMazePanel() {
         return myMazePanel;
     }
