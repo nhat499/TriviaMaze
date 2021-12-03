@@ -2,15 +2,11 @@ package View;
 
 import Model.Door;
 import Model.Maze;
-import Model.PokeListGenerator;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
-import java.awt.image.ColorConvertOp;
 import java.io.File;
 import java.io.IOException;
 
@@ -148,7 +144,7 @@ public class PokemonGUI extends JFrame {
         questionAndAns();
         directionsPanel();
 
-        //pokeImage = getNewPicture("zubat");
+        pokeImage = getNewPicture("zubat");
         revalidate();
         repaint();
         myFrame.pack();
@@ -227,12 +223,14 @@ public class PokemonGUI extends JFrame {
         panel.setLayout(new BorderLayout());
         JLabel question = new JLabel("whos that pokemon?");
         //String pokeName = theDoor.getTheCorrectAnswer();
-        //pokeImage = getNewPicture("dragonair"); // charmander dragonair ekans
+        pokeImage = getNewPicture("weepinbell");
 
         JLabel answer = new JLabel("the answer ...");
         panel.add(question, BorderLayout.NORTH);
         panel.add(pokeImage, BorderLayout.CENTER);
-
+        pokeImage = getNewPicture("zubat");
+        pokeImage.repaint();
+        pokeImage.revalidate();
         panel.repaint();
         panel.revalidate();
         panel.add(answer, BorderLayout.SOUTH);
@@ -244,112 +242,18 @@ public class PokemonGUI extends JFrame {
     /**
      * gets a picture of a pokemon.
      */
-    public static BufferedImage getNewPicture(String thePokeName) throws IOException {
+    public JLabel getNewPicture(String thePokeName) throws IOException {
         BufferedImage myPicture = ImageIO.read(new File(
                 "src\\Model\\PokeImages\\" + thePokeName + ".jpg"));
-
-        myPicture = blackOutPokemon(myPicture);
-
-        //JLabel img = new JLabel(new ImageIcon(myPicture));
-
-        return myPicture;
-    }
-
-    public static BufferedImage blackOutPokemon(final BufferedImage theImg) {
-        BufferedImage img = theImg;
-        int colorOffset = 15;
-        int height = img.getHeight();
-        int width = img.getWidth();
-        boolean outerWhite[][] = new boolean[width][height];
-        System.out.println(outerWhite[0][0]);
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                Color color = new Color(img.getRGB(x,y));
-                if (!isSameColor(color, Color.white, colorOffset)) {
-                    img.setRGB(x, y, Color.black.getRGB());
-                }
-//                else {
-//                    img.setRGB(x, y, Color.white.getRGB());
-//                }
-            }
-        }
-
-        for (int y = 0; y <height; y++) {
-            for (int x = 0; x < width; x++) {
-                int visited[][] = new int[width][height];
-                if (!outerWhite2(img,x,y, visited) && img.getRGB(x,y) != Color.black.getRGB()) {
-                    img.setRGB(x,y, Color.black.getRGB());
-                }
-            }
-        }
-
+        JLabel img = new JLabel(new ImageIcon(myPicture));
+        myFrame.repaint();
+        myFrame.revalidate();
         return img;
     }
 
-    private static boolean outerWhite2(BufferedImage theImg, int x, int y, int[][] visited) {
-        int height = theImg.getHeight();
-        int width = theImg.getWidth();
-        int blackRgb = Color.black.getRGB();
-        if (x == width || y == height || x == 0 || y == 0) {
-            return true;
-        } else if (theImg.getRGB(x,y) == blackRgb || visited[x][y] == 1) {
-            return false;
-        } else {
-            visited[x][y] = 1;
-            return outerWhite2(theImg, x + 1, y, visited) ||
-                    outerWhite2(theImg, x - 1, y, visited) ||
-                    outerWhite2(theImg, x, y + 1, visited) ||
-                    outerWhite2(theImg, x, y - 1, visited);
-        }
-    }
-
-    private static boolean isSameColor(final Color theTarget, final Color theCurr, int offset) {
-        int rT = theTarget.getRed();
-        int gT = theTarget.getGreen();
-        int bT = theTarget.getBlue();
-        int rC = theCurr.getRed();
-        int gC = theCurr.getGreen();
-        int bC = theCurr.getBlue();
-        return(
-                (rC-offset<=rT) && (rT<=rC+offset) &&
-                        (gC-offset<=gT) && (gT<=bC+offset) &&
-                        (bC-offset<=bT) && (bT<=bC+offset) );
-    }
-
-
-//    public void setPokeImage(String theImg) throws IOException {
-//        pokeImage = getNewPicture(theImg);
-//        myFrame.repaint();
-//        myFrame.revalidate();
-//    }
-    public static void main(String[] args) throws IOException {
-
-        PokeListGenerator list = new PokeListGenerator();
-
-
-
-
-        System.out.println(list.getSortedPokeList().get(147)); // wigglytuff
-
-        try
-        {
-            int i = 147;
-            //for (int i = 148; i < list.getSortedPokeList().size(); i++) {
-                System.out.println(i);
-                System.out.println(list.getSortedPokeList().get(i));
-                BufferedImage img = getNewPicture(list.getSortedPokeList().get(i));
-
-
-                String path = "src\\Model\\DarkPokeImages\\" + list.getSortedPokeList().get(i)+".png";
-
-                File output = new File(path);
-                ImageIO.write(img, "jpg", output);
-            //}
-
-        }
-        catch(IOException ie)
-        {
-            System.out.println("error makeing dark img");
-        }
+    public void setPokeImage(String theImg) throws IOException {
+        pokeImage = getNewPicture(theImg);
+        myFrame.repaint();
+        myFrame.revalidate();
     }
 }
