@@ -18,6 +18,10 @@ import java.util.ArrayList;
  */
 public class GameplayController implements Serializable {
 
+    /**
+     * Size of the Maze.
+     */
+    private static final int MAZE_SIZE = 5;
 
     /**
      * Reference to Maze class, used for updating the state in the Model package.
@@ -44,7 +48,7 @@ public class GameplayController implements Serializable {
      * Parameterless constructor for GameplayController.
      */
     public GameplayController() {
-        myMaze = new Maze(5, 5);
+        myMaze = new Maze(MAZE_SIZE, MAZE_SIZE);
         myPlayer = new Player(1, 1, myMaze);
         myDisplayFrame = new DisplayFrame(myMaze, myPlayer);
         setupMovementActions();
@@ -157,6 +161,9 @@ public class GameplayController implements Serializable {
                 }
                 myFocusDoor.attemptToOpen(answerInput);
                 myDisplayFrame.getMyMazePanel().repaint();
+                if (!myMaze.escapeAble(myPlayer.getMyX(), myPlayer.getMyY())) {
+                    System.out.println("Nope, good try");
+                }
                 dismissQuestion();
             }
         });

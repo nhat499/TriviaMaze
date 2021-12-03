@@ -64,6 +64,7 @@ public class MazePanel extends JPanel {
         final int lowerDoorBound = 100;
         final int playerPieceSize = 50;
         final int playerBaseLocation = 40;
+        final int exitPieceLocation = 550;
         Line2D horizontalWall;
         Line2D verticalWall;
         Line2D horizontalDoor;
@@ -120,5 +121,8 @@ public class MazePanel extends JPanel {
         g2d.setColor(Color.MAGENTA);
         g2d.drawOval(playerBaseLocation + ((myPlayer.getMyX() - 1) * spaceBetweenHorDoors) , playerBaseLocation + ((myPlayer.getMyY() - 1) * spaceBetweenVerDoors),
                 playerPieceSize, playerPieceSize);
+
+        g2d.setColor(Color.green);
+        g2d.drawOval(exitPieceLocation , exitPieceLocation, playerPieceSize, playerPieceSize);
     }
 }
