@@ -90,12 +90,8 @@ public class Maze {
      * @return true if an escape can be made, otherwise false.
      */
     public boolean escapeAble(int theX, int theY) {
-        boolean b = escapeAbleHelper(theX, theY);
-        for (int i = 1; i < myWidth - 1; i++) {
-            for(int j = 1; j < myHeight - 1; j++) {
-                myMaze[i][j].setVisited(false);
-            }
-        }
+        boolean [][] visitedRoom = new boolean[myWidth][myHeight];
+        boolean b = escapeAbleHelper(theX, theY, visitedRoom);
         return b;
     }
 
@@ -105,7 +101,7 @@ public class Maze {
      * @param theY the y postion of the player.
      * @return true if an escape can be made, otherwise false.
      */
-    private boolean escapeAbleHelper(int theX, int theY) {
+    private boolean escapeAbleHelper(int theX, int theY, boolean[][] theVisitedRoom) {
         boolean allDoor;
         if (myMaze[theX][theY] == null) {
             return false;
@@ -116,15 +112,17 @@ public class Maze {
             boolean sDoor = myMaze[theX][theY].getMySouthDoor().getMyLockedStatus();
             allDoor = wDoor && eDoor && nDoor && sDoor;
         }
-        if(myMaze[theX][theY].getVisitedStatus() || allDoor) {
+        if(theVisitedRoom[theX][theY] || allDoor) {
             return false;
         } else if (theX == myExitX && theY == myExitY) {
             System.out.println("yes");
             return true;
         } else {
-            myMaze[theX][theY].setVisited(true);
-            return escapeAbleHelper(theX - 1, theY) || escapeAbleHelper(theX + 1, theY) ||
-                    escapeAbleHelper(theX, theY + 1) || escapeAbleHelper(theX, theY - 1);
+            theVisitedRoom[theX][theY] = true;
+            return escapeAbleHelper(theX - 1, theY, theVisitedRoom) ||
+                    escapeAbleHelper(theX + 1, theY, theVisitedRoom) ||
+                    escapeAbleHelper(theX, theY + 1, theVisitedRoom) ||
+                    escapeAbleHelper(theX, theY - 1, theVisitedRoom);
         }
     }
 
