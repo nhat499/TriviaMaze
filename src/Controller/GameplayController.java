@@ -1,13 +1,17 @@
 package Controller;
 
+import Main.PokemonTriviaMazeMain;
 import Model.Door;
 import Model.Maze;
 import Model.Player;
+import View.ContinueFrame;
 import View.DisplayFrame;
 import View.HelpFrame;
+import View.WinningFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -26,12 +30,12 @@ public class GameplayController implements Serializable {
     /**
      * Reference to Maze class, used for updating the state in the Model package.
      */
-    private final Maze myMaze;
+    private Maze myMaze;
 
     /**
      * Reference to Player class, used for keeping track of the user while they traverse the Maze.
      */
-    private final Player myPlayer;
+    private Player myPlayer;
 
     /**
      * Reference to door class, reference is updated to different doors while the user traverses the Maze.
@@ -43,11 +47,17 @@ public class GameplayController implements Serializable {
      */
     private DisplayFrame myDisplayFrame;
 
+    /**
+     * Reference to PokemonTriviaMazeMain that houses this GameplayController.
+     */
+    private PokemonTriviaMazeMain myMain;
+
 
     /**
      * Parameterless constructor for GameplayController.
      */
-    public GameplayController() {
+    public GameplayController(final PokemonTriviaMazeMain theMain) {
+        myMain = theMain;
         myMaze = new Maze(MAZE_SIZE, MAZE_SIZE);
         myPlayer = new Player(1, 1, myMaze);
         myDisplayFrame = new DisplayFrame(myMaze, myPlayer);
@@ -69,6 +79,7 @@ public class GameplayController implements Serializable {
                 } else if (myFocusDoor.getMyOpenStatus()){
                     myPlayer.moveWest();
                     myDisplayFrame.getMyMazePanel().repaint();
+                    checkPlayerLocation();
                 }
             }
         });
@@ -81,6 +92,7 @@ public class GameplayController implements Serializable {
                 } else if (myFocusDoor.getMyOpenStatus()){
                     myPlayer.moveNorth();
                     myDisplayFrame.getMyMazePanel().repaint();
+                    checkPlayerLocation();
                 }
             }
         });
@@ -93,6 +105,7 @@ public class GameplayController implements Serializable {
                 } else if (myFocusDoor.getMyOpenStatus()){
                     myPlayer.moveEast();
                     myDisplayFrame.getMyMazePanel().repaint();
+                    checkPlayerLocation();
                 }
             }
         });
@@ -105,6 +118,7 @@ public class GameplayController implements Serializable {
                 } else if (myFocusDoor.getMyOpenStatus()){
                     myPlayer.moveSouth();
                     myDisplayFrame.getMyMazePanel().repaint();
+                    checkPlayerLocation();
                 }
             }
         });
@@ -115,11 +129,13 @@ public class GameplayController implements Serializable {
      * that occurs when said buttons are utilized.
      */
     private void setupQuestionActions() {
+        myDisplayFrame.getMyQuestionPanel().getMyEnterButton().setEnabled(false);
         myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
                 myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().setSelected(false);
                 myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setSelected(false);
                 myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().setSelected(false);
+                myDisplayFrame.getMyQuestionPanel().getMyEnterButton().setEnabled(true);
             }
         });
 
@@ -128,6 +144,7 @@ public class GameplayController implements Serializable {
                 myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setSelected(false);
                 myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setSelected(false);
                 myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().setSelected(false);
+                myDisplayFrame.getMyQuestionPanel().getMyEnterButton().setEnabled(true);
             }
         });
 
@@ -136,6 +153,7 @@ public class GameplayController implements Serializable {
                 myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setSelected(false);
                 myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().setSelected(false);
                 myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().setSelected(false);
+                myDisplayFrame.getMyQuestionPanel().getMyEnterButton().setEnabled(true);
             }
         });
 
@@ -144,6 +162,8 @@ public class GameplayController implements Serializable {
                 myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setSelected(false);
                 myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().setSelected(false);
                 myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setSelected(false);
+                myDisplayFrame.getMyQuestionPanel().getMyEnterButton().setEnabled(true);
+
             }
         });
 
@@ -162,9 +182,13 @@ public class GameplayController implements Serializable {
                 myFocusDoor.attemptToOpen(answerInput);
                 myDisplayFrame.getMyMazePanel().repaint();
                 if (!myMaze.escapeAble(myPlayer.getMyX(), myPlayer.getMyY())) {
-                    System.out.println("Nope, good try");
+                    ContinueFrame f = new ContinueFrame();
+                    f.start();
+                    myMain.setMyController(new GameplayController(myMain));
+                    myDisplayFrame.setVisible(false);
                 }
                 dismissQuestion();
+                myDisplayFrame.getMyQuestionPanel().getMyEnterButton().setEnabled(false);
             }
         });
     }
@@ -215,7 +239,8 @@ public class GameplayController implements Serializable {
         myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setText(answers.get(2));
         myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().setText(answers.get(3));
 
-        myDisplayFrame.getMyImagePanel().updateMyImage(myFocusDoor.getMyFilePath());
+        myDisplayFrame.getMyImagePanel().updateMyImage("TriviaMaze/src/View/DarkPokeImages/" +
+                myFocusDoor.getMyCorrectAnswer() + ".png");
     }
 
     /**
@@ -235,6 +260,21 @@ public class GameplayController implements Serializable {
         myDisplayFrame.getMyQuestionPanel().getMyOptionButton2().setEnabled(false);
         myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setEnabled(false);
         myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().setEnabled(false);
+
+        myDisplayFrame.getMyImagePanel().updateMyImage("TriviaMaze/src/View/PokeImages/" +
+                myFocusDoor.getMyCorrectAnswer() + ".jpg");
+    }
+
+    /**
+     * Checks to see if the player has completed the maze.
+     */
+    private void checkPlayerLocation() {
+        if (myPlayer.getMyX() == MAZE_SIZE && myPlayer.getMyY() == MAZE_SIZE) {
+            WinningFrame f = new WinningFrame();
+            f.start();
+            myMain.setMyController(new GameplayController(myMain));
+            myDisplayFrame.setVisible(false);
+        }
     }
 
 //    public void save(final GameplayController theObject){
@@ -254,9 +294,5 @@ public class GameplayController implements Serializable {
 //        }
 //    }
 
-    // main method for testing
-    public static void main(String[] args) {
-        GameplayController g = new GameplayController();
-    }
 
 }

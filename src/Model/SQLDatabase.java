@@ -48,7 +48,7 @@ public class SQLDatabase implements Serializable {
      * Creates the table that will contain the questions and answers.
      */
     private void createTable() {
-        String query = "CREATE TABLE IF NOT EXISTS questions (CORRECT TEXT NOT NULL PRIMARY KEY, WRONG1 TEXT NOT NULL, WRONG2 TEXT NOT NULL, WRONG3 TEXT NOT NULL, IMGPATH TEXT NOT NULL)";
+        String query = "CREATE TABLE IF NOT EXISTS questions (CORRECT TEXT NOT NULL PRIMARY KEY, WRONG1 TEXT NOT NULL, WRONG2 TEXT NOT NULL, WRONG3 TEXT NOT NULL)";
 
         try (Connection conn = myDs.getConnection();
              Statement stmt = conn.createStatement();) {
@@ -68,7 +68,7 @@ public class SQLDatabase implements Serializable {
      * @param - String, the name of a first generation Pokemon. Assumes all lower case.
      */
     public String[] getQuestionsFromDB(final String thePrimaryKey) {
-        String[] output = new String[5];
+        String[] output = new String[4];
         String query = "SELECT * FROM questions WHERE CORRECT = '" + thePrimaryKey + "'";
 
         try (Connection conn = myDs.getConnection(); Statement stmt = conn.createStatement()) {
@@ -77,7 +77,6 @@ public class SQLDatabase implements Serializable {
             output[1] = rs.getString("WRONG1");
             output[2] = rs.getString("WRONG2");
             output[3] = rs.getString("WRONG3");
-            output[4] = rs.getString("IMGPATH");
 
         } catch (SQLException e) {
             populateDatabase();
@@ -93,7 +92,6 @@ public class SQLDatabase implements Serializable {
      * Column two: Incorrect answer, random Pokemon name.
      * Column three: Incorrect answer, random Pokemon name.
      * Column four: Incorrect answer, random Pokemon name.
-     * Column five: File path to an image of the primary key/correct answer Pokemon.
      */
     private void populateDatabase() {
         PokeListGenerator pl = new PokeListGenerator();
@@ -108,10 +106,9 @@ public class SQLDatabase implements Serializable {
             for (int i = 0; i < sortedPokeArray.size(); i++) {
                 incorrectAnswers = pl.getSomeRandomPokemon(sortedPokeArray.get(i), incorrectAnswerCount);
 
-                questionInput = "INSERT INTO questions (CORRECT, WRONG1, WRONG2, WRONG3, IMGPATH) VALUES ( '"
+                questionInput = "INSERT INTO questions (CORRECT, WRONG1, WRONG2, WRONG3) VALUES ( '"
                         + sortedPokeArray.get(i) + "', '" + incorrectAnswers[0] + "', '"
-                        + incorrectAnswers[1] + "', '" + incorrectAnswers[2] + "', '"
-                        + "src/Model/PokeImages/" + sortedPokeArray.get(i) + ".jpg')";
+                        + incorrectAnswers[1] + "', '" + incorrectAnswers[2];
                 stmt.executeUpdate(questionInput);
             }
 

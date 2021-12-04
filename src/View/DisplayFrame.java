@@ -27,27 +27,27 @@ public class DisplayFrame extends JFrame implements Serializable {
     /**
      * Reference to the main Maze instance for the program.
      */
-    private final MazePanel myMazePanel;
+    private MazePanel myMazePanel;
 
     /**
      * Reference to ImagePanel used for displaying Pokemon images.
      */
-    private final ImagePanel myImagePanel;
+    private ImagePanel myImagePanel;
 
     /**
      * Reference to QuestionPanel used for displaying question information.
      */
-    private final QuestionPanel myQuestionPanel;
+    private QuestionPanel myQuestionPanel;
 
     /**
      * Reference to MovementPanel used for housing movement JButtons.
      */
-    private final MovementPanel myMovementPanel;
+    private MovementPanel myMovementPanel;
 
     /**
      * Reference to OptionsPanel used to house options JButtons.
      */
-    private final OptionsPanel myOptionsPanel;
+    private OptionsPanel myOptionsPanel;
 
     /**
      * Public constructor for DisplayFrame. Sets the size, default close operation,

@@ -4,6 +4,7 @@ import Controller.GameplayController;
 import Controller.SaveUserData;
 import Model.Maze;
 import Model.Player;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -15,26 +16,26 @@ import java.io.IOException;
  */
 public class PokemonTriviaMazeMain {
 
-    /**
-     * private constructor for the main class.
-     * Throws and IllegalStateException if attempted to
-     * construct elsewhere.
-     */
+    private GameplayController myController;
+
     private PokemonTriviaMazeMain() {
-        throw new IllegalStateException("Creating an instance of the main " +
-                "class is not allowed");
+        myController = new GameplayController(this);
+    }
+
+    public void setMyController(final GameplayController theController) {
+        myController = theController;
     }
 
     /**
      * Main method to start the GUI.
+     *
      * @param theArgs
      */
-    public static void main(String[] theArgs) {
+    public static void main(final String[] theArgs) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                GameplayController startGame = new GameplayController();
-
+                PokemonTriviaMazeMain m = new PokemonTriviaMazeMain();
             }
         });
     }

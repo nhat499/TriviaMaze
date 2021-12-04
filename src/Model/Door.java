@@ -35,18 +35,11 @@ public class Door implements Serializable {
     private ArrayList<String> myAnswers;
 
     /**
-     * The file path to the Pokemon image associated with the question
-     * of this door.
-     */
-    private final String myImgFilePath;
-
-    /**
      * Parameterless constructor, creates locked door.
      */
     public Door() {
         myOpenStatus = false;
         myLockedStatus = true;
-        myImgFilePath = null;
         myCorrectAnswer = null;
     }
 
@@ -54,8 +47,7 @@ public class Door implements Serializable {
      * Parameterized Constructor for Door.
      */
     public Door(final String theCorrectAnswer, final String theWrongAnswer1,
-                final String theWrongAnswer2, final String theWrongAnswer3,
-                final String theImgFilePath) {
+                final String theWrongAnswer2, final String theWrongAnswer3) {
         myLockedStatus = false;
         myOpenStatus = false;
         myCorrectAnswer = theCorrectAnswer;
@@ -64,7 +56,6 @@ public class Door implements Serializable {
         myAnswers.add(theWrongAnswer1);
         myAnswers.add(theWrongAnswer2);
         myAnswers.add(theWrongAnswer3);
-        myImgFilePath = theImgFilePath;
     }
 
     /**
@@ -111,10 +102,8 @@ public class Door implements Serializable {
     }
 
     /**
-     * Getter for myFilePath.
-     * @return myFilePath
+     * Getter for myCorrectAnswer.
+     * @return String
      */
-    public String getMyFilePath() {
-        return myImgFilePath;
-    }
+    public String getMyCorrectAnswer() { return myCorrectAnswer; }
 }

@@ -136,7 +136,7 @@ public class Maze implements Serializable {
             for (int j = 1; j < myHeight-1; j++) {
                 questionInfo = myDatabase.getQuestionsFromDB(myPokeList.get(pokeCount));
                 d = new Door(questionInfo[0],questionInfo[1],
-                        questionInfo[2],questionInfo[3],questionInfo[4]);
+                        questionInfo[2],questionInfo[3]);
                 myMaze[i][j].setMyEastDoor(d);
                 myMaze[i + 1][j].setMyWestDoor(d);
                 pokeCount++;
@@ -147,7 +147,7 @@ public class Maze implements Serializable {
             for (int j = 1; j < myHeight-2; j++) {
                 questionInfo = myDatabase.getQuestionsFromDB(myPokeList.get(pokeCount));
                 d = new Door(questionInfo[0],questionInfo[1],
-                        questionInfo[2],questionInfo[3],questionInfo[4]);
+                        questionInfo[2],questionInfo[3]);
                 myMaze[i][j].setMySouthDoor(d);
                 myMaze[i][j + 1].setMyNorthDoor(d);
                 pokeCount++;
