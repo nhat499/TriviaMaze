@@ -239,7 +239,7 @@ public class GameplayController implements Serializable {
         myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setText(answers.get(2));
         myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().setText(answers.get(3));
 
-        myDisplayFrame.getMyImagePanel().updateMyImage("TriviaMaze/src/View/DarkPokeImages/" +
+        myDisplayFrame.getMyImagePanel().updateMyImage("src/View/DarkPokeImages/" +
                 myFocusDoor.getMyCorrectAnswer() + ".png");
     }
 
@@ -261,7 +261,7 @@ public class GameplayController implements Serializable {
         myDisplayFrame.getMyQuestionPanel().getMyOptionButton3().setEnabled(false);
         myDisplayFrame.getMyQuestionPanel().getMyOptionButton4().setEnabled(false);
 
-        myDisplayFrame.getMyImagePanel().updateMyImage("TriviaMaze/src/View/PokeImages/" +
+        myDisplayFrame.getMyImagePanel().updateMyImage("src/View/PokeImages/" +
                 myFocusDoor.getMyCorrectAnswer() + ".jpg");
     }
 

@@ -38,7 +38,7 @@ public class Room implements Serializable {
     /**
      * Dictates whether this room is the exit from the maze or not.
      */
-    private boolean myExitStatus;
+    //private boolean myExitStatus;
 
     /**
      * Getter for myVisitedStatus.
@@ -55,22 +55,6 @@ public class Room implements Serializable {
      */
     public void setVisited(boolean theVisited) {
         myVisitedStatus = theVisited;
-    }
-
-    /**
-     * Setter for myExitStatus.
-     * @param theExit if the room is an exit or not.
-     */
-    public void setExit(final boolean theExit) {
-        myExitStatus = theExit;
-    }
-
-    /**
-     * Getter for myExitStatus.
-     * @return if the room is an exit from the maze or not.
-     */
-    public boolean isExit() {
-        return myExitStatus;
     }
 
     /**

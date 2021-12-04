@@ -23,12 +23,12 @@ public class Maze implements Serializable {
     /**
      * X-Coordinate for the room that acts as the exit from the maze.
      */
-    private final int myExitX;
+    private final int myExitX = 5;
 
     /**
      * Y-Coordinate for the room that acts as the exit from the maze.
      */
-    private final int myExitY;
+    private final int myExitY = 5;
 
     /**
      * 2D Array of rooms representing the layout of the maze.
@@ -77,13 +77,6 @@ public class Maze implements Serializable {
         myPokeList = myPokeGenerator.getRandomPokeList();
         myDatabase = new SQLDatabase();
         setupDoors();
-        //Random rand = new Random();
-        //myExitX = rand.nextInt(myWidth - 2) + 1; //Consider refactoring random stuff into
-                                                       //helper method
-       //myExitY = rand.nextInt(myWidth - 2) + 1;
-        myExitX = 5;
-        myExitY = 5;
-        myMaze[myExitX][myExitY].setExit(true);
     }
 
     /**
@@ -99,7 +92,6 @@ public class Maze implements Serializable {
         return b;
     }
 
-
     /**
      * This is a helper method for escapeAble.
      * @param theX the x position of the player.
@@ -110,7 +102,6 @@ public class Maze implements Serializable {
         if(theVisitedRoom[theX][theY] || thePreviousDoor || myMaze[theX][theY] == null) {
             return false;
         } else if (theX == myExitX && theY == myExitY) {
-            System.out.println("yes");
             return true;
         } else {
             theVisitedRoom[theX][theY] = true;
