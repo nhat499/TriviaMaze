@@ -51,6 +51,20 @@ public class Maze implements Serializable {
     private final SQLDatabase myDatabase;
 
     /**
+     * Getting for exitX
+     */
+    public int getMyExitX() {
+        return myExitX;
+    }
+
+    /**
+     * Getting for exitY
+     */
+    public int getMyExitY() {
+        return myExitY;
+    }
+
+    /**
      * Public construct for Maze class.
      * @param theHeight the number of rooms counted vertically in the maze.
      * @param theWidth the number of rooms counted horizontally in the maze.
@@ -63,10 +77,12 @@ public class Maze implements Serializable {
         myPokeList = myPokeGenerator.getRandomPokeList();
         myDatabase = new SQLDatabase();
         setupDoors();
-        Random rand = new Random();
-        myExitX = rand.nextInt(myWidth - 2) + 1; //Consider refactoring random stuff into
+        //Random rand = new Random();
+        //myExitX = rand.nextInt(myWidth - 2) + 1; //Consider refactoring random stuff into
                                                        //helper method
-        myExitY = rand.nextInt(myWidth - 2) + 1;
+       //myExitY = rand.nextInt(myWidth - 2) + 1;
+        myExitX = 5;
+        myExitY = 5;
         myMaze[myExitX][myExitY].setExit(true);
     }
 
@@ -79,7 +95,7 @@ public class Maze implements Serializable {
      */
     public boolean escapeAble(int theX, int theY) {
         boolean [][] visitedRoom = new boolean[myWidth][myHeight];
-        boolean b = escapeAbleHelper(theX, theY, visitedRoom);
+        boolean b = escapeAbleHelper(theX, theY, visitedRoom, false);
         return b;
     }
 
@@ -90,28 +106,19 @@ public class Maze implements Serializable {
      * @param theY the y postion of the player.
      * @return true if an escape can be made, otherwise false.
      */
-    private boolean escapeAbleHelper(int theX, int theY, boolean[][] theVisitedRoom) {
-        boolean allDoor;
-        if (myMaze[theX][theY] == null) {
-            return false;
-        } else {
-            boolean wDoor = myMaze[theX][theY].getMyWestDoor().getMyLockedStatus();
-            boolean eDoor = myMaze[theX][theY].getMyEastDoor().getMyLockedStatus();
-            boolean nDoor = myMaze[theX][theY].getMyNorthDoor().getMyLockedStatus();
-            boolean sDoor = myMaze[theX][theY].getMySouthDoor().getMyLockedStatus();
-            allDoor = wDoor && eDoor && nDoor && sDoor;
-        }
-        if(theVisitedRoom[theX][theY] || allDoor) {
+    private boolean escapeAbleHelper(int theX, int theY, boolean[][] theVisitedRoom, boolean thePreviousDoor) {
+        if(theVisitedRoom[theX][theY] || thePreviousDoor || myMaze[theX][theY] == null) {
             return false;
         } else if (theX == myExitX && theY == myExitY) {
             System.out.println("yes");
             return true;
         } else {
             theVisitedRoom[theX][theY] = true;
-            return escapeAbleHelper(theX - 1, theY, theVisitedRoom) ||
-                    escapeAbleHelper(theX + 1, theY, theVisitedRoom) ||
-                    escapeAbleHelper(theX, theY + 1, theVisitedRoom) ||
-                    escapeAbleHelper(theX, theY - 1, theVisitedRoom);
+            boolean up = escapeAbleHelper(theX, theY - 1, theVisitedRoom, myMaze[theX][theY].getMyNorthDoor().getMyLockedStatus());
+            boolean down = escapeAbleHelper(theX, theY + 1, theVisitedRoom, myMaze[theX][theY].getMySouthDoor().getMyLockedStatus());
+            boolean left = escapeAbleHelper(theX-1, theY, theVisitedRoom, myMaze[theX][theY].getMyWestDoor().getMyLockedStatus());
+            boolean right = escapeAbleHelper(theX+1, theY, theVisitedRoom, myMaze[theX][theY].getMyEastDoor().getMyLockedStatus());
+            return up || down || left || right;
         }
     }
 

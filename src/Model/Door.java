@@ -106,4 +106,11 @@ public class Door implements Serializable {
      * @return String
      */
     public String getMyCorrectAnswer() { return myCorrectAnswer; }
+
+    /**
+     * Setter for lockStatus.
+     */
+    public void setMyLockedStatus(boolean theLockStatus) {
+        myLockedStatus = theLockStatus;
+    }
 }

@@ -106,9 +106,9 @@ public class SQLDatabase implements Serializable {
             for (int i = 0; i < sortedPokeArray.size(); i++) {
                 incorrectAnswers = pl.getSomeRandomPokemon(sortedPokeArray.get(i), incorrectAnswerCount);
 
-                questionInput = "INSERT INTO questions (CORRECT, WRONG1, WRONG2, WRONG3) VALUES ( '"
-                        + sortedPokeArray.get(i) + "', '" + incorrectAnswers[0] + "', '"
-                        + incorrectAnswers[1] + "', '" + incorrectAnswers[2];
+                questionInput = "INSERT INTO questions (CORRECT, WRONG1, WRONG2, WRONG3) VALUES ( '" +
+                        sortedPokeArray.get(i) + "', '" + incorrectAnswers[0] + "', '" +
+                        incorrectAnswers[1] + "', '" + incorrectAnswers[2] + "')";
                 stmt.executeUpdate(questionInput);
             }
 
