@@ -8,13 +8,14 @@ import Model.Player;
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * @author Andrew
  * @version 1.0
  * This is the main class that starts the whole Pokemon Trivia Maze project.
  */
-public class PokemonTriviaMazeMain {
+public class PokemonTriviaMazeMain implements Serializable {
 
     private GameplayController myController;
 
