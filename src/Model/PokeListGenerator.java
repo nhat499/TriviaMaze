@@ -109,16 +109,16 @@ public class PokeListGenerator implements Serializable {
      * three unique Pokemon names.
      * @param theExcludedPokemon - the Pokemon not to be included in the list. Assumes
      *                           all lower case input.
-     * @param thePokeAmount - the number of desired random Pokemon names.
      * @return String[] array containing desired number of random Pokemon names.
      */
-    public String[] getSomeRandomPokemon(final String theExcludedPokemon, final int thePokeAmount) {
+    public String[] getSomeRandomPokemon(final String theExcludedPokemon) {
         final int totalPokemonCount = 150;
         Random r = new Random();
-        String[] output = new String[thePokeAmount];
+        String[] output = new String[3];
         String temp = null;
-        for (int i = 0; i < thePokeAmount; i++) {
-            while (temp == theExcludedPokemon || temp == null || temp == output[0] || temp == output[1] || temp == output[2]) {
+        for (int i = 0; i < 3; i++) {
+            while (temp == null || temp.equals(theExcludedPokemon)
+                    || temp.equals(output[0]) || temp.equals(output[1]) || temp.equals(output[2])) {
                 temp = myRandomPokeList.get(r.nextInt(totalPokemonCount));
             }
             output[i] = temp;

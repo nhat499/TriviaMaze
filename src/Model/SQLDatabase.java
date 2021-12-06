@@ -104,7 +104,7 @@ public class SQLDatabase implements Serializable {
              Statement stmt = conn.createStatement()) {
 
             for (int i = 0; i < sortedPokeArray.size(); i++) {
-                incorrectAnswers = pl.getSomeRandomPokemon(sortedPokeArray.get(i), incorrectAnswerCount);
+                incorrectAnswers = pl.getSomeRandomPokemon(sortedPokeArray.get(i));
 
                 questionInput = "INSERT INTO questions (CORRECT, WRONG1, WRONG2, WRONG3) VALUES ( '" +
                         sortedPokeArray.get(i) + "', '" + incorrectAnswers[0] + "', '" +
