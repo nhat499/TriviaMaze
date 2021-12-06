@@ -53,7 +53,7 @@ public class Player implements Serializable {
      * Move the position of the player one index south, if possible.
      */
     public void moveSouth() {
-        if(myY + 1 < myMaze.getMyWidth()) {
+        if(myY + 1 < myMaze.getMyWidth() - 1) {
             myY = myY + 1;
         }
     }
@@ -71,7 +71,7 @@ public class Player implements Serializable {
      * Move the position of the player one index east, if possible.
      */
     public void moveEast() {
-        if (myX + 1 < myMaze.getMyHeight()) {
+        if (myX + 1 < myMaze.getMyHeight() - 1) {
             myX = myX + 1;
         }
     }

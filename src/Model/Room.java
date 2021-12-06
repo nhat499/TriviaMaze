@@ -31,33 +31,6 @@ public class Room implements Serializable {
     private Door myEastDoor;
 
     /**
-     * Used for determining if an exit route from the maze exists.
-     */
-    private boolean myVisitedStatus;
-
-    /**
-     * Dictates whether this room is the exit from the maze or not.
-     */
-    //private boolean myExitStatus;
-
-    /**
-     * Getter for myVisitedStatus.
-     * @return - boolean true if the room has been visited by the
-     * escapable method, used to determine if an exit path exists.
-     */
-    public boolean getVisitedStatus() {
-        return myVisitedStatus;
-    }
-
-    /**
-     * Setter for myVisitedStatus. Used by the escapable method to mark this
-     * room as visited.
-     */
-    public void setVisited(boolean theVisited) {
-        myVisitedStatus = theVisited;
-    }
-
-    /**
      * Getter for myEastDoor.
      * @return East Door
      */
