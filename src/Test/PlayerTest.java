@@ -3,6 +3,7 @@ package Test;
 import Model.Door;
 import Model.Maze;
 import Model.Player;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +22,10 @@ public class PlayerTest {
     @BeforeEach
     void setup() {
         myPlayer = new Player(3, 4, new Maze(5, 5));
+    }
+
+    @AfterEach
+    void tearDown() {
     }
 
     @Test
