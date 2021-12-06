@@ -12,7 +12,7 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * JUnit test class for Door class.
+ * JUnit test class for PokeListGenerator class.
  * @author Dylan
  * @version 12/5/2021
  */
