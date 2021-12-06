@@ -9,6 +9,7 @@ import View.DisplayFrame;
 import View.HelpFrame;
 import View.WinningFrame;
 
+import java.awt.desktop.SystemSleepEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -214,15 +215,18 @@ public class GameplayController implements Serializable {
         myDisplayFrame.getMyOptionsPanel().getMyLoadButton().addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
                 try {
-                    SaveUserData.retrieve();
+                    myMain.setMyController(SaveUserData.retrieve());
+                    System.out.println("File reached");
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    System.out.println("Could not reach file");
                 } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    System.out.println("Could not deserialize");
                 }
             }
         });
     }
+
+
 
     /**
      * Collect question information from myFocusDoor and display the possible answers
@@ -276,23 +280,4 @@ public class GameplayController implements Serializable {
             myDisplayFrame.setVisible(false);
         }
     }
-
-//    public void save(final GameplayController theObject){
-//
-//        try {
-//            FileOutputStream file = new FileOutputStream(filename);
-//            ObjectOutputStream out = new ObjectOutputStream(file);
-//
-//            out.writeObject(theObject);
-//            out.close();
-//            file.close();
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
 }

@@ -32,20 +32,13 @@ public class SaveUserData {
     }
 
     public static GameplayController retrieve() throws IOException, ClassNotFoundException {
-
-        //try {
-            FileInputStream file = new FileInputStream(filename);
-            ObjectInputStream in = new ObjectInputStream(file);
-            GameplayController game = (GameplayController) in.readObject();
+        FileInputStream file = new FileInputStream(filename);
+        ObjectInputStream in = new ObjectInputStream(file);
+        GameplayController game = (GameplayController) in.readObject();
 
 
-            in.close();
-            file.close();
-
-       // } catch (ClassNotFoundException e) {
-           // e.printStackTrace();
-       // } catch (IOException e) {
-        //}
+        in.close();
+        file.close();
         return game;
     }
 }

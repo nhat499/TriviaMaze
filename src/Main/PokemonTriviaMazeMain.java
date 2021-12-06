@@ -27,6 +27,10 @@ public class PokemonTriviaMazeMain implements Serializable {
         myController = theController;
     }
 
+    public void startGame () {
+
+    }
+
     /**
      * Main method to start the GUI.
      *
