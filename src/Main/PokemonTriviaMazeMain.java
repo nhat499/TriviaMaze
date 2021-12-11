@@ -2,7 +2,6 @@ package Main;
 
 import Controller.GameplayController;
 import Controller.SaveUserData;
-import Model.Maze;
 import Model.Player;
 
 import java.awt.EventQueue;
@@ -27,8 +26,8 @@ public class PokemonTriviaMazeMain implements Serializable {
         myController = theController;
     }
 
-    public void startGame () {
-
+    public GameplayController getController () {
+        return myController;
     }
 
     /**

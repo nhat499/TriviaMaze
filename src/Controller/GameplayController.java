@@ -2,7 +2,8 @@ package Controller;
 
 import Main.PokemonTriviaMazeMain;
 import Model.Door;
-import Model.Maze;
+import Model.Mazes.Maze;
+import Model.Mazes.MazeFactory;
 import Model.Player;
 import View.ContinueFrame;
 import View.DisplayFrame;
@@ -59,7 +60,7 @@ public class GameplayController implements Serializable {
      */
     public GameplayController(final PokemonTriviaMazeMain theMain) {
         myMain = theMain;
-        myMaze = new Maze(MAZE_SIZE, MAZE_SIZE);
+        myMaze = new MazeFactory().CreateMaze("hard");
         myPlayer = new Player(1, 1, myMaze);
         myDisplayFrame = new DisplayFrame(myMaze, myPlayer);
         setupMovementActions();
@@ -208,7 +209,7 @@ public class GameplayController implements Serializable {
 
         myDisplayFrame.getMyOptionsPanel().getMySaveButton().addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
-                SaveUserData.save(GameplayController.this);
+                SaveUserData.save(myMain.getController());
             }
         });
 
@@ -216,7 +217,6 @@ public class GameplayController implements Serializable {
             public void actionPerformed(final ActionEvent theEvent) {
                 try {
                     myMain.setMyController(SaveUserData.retrieve());
-                    System.out.println("File reached");
                 } catch (IOException e) {
                     System.out.println("Could not reach file");
                 } catch (ClassNotFoundException e) {

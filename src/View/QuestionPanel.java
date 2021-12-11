@@ -4,6 +4,7 @@ import Controller.GameplayController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * QuestionPanel class. Displays question information, with each option associated with a
@@ -11,7 +12,7 @@ import java.awt.*;
  * @author Dylan
  * @version 11/28/2021
  */
-public class QuestionPanel extends JPanel {
+public class QuestionPanel extends JPanel implements Serializable {
 
     /**
      * Used to display and choose a question option.

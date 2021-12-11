@@ -1,6 +1,7 @@
 package View;
 
 import javax.swing.*;
+import java.io.Serializable;
 
 /**
  * JFrame class. Launched when the player cannot escape the maze.
@@ -8,7 +9,7 @@ import javax.swing.*;
  * @author Dylan & Andrew
  * @version 12/3/2021
  */
-public class WinningFrame extends JFrame {
+public class WinningFrame extends JFrame implements Serializable {
 
     /**
      * Size of the JFrame.

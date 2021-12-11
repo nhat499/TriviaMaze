@@ -1,6 +1,6 @@
 package View;
 
-import Model.Maze;
+import Model.Mazes.Maze;
 import Model.Player;
 
 import javax.swing.*;

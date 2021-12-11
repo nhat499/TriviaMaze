@@ -1,19 +1,20 @@
 package View;
 
 import Controller.GameplayController;
-import Model.Maze;
+import Model.Mazes.Maze;
 import Model.Player;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.io.Serializable;
 
 /**
  * MazePanel class. Produces a visualization of the maze and the player while they traverse it.
  * @author Dylan
  * @version 12/2/2021
  */
-public class MazePanel extends JPanel {
+public class MazePanel extends JPanel implements Serializable {
 
     /**
      * The height & width of the panel in pixels.

@@ -4,13 +4,14 @@ import Controller.GameplayController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * OptionsPanel class. Houses JButton used to reset the game, load a saved game, or get help.
  * @author Dylan
  * @version 11/28/2021
  */
-public class OptionsPanel extends JPanel {
+public class OptionsPanel extends JPanel implements Serializable {
 
     /**
      * JButton used to reset the game.

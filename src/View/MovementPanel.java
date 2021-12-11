@@ -5,13 +5,14 @@ import Controller.GameplayController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.io.Serializable;
 
 /**
  * Houses the JButton for player movement/door selection.
  * @author Dylan
  * @version 11/28/2021
  */
-public class MovementPanel extends JPanel {
+public class MovementPanel extends JPanel implements Serializable {
 
     /**
      * JButton for moving the player west.

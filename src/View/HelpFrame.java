@@ -1,13 +1,14 @@
 package View;
 
 import javax.swing.*;
+import java.io.Serializable;
 
 /**
  * HelpFrame class. Used to generate tips for playing the game.
  * @author Andrew
  * @version 1.0
  */
-public class HelpFrame extends JFrame {
+public class HelpFrame extends JFrame implements Serializable {
 
     /**
      * Size of the help frame.

@@ -96,7 +96,6 @@ public class SQLDatabase implements Serializable {
     private void populateDatabase() {
         PokeListGenerator pl = new PokeListGenerator();
         ArrayList<String> sortedPokeArray = pl.getSortedPokeList();
-        final int incorrectAnswerCount = 3;
         String[] incorrectAnswers;
         String questionInput;
 

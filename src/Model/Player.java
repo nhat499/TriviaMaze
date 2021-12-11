@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Mazes.Maze;
+
 import java.io.Serializable;
 
 /**
@@ -39,6 +41,7 @@ public class Player implements Serializable {
         myY = theY;
         myMaze = theMaze;
     }
+
 
     /**
      * Move the position of the player one index north, if possible.
