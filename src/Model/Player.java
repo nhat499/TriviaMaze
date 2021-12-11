@@ -12,10 +12,12 @@ import java.io.Serializable;
  */
 public class Player implements Serializable {
 
+    private static final int START = 1;
+
     /**
      * The position the player is at according to the doors.
      */
-    private final Maze myMaze;
+    private Maze myMaze;
 
     /**
      * The X-coordinate of the player.
@@ -36,10 +38,9 @@ public class Player implements Serializable {
      * in the maze.
      * @param - theX, theY
      */
-    public Player(final int theX, final int theY, final Maze theMaze) {
-        myX = theX;
-        myY = theY;
-        myMaze = theMaze;
+    public Player() {
+        myX = START;
+        myY = START;
     }
 
 
@@ -93,5 +94,13 @@ public class Player implements Serializable {
      */
     public int getMyY() {
         return myY;
+    }
+
+    /**
+     * Setter for myMaze.
+     * @param theMaze
+     */
+    public void setMyMaze(final Maze theMaze) {
+        myMaze = theMaze;
     }
 }

@@ -92,22 +92,22 @@ public class QuestionPanel extends JPanel implements Serializable {
         myOptionButton1.setBackground(Color.white);
         myOptionButton1.setForeground(Color.black);
         myOptionButton1.setBounds(xLeftButtons, yTopButtons, buttonWidth, buttonHeight);
-        myOptionButton1.setEnabled(true);
+        myOptionButton1.setEnabled(false);
 
         myOptionButton2.setBackground(Color.white);
         myOptionButton2.setForeground(Color.black);
         myOptionButton2.setBounds(xLeftButtons, yButtonButtons, buttonWidth, buttonHeight);
-        myOptionButton2.setEnabled(true);
+        myOptionButton2.setEnabled(false);
 
         myOptionButton3.setBackground(Color.white);
         myOptionButton3.setForeground(Color.black);
         myOptionButton3.setBounds(xRightButtons, yTopButtons, buttonWidth, buttonHeight);
-        myOptionButton3.setEnabled(true);
+        myOptionButton3.setEnabled(false);
 
         myOptionButton4.setBackground(Color.white);
         myOptionButton4.setForeground(Color.black);
         myOptionButton4.setBounds(xRightButtons, yButtonButtons, buttonWidth, buttonHeight);
-        myOptionButton4.setEnabled(true);
+        myOptionButton4.setEnabled(false);
     }
 
     /**

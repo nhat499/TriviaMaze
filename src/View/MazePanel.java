@@ -39,9 +39,8 @@ public class MazePanel extends JPanel implements Serializable {
     /**
      * Public constructor for MazePanel.
      */
-    public MazePanel(final Maze theMaze, final Player thePlayer) {
+    public MazePanel(final Player thePlayer) {
         super();
-        myMaze = theMaze;
         myPlayer = thePlayer;
         this.setSize(MAZE_SIZE, MAZE_SIZE);
         this.setLocation(PANEL_INSET, PANEL_INSET);
@@ -86,44 +85,55 @@ public class MazePanel extends JPanel implements Serializable {
             g2d.draw(verticalWall);
         }
 
-        g2d.setStroke(new BasicStroke(doorStrokeWidth));
-        for (int i = 1; i < myMaze.getMyWidth() - 2; i++) {
-            for (int j = 1; j < myMaze.getMyWidth() - 1; j++) {
-                verticalDoor = new Line2D.Double(spaceBetweenVerDoors * i + i,
-                        upperDoorBound + (spaceBetweenHorDoors * (j - 1)), spaceBetweenVerDoors * i + i,
-                        lowerDoorBound + (spaceBetweenHorDoors * (j - 1)));
-                if (!myMaze.getRoom(i, j).getMyEastDoor().getMyOpenStatus()) {
-                    g2d.setPaint(Color.black);
-                } else if (myMaze.getRoom(i, j).getMyEastDoor().getMyOpenStatus()) {
-                    g2d.setPaint(Color.white);
+        if (myMaze != null) {
+            g2d.setStroke(new BasicStroke(doorStrokeWidth));
+            for (int i = 1; i < myMaze.getMyWidth() - 2; i++) {
+                for (int j = 1; j < myMaze.getMyWidth() - 1; j++) {
+                    verticalDoor = new Line2D.Double(spaceBetweenVerDoors * i + i,
+                            upperDoorBound + (spaceBetweenHorDoors * (j - 1)), spaceBetweenVerDoors * i + i,
+                            lowerDoorBound + (spaceBetweenHorDoors * (j - 1)));
+                    if (!myMaze.getRoom(i, j).getMyEastDoor().getMyOpenStatus()) {
+                        g2d.setPaint(Color.black);
+                    } else if (myMaze.getRoom(i, j).getMyEastDoor().getMyOpenStatus()) {
+                        g2d.setPaint(Color.white);
+                    }
+                    if (myMaze.getRoom(i, j).getMyEastDoor().getMyLockedStatus()) {
+                        g2d.setPaint(Color.red);
+                    }
+                    g2d.draw(verticalDoor);
                 }
-                if(myMaze.getRoom(i, j).getMyEastDoor().getMyLockedStatus()) {
-                    g2d.setPaint(Color.red);
-                }
-                g2d.draw(verticalDoor);
             }
-        }
-        for (int i = 1; i < myMaze.getMyWidth() - 2; i++) {
-            for (int j = 1; j < myMaze.getMyWidth() - 1; j++) {
-                horizontalDoor = new Line2D.Double(upperDoorBound + (spaceBetweenHorDoors * (j - 1)),
-                        spaceBetweenHorDoors * i, lowerDoorBound + (spaceBetweenHorDoors * (j - 1)), spaceBetweenHorDoors * i);
-                if (!myMaze.getRoom(j, i).getMySouthDoor().getMyOpenStatus()) {
-                    g2d.setPaint(Color.black);
-                } else if (myMaze.getRoom(j, i).getMySouthDoor().getMyOpenStatus()) {
-                    g2d.setPaint(Color.white);
+            for (int i = 1; i < myMaze.getMyWidth() - 2; i++) {
+                for (int j = 1; j < myMaze.getMyWidth() - 1; j++) {
+                    horizontalDoor = new Line2D.Double(upperDoorBound + (spaceBetweenHorDoors * (j - 1)),
+                            spaceBetweenHorDoors * i, lowerDoorBound + (spaceBetweenHorDoors * (j - 1)), spaceBetweenHorDoors * i);
+                    if (!myMaze.getRoom(j, i).getMySouthDoor().getMyOpenStatus()) {
+                        g2d.setPaint(Color.black);
+                    } else if (myMaze.getRoom(j, i).getMySouthDoor().getMyOpenStatus()) {
+                        g2d.setPaint(Color.white);
+                    }
+                    if (myMaze.getRoom(j, i).getMySouthDoor().getMyLockedStatus()) {
+                        g2d.setPaint(Color.red);
+                    }
+                    g2d.draw(horizontalDoor);
                 }
-                if (myMaze.getRoom(j, i).getMySouthDoor().getMyLockedStatus()) {
-                    g2d.setPaint(Color.red);
-                }
-                g2d.draw(horizontalDoor);
             }
+
+            g2d.setColor(Color.MAGENTA);
+            g2d.drawOval(playerBaseLocation + ((myPlayer.getMyX() - 1) * spaceBetweenHorDoors), playerBaseLocation + ((myPlayer.getMyY() - 1) * spaceBetweenVerDoors),
+                    playerPieceSize, playerPieceSize);
+
+            g2d.setColor(Color.green);
+            g2d.drawOval(exitPieceLocation, exitPieceLocation, playerPieceSize, playerPieceSize);
         }
+    }
 
-        g2d.setColor(Color.MAGENTA);
-        g2d.drawOval(playerBaseLocation + ((myPlayer.getMyX() - 1) * spaceBetweenHorDoors) , playerBaseLocation + ((myPlayer.getMyY() - 1) * spaceBetweenVerDoors),
-                playerPieceSize, playerPieceSize);
-
-        g2d.setColor(Color.green);
-        g2d.drawOval(exitPieceLocation , exitPieceLocation, playerPieceSize, playerPieceSize);
+    /**
+     * Setter for theMaze. Also calls repaint method so the new maze is displayed.
+     * @param theMaze
+     */
+    public void setMaze(final Maze theMaze) {
+        myMaze = theMaze;
+        repaint();
     }
 }

@@ -79,22 +79,22 @@ public class MovementPanel extends JPanel implements Serializable {
         myMoveWestButton.setBackground(Color.black);
         myMoveWestButton.setForeground(Color.white);
         myMoveWestButton.setBounds(xWestButton, yHoriButtons, buttonWidth, buttonHeight);
-        myMoveWestButton.setEnabled(true);
+        myMoveWestButton.setEnabled(false);
 
         myMoveNorthButton.setBackground(Color.black);
         myMoveNorthButton.setForeground(Color.white);
         myMoveNorthButton.setBounds(xVerButtons, yNorthButton, buttonWidth, buttonHeight);
-        myMoveNorthButton.setEnabled(true);
+        myMoveNorthButton.setEnabled(false);
 
         myMoveEastButton.setBackground(Color.black);
         myMoveEastButton.setForeground(Color.white);
         myMoveEastButton.setBounds(xEastButton, yHoriButtons, buttonWidth, buttonHeight);
-        myMoveEastButton.setEnabled(true);
+        myMoveEastButton.setEnabled(false);
 
         myMoveSouthButton.setBackground(Color.black);
         myMoveSouthButton.setForeground(Color.white);
         myMoveSouthButton.setBounds(xVerButtons, ySouthButton, buttonWidth, buttonHeight);
-        myMoveSouthButton.setEnabled(true);
+        myMoveSouthButton.setEnabled(false);
     }
 
     /**

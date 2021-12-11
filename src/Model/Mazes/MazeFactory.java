@@ -7,7 +7,7 @@ package Model.Mazes;
  */
 public class MazeFactory {
 
-    public Maze CreateMaze(final String theDifficulty) {
+    public static Maze CreateMaze(final String theDifficulty) {
         Maze output;
 
         if (theDifficulty.equals("easy")) {

@@ -53,8 +53,8 @@ public class DisplayFrame extends JFrame implements Serializable {
      * Public constructor for DisplayFrame. Sets the size, default close operation,
      * resizable status, layout, and visibility of this JFrame.
      */
-    public DisplayFrame(final Maze theMaze, final Player thePlayer) {
-        myMazePanel = new MazePanel(theMaze, thePlayer);
+    public DisplayFrame(final Player thePlayer) {
+        myMazePanel = new MazePanel(thePlayer);
         myImagePanel = new ImagePanel();
         myQuestionPanel = new QuestionPanel();
         myMovementPanel = new MovementPanel();

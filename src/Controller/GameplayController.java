@@ -3,17 +3,11 @@ package Controller;
 import Main.PokemonTriviaMazeMain;
 import Model.Door;
 import Model.Mazes.Maze;
-import Model.Mazes.MazeFactory;
 import Model.Player;
-import View.ContinueFrame;
-import View.DisplayFrame;
-import View.HelpFrame;
-import View.WinningFrame;
+import View.*;
 
-import java.awt.desktop.SystemSleepEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -60,12 +54,12 @@ public class GameplayController implements Serializable {
      */
     public GameplayController(final PokemonTriviaMazeMain theMain) {
         myMain = theMain;
-        myMaze = new MazeFactory().CreateMaze("hard");
-        myPlayer = new Player(1, 1, myMaze);
-        myDisplayFrame = new DisplayFrame(myMaze, myPlayer);
+        myPlayer = new Player();
+        myDisplayFrame = new DisplayFrame(myPlayer);
         setupMovementActions();
         setupQuestionActions();
         setupOptionsActions();
+        DifficultyFrame df = new DifficultyFrame(this);
     }
 
     /**
@@ -267,6 +261,25 @@ public class GameplayController implements Serializable {
 
         myDisplayFrame.getMyImagePanel().updateMyImage("src/View/PokeImages/" +
                 myFocusDoor.getMyCorrectAnswer() + ".jpg");
+    }
+
+    /**
+     *
+     */
+    public void enableGame(final Maze theMaze) {
+        myMaze = theMaze;
+        myPlayer.setMyMaze(theMaze);
+        myDisplayFrame.getMyMazePanel().setMaze(theMaze);
+
+        myDisplayFrame.getMyMovementPanel().getMyMoveWestButton().setEnabled(true);
+        myDisplayFrame.getMyMovementPanel().getMyMoveNorthButton().setEnabled(true);
+        myDisplayFrame.getMyMovementPanel().getMyMoveEastButton().setEnabled(true);
+        myDisplayFrame.getMyMovementPanel().getMyMoveSouthButton().setEnabled(true);
+
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setEnabled(true);
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setEnabled(true);
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setEnabled(true);
+        myDisplayFrame.getMyQuestionPanel().getMyOptionButton1().setEnabled(true);
     }
 
     /**
