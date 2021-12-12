@@ -211,10 +211,8 @@ public class GameplayController implements Serializable {
             public void actionPerformed(final ActionEvent theEvent) {
                 try {
                     myMain.setMyController(SaveUserData.retrieve());
-                } catch (IOException e) {
-                    System.out.println("Could not reach file");
-                } catch (ClassNotFoundException e) {
-                    System.out.println("Could not deserialize");
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -292,5 +290,9 @@ public class GameplayController implements Serializable {
             myMain.setMyController(new GameplayController(myMain));
             myDisplayFrame.setVisible(false);
         }
+    }
+
+    public DisplayFrame getMyDisplayFrame() {
+        return myDisplayFrame;
     }
 }

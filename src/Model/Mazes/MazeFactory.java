@@ -1,11 +1,13 @@
 package Model.Mazes;
 
+import java.io.Serializable;
+
 /**
  * MazeFactory class used to generate Mazes of different difficulty.
  * @author - Dylan
  * @version - 12/10/2021
  */
-public class MazeFactory {
+public class MazeFactory implements Serializable {
 
     public static Maze CreateMaze(final String theDifficulty) {
         Maze output;

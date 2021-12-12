@@ -5,6 +5,7 @@ import Model.PokeListGenerator;
 import Model.Room;
 import Model.SQLDatabase;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * @version 2.0 - 11/19/2021
  * 2D array of Room objects representing the playing field or "Maze".
  */
-public abstract class Maze {
+public abstract class Maze implements Serializable {
 
     /**
      * Height of the 2D array of rooms.

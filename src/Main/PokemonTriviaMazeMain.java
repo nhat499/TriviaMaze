@@ -24,6 +24,8 @@ public class PokemonTriviaMazeMain implements Serializable {
 
     public void setMyController(final GameplayController theController) {
         myController = theController;
+        myController.getMyDisplayFrame().repaint();
+        myController.getMyDisplayFrame().revalidate();
     }
 
     public GameplayController getController () {
