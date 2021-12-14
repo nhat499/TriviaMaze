@@ -14,7 +14,7 @@ import java.util.ArrayList;
 /**
  * GameplayController class. Dictates communication between Model and View packages.
  * @Authors - Nhat, Andrew, Dylan
- * @Version - 11/28/2021
+ * @Version - 12/14/2021
  */
 public class GameplayController implements Serializable {
 
@@ -210,7 +210,8 @@ public class GameplayController implements Serializable {
         myDisplayFrame.getMyOptionsPanel().getMyLoadButton().addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
                 try {
-                    myMain.setMyController(SaveUserData.retrieve());
+                    Load loader = new Load();
+                    myMain.setMyController(loader.retrieve());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -262,7 +263,7 @@ public class GameplayController implements Serializable {
     }
 
     /**
-     *
+     * Enables all the panels and sets up the maze.
      */
     public void enableGame(final Maze theMaze) {
         myMaze = theMaze;
@@ -292,6 +293,10 @@ public class GameplayController implements Serializable {
         }
     }
 
+    /**
+     * Getter for myDisplayFrame.
+     * @return DisplayFrame
+     */
     public DisplayFrame getMyDisplayFrame() {
         return myDisplayFrame;
     }
