@@ -14,10 +14,6 @@ public class SaveUserData {
     private static String filename = "SaveData.txt";
 
 
-    /**
-     * Saves the current state of the GameplayController.
-     * @param theObject
-     */
     public static void save(final GameplayController theObject){
 
         try {
@@ -36,10 +32,6 @@ public class SaveUserData {
         }
     }
 
-    /**
-     * Retrieves the saved state of the GameplayController.
-     * @return GameplayController
-     */
     public static GameplayController retrieve() {
      GameplayController loadedGame = null;
         try {

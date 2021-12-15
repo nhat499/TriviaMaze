@@ -1,7 +1,6 @@
 package View;
 
 import Controller.GameplayController;
-import Controller.Load;
 import Controller.SaveUserData;
 import Model.Mazes.MazeFactory;
 
@@ -151,8 +150,7 @@ public class DifficultyFrame extends JFrame {
         myLoadButton.setEnabled(true);
         myLoadButton.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent theEvent) {
-                Load loader = new Load();
-                myController = loader.retrieve();
+                myController = SaveUserData.retrieve();
                 myController.getMyDisplayFrame().repaint();
                 myController.getMyDisplayFrame().revalidate();
                 DifficultyFrame.this.dispose();

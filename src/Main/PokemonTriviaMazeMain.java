@@ -11,37 +11,23 @@ import java.io.Serializable;
 
 /**
  * @author Andrew
- * @version 2.0
+ * @version 1.0
  * This is the main class that starts the whole Pokemon Trivia Maze project.
  */
 public class PokemonTriviaMazeMain implements Serializable {
 
-    /**
-     * The main GameplayController.
-     */
     private GameplayController myController;
 
-    /**
-     * Constructor that instantiates a new GameplayController.
-     */
     private PokemonTriviaMazeMain() {
         myController = new GameplayController(this);
     }
 
-    /**
-     * Setter for the GameplayController (for loading data).
-     * @param theController
-     */
     public void setMyController(final GameplayController theController) {
         myController = theController;
         myController.getMyDisplayFrame().repaint();
         myController.getMyDisplayFrame().revalidate();
     }
 
-    /**
-     * Getter for the GameplayController.
-     * @return
-     */
     public GameplayController getController () {
         return myController;
     }
