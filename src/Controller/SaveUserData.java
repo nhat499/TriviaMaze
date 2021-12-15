@@ -1,19 +1,34 @@
 package Controller;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 /**
  * @author Andrew
- * @version 1.0
+ * @version 2.0
  * This class is supposed to save the data of the user so that
  * they may come back to it at a later time.
  */
 public class SaveUserData {
 
+    /**
+     * UID for serialization.
+     */
     private static final long serialversionUID = 5L;
+
+    /**
+     * File name that data is saved to.
+     */
     private static String filename = "SaveData.txt";
 
-
+    /**
+     * Saves the current GameplayController.
+     * @param theObject
+     */
     public static void save(final GameplayController theObject){
 
         try {
@@ -32,6 +47,10 @@ public class SaveUserData {
         }
     }
 
+    /**
+     * Loads the saved GameplayController.
+     * @return GameplayController
+     */
     public static GameplayController retrieve() {
      GameplayController loadedGame = null;
         try {
